@@ -1432,85 +1432,116 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
               </h4>
               <p>Every cell becomes either a node (URI / literal) or a labelled arc. Use the <strong>ISBN as the URI</strong> for the book.</p>
 
-              <h5 style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faded);margin:0 0 6px">Graph A (English)</h5>
+              <h5 style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faded);margin:0 0 6px">Graph A (English) — Semantic Web deck slide 19</h5>
               <figure class="graph-fig">
-                <svg viewBox="0 0 760 270" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <marker id="a-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
                       <path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/>
                     </marker>
                   </defs>
-                  <ellipse cx="380" cy="135" rx="120" ry="32" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
-                  <text x="380" y="139" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">isbn/000651409X</text>
+                  <!-- shared URI top-right -->
+                  <ellipse cx="500" cy="60" rx="135" ry="30" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+                  <text x="500" y="64" text-anchor="middle" font-family="JetBrains Mono" font-size="11">isbn/000651409X</text>
 
-                  <!-- literals top -->
-                  <rect x="40"  y="20" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="125" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"The Glass Palace"</text>
-                  <rect x="245" y="20" width="85"  height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="288" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"2000"</text>
-                  <rect x="365" y="20" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="450" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
-                  <rect x="560" y="20" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="645" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Harper Collins"</text>
+                  <!-- top literals: title, year -->
+                  <rect x="30" y="30" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="115" y="50" text-anchor="middle" font-family="Newsreader" font-size="12">"The Glass Palace"</text>
+                  <rect x="220" y="80" width="80" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="260" y="100" text-anchor="middle" font-family="Newsreader" font-size="12">"2000"</text>
 
-                  <!-- bottom literals -->
-                  <rect x="120" y="220" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="205" y="240" text-anchor="middle" font-family="Newsreader" font-size="12">"London"</text>
-                  <rect x="450" y="220" width="200" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="550" y="240" text-anchor="middle" font-family="Newsreader" font-size="12">amitavghosh.com</text>
+                  <path d="M375,55 L 215,50" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="270" y="42" font-family="JetBrains Mono" font-size="11">a:title</text>
+                  <path d="M380,70 L 315,92" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="320" y="74" font-family="JetBrains Mono" font-size="11">a:year</text>
 
-                  <!-- edges -->
-                  <path d="M300,120 C 230,90 180,70 145,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
-                  <text x="200" y="85" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:title</text>
-                  <path d="M340,108 C 320,90 300,70 290,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
-                  <text x="295" y="90" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:year</text>
-                  <path d="M420,108 C 435,90 445,70 450,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
-                  <text x="430" y="90" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:author</text>
-                  <path d="M460,120 C 540,90 600,70 645,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
-                  <text x="570" y="85" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:publisher</text>
+                  <!-- publisher blank node (left) + its literals -->
+                  <ellipse cx="280" cy="200" rx="22" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.6" stroke-dasharray="3,3"/>
+                  <text x="280" y="204" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a6802a">_:p</text>
 
-                  <path d="M340,160 C 290,180 240,210 215,218" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
-                  <text x="240" y="200" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:city</text>
-                  <path d="M460,160 C 510,190 540,210 550,218" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
-                  <text x="490" y="200" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:homepage</text>
+                  <rect x="30" y="186" width="80" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="70" y="206" text-anchor="middle" font-family="Newsreader" font-size="12">"London"</text>
+                  <rect x="30" y="240" width="160" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="110" y="260" text-anchor="middle" font-family="Newsreader" font-size="12">"Harper Collins"</text>
+
+                  <path d="M420,80 L 300,180" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="350" y="135" font-family="JetBrains Mono" font-size="11">a:publisher</text>
+                  <path d="M258,195 L 115,200" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="155" y="188" font-family="JetBrains Mono" font-size="11">a:city</text>
+                  <path d="M270,222 L 195,250" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="180" y="240" font-family="JetBrains Mono" font-size="11">a:p_name</text>
+
+                  <!-- author blank node (right) + its literals -->
+                  <ellipse cx="500" cy="200" rx="22" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.6" stroke-dasharray="3,3"/>
+                  <text x="500" y="204" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a6802a">_:a</text>
+
+                  <rect x="430" y="280" width="160" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="510" y="300" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
+                  <rect x="600" y="240" width="160" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="680" y="260" text-anchor="middle" font-family="Newsreader" font-size="12">amitavghosh.com</text>
+
+                  <path d="M500,90 L 500,178" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="508" y="135" font-family="JetBrains Mono" font-size="11">a:author</text>
+                  <path d="M490,222 L 480,278" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="430" y="260" font-family="JetBrains Mono" font-size="11">a:name</text>
+                  <path d="M520,222 L 615,238" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="555" y="235" font-family="JetBrains Mono" font-size="11">a:homepage</text>
                 </svg>
-                <figcaption>Graph A — the English bookstore data as one connected RDF graph rooted at the ISBN URI.</figcaption>
+                <figcaption>Graph A — exactly as drawn in slide 19. <strong>Author</strong> (<code class="inline">_:a</code>) and <strong>publisher</strong> (<code class="inline">_:p</code>) are blank nodes carrying their own name/city/homepage sub-properties.</figcaption>
               </figure>
 
-              <h5 style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faded);margin:18px 0 6px">Graph F (French)</h5>
+              <h5 style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faded);margin:18px 0 6px">Graph F (French) — Semantic Web deck slide 23</h5>
               <figure class="graph-fig">
-                <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <marker id="f-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
                       <path d="M0,0 L10,5 L0,10 z" fill="#2b5d6d"/>
                     </marker>
                   </defs>
-                  <ellipse cx="380" cy="125" rx="120" ry="30" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
-                  <text x="380" y="129" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">isbn/2020386682</text>
 
-                  <rect x="30"  y="20" width="220" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="140" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Le Palais des Miroirs"</text>
+                  <!-- French ISBN (center) -->
+                  <ellipse cx="380" cy="55" rx="135" ry="30" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+                  <text x="380" y="59" text-anchor="middle" font-family="JetBrains Mono" font-size="11">isbn/2020386682</text>
 
-                  <rect x="280" y="20" width="200" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="380" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Besse, Christianne"</text>
+                  <!-- f:titre to literal (right of french ISBN) -->
+                  <rect x="555" y="40" width="200" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="655" y="60" text-anchor="middle" font-family="Newsreader" font-size="12">"Le Palais des Miroirs"</text>
+                  <path d="M515,55 L 549,55" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="520" y="48" font-family="JetBrains Mono" font-size="11">f:titre</text>
 
-                  <rect x="510" y="20" width="200" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="610" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
+                  <!-- shared (English ISBN) — dashed gold to show it's same as graph A -->
+                  <ellipse cx="100" cy="55" rx="80" ry="22" fill="#fff3d6" stroke="#6e2030" stroke-width="1.8" stroke-dasharray="4,3"/>
+                  <text x="100" y="58" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#6e2030">isbn/000651409X</text>
+                  <text x="100" y="92" text-anchor="middle" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">↑ same URI as graph A!</text>
 
-                  <ellipse cx="380" cy="210" rx="120" ry="22" fill="#fdf6e3" stroke="#6e2030" stroke-width="1.8" stroke-dasharray="4,3"/>
-                  <text x="380" y="214" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#6e2030">isbn/000651409X</text>
-                  <text x="380" y="232" text-anchor="middle" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">↑ same URI as in graph A!</text>
+                  <path d="M245,55 L 185,55" stroke="#2b5d6d" stroke-width="1.8" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="195" y="48" font-family="JetBrains Mono" font-size="11">f:original</text>
 
-                  <path d="M310,115 C 240,80 200,60 165,55" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
-                  <text x="200" y="85" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:titre</text>
-                  <path d="M360,100 C 350,80 360,65 380,55" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
-                  <text x="334" y="80" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:traducteur</text>
-                  <path d="M450,115 C 520,80 570,65 605,55" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
-                  <text x="510" y="85" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:auteur</text>
-                  <path d="M380,155 L 380,188" stroke="#2b5d6d" stroke-width="1.8" fill="none" marker-end="url(#f-arr)"/>
-                  <text x="390" y="175" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:original</text>
+                  <!-- auteur blank node + its literal -->
+                  <ellipse cx="300" cy="170" rx="22" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.6" stroke-dasharray="3,3"/>
+                  <text x="300" y="174" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a6802a">_:a</text>
+
+                  <rect x="220" y="230" width="160" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="300" y="250" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
+
+                  <path d="M355,75 L 315,148" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="305" y="120" font-family="JetBrains Mono" font-size="11">f:auteur</text>
+                  <path d="M300,192 L 300,228" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="305" y="215" font-family="JetBrains Mono" font-size="11">f:nom</text>
+
+                  <!-- traducteur blank node + its literal -->
+                  <ellipse cx="500" cy="170" rx="22" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.6" stroke-dasharray="3,3"/>
+                  <text x="500" y="174" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a6802a">_:t</text>
+
+                  <rect x="430" y="230" width="200" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="530" y="250" text-anchor="middle" font-family="Newsreader" font-size="12">"Besse, Christianne"</text>
+
+                  <path d="M405,75 L 485,148" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="430" y="120" font-family="JetBrains Mono" font-size="11">f:traducteur</text>
+                  <path d="M500,192 L 510,228" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="515" y="215" font-family="JetBrains Mono" font-size="11">f:nom</text>
                 </svg>
-                <figcaption>Graph F — the French bookstore. The dashed gold node is <strong>the same URI</strong> already used in Graph A.</figcaption>
+                <figcaption>Graph F — exactly as drawn in slide 23. <strong>Auteur</strong> and <strong>traducteur</strong> are blank nodes, each carrying its own <code class="inline">f:nom</code>. The dashed gold ISBN on the left is the same URI that appears in Graph A — that’s the glue point for the merge.</figcaption>
               </figure>
 
               <div class="ar-note">

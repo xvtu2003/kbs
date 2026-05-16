@@ -1,0 +1,2802 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Semantic Web — Study Companion v2 · دليل المذاكرة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================ FOUNDATION ============================ */
+:root{
+  --paper:#f1e8d3;
+  --paper-2:#ebe0c4;
+  --paper-3:#e2d4b0;
+  --paper-deep:#d9c89e;
+  --ink:#1c160f;
+  --ink-soft:#4a3e2e;
+  --ink-faded:#7a6a55;
+  --rule:#cdbf9b;
+  --oxblood:#6e2030;
+  --oxblood-2:#923346;
+  --sage:#4f6446;
+  --sage-soft:#7a8f6c;
+  --gold:#a6802a;
+  --gold-soft:#d2b366;
+  --teal:#2b5d6d;
+  --shadow: 0 1px 0 rgba(28,22,15,.05), 0 12px 28px -16px rgba(28,22,15,.22);
+  --shadow-deep: 0 2px 0 rgba(28,22,15,.07), 0 22px 40px -22px rgba(28,22,15,.30);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth; scroll-padding-top:80px}
+body{
+  font-family:"Newsreader", Georgia, serif;
+  font-optical-sizing:auto;
+  font-size:17.5px;
+  line-height:1.65;
+  color:var(--ink);
+  background:var(--paper);
+  background-image:
+    radial-gradient(1200px 600px at 8% -5%, rgba(166,128,42,.12), transparent 60%),
+    radial-gradient(1000px 500px at 110% 110%, rgba(110,32,48,.08), transparent 60%),
+    radial-gradient(800px 400px at 50% 50%, rgba(43,93,109,.04), transparent 60%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11  0 0 0 0 0.09  0 0 0 0 0.06  0 0 0 .06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.6'/></svg>");
+}
+
+/* progress rail */
+.progress-rail{
+  position:fixed; top:0; left:0; right:0; height:4px;
+  background:transparent; z-index:60;
+}
+.progress-bar{
+  height:100%; width:0%;
+  background:linear-gradient(90deg,var(--oxblood),var(--gold),var(--teal));
+  transition:width .4s ease;
+}
+
+/* shell */
+.shell{
+  display:grid;
+  grid-template-columns: 260px minmax(0,1fr);
+  gap:56px;
+  max-width:1240px;
+  margin:0 auto;
+  padding:48px 36px 120px;
+}
+@media (max-width:980px){
+  .shell{grid-template-columns:1fr; gap:32px; padding:24px 18px 80px}
+  .toc{position:static !important; max-height:none !important}
+}
+
+/* ============================ TOC ============================ */
+.toc{
+  position:sticky; top:32px;
+  align-self:start;
+  font-family:"Fraunces",serif;
+  font-size:14px;
+  border-left:1px solid var(--rule);
+  padding:8px 0 8px 18px;
+  max-height:calc(100vh - 64px);
+  overflow:auto;
+}
+.toc .toc-title{
+  font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--ink-faded); margin-bottom:14px;
+}
+.toc a{
+  display:flex; align-items:baseline; gap:10px;
+  text-decoration:none; color:var(--ink-soft);
+  padding:7px 0; line-height:1.3;
+  border-bottom:1px dashed transparent;
+  transition:color .2s, border-color .2s;
+}
+.toc a:hover{color:var(--oxblood); border-bottom-color:var(--gold-soft)}
+.toc a.active{color:var(--ink); font-weight:600}
+.toc a.active::before{content:"›"; color:var(--oxblood); margin-right:-4px}
+.toc .num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--ink-faded);
+  min-width:32px;
+}
+.toc .check{
+  margin-left:auto;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--sage);
+  opacity:0;
+  transition:opacity .25s;
+}
+.toc a.done .check{opacity:1}
+.toc a.done{color:var(--sage)}
+
+.toc-controls{
+  margin-top:22px;
+  display:flex; flex-direction:column; gap:10px;
+  padding-top:18px;
+  border-top:1px solid var(--rule);
+}
+.toc-btn{
+  font-family:"Fraunces",serif;
+  font-size:13px;
+  background:transparent;
+  color:var(--ink-soft);
+  border:1px solid var(--rule);
+  border-radius:2px;
+  padding:8px 10px;
+  text-align:left;
+  cursor:pointer;
+  transition: background .2s, color .2s, border-color .2s;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.toc-btn:hover{background:var(--paper-2); color:var(--ink); border-color:var(--ink-soft)}
+.toc-btn.on{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.toc-btn .kbd{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  opacity:.55;
+}
+
+.stats{
+  margin-top:18px;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  color:var(--ink-faded);
+  line-height:1.7;
+}
+.stats b{color:var(--ink); font-weight:500}
+
+/* ============================ MASTHEAD ============================ */
+.masthead{
+  border-bottom:1px solid var(--ink);
+  padding-bottom:32px;
+  margin-bottom:36px;
+  position:relative;
+}
+.eyebrow{
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink-faded);
+  margin-bottom:24px;
+}
+.eyebrow .dot{color:var(--oxblood)}
+.eyebrow .right{display:flex; gap:18px; align-items:baseline}
+
+h1.title{
+  font-family:"Fraunces",serif;
+  font-weight:300;
+  font-variation-settings:"opsz" 144, "SOFT" 50;
+  font-size:clamp(40px, 6.5vw, 84px);
+  line-height:.95;
+  letter-spacing:-.02em;
+  margin:0 0 12px;
+  color:var(--ink);
+}
+h1.title em{
+  font-style:italic;
+  font-weight:400;
+  color:var(--oxblood);
+}
+.title-ar{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  font-weight:300;
+  font-size:clamp(20px, 2.6vw, 30px);
+  color:var(--ink-soft);
+  direction:rtl;
+  margin:4px 0 18px;
+  line-height:1.4;
+}
+.tagline{
+  font-family:"Newsreader",serif;
+  font-style:italic;
+  font-size:19px;
+  color:var(--ink-soft);
+  max-width:62ch;
+  margin:0;
+}
+.deck-row{
+  margin-top:24px;
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+.deck{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:.06em;
+  padding:5px 10px;
+  border:1px solid var(--ink-soft);
+  border-radius:1px;
+  color:var(--ink);
+  background:var(--paper-2);
+}
+
+.ornament{
+  position:absolute; right:-12px; top:-8px;
+  font-family:"Fraunces",serif;
+  font-style:italic;
+  font-size:240px;
+  line-height:1;
+  color:var(--paper-3);
+  pointer-events:none;
+  user-select:none;
+  letter-spacing:-.08em;
+  z-index:0;
+}
+.masthead > *{position:relative; z-index:1}
+
+/* ============================ SECTIONS ============================ */
+section.q{
+  margin:72px 0;
+  scroll-margin-top:80px;
+}
+.q-head{
+  display:grid;
+  grid-template-columns:90px 1fr auto;
+  gap:22px;
+  align-items:baseline;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--rule);
+  margin-bottom:28px;
+}
+.q-num{
+  font-family:"JetBrains Mono",monospace;
+  font-size:13px;
+  letter-spacing:.2em;
+  color:var(--oxblood);
+  padding-top:8px;
+}
+.q-title{
+  font-family:"Fraunces",serif;
+  font-weight:400;
+  font-variation-settings:"opsz" 72;
+  font-size:clamp(26px, 3.2vw, 36px);
+  line-height:1.15;
+  margin:0;
+  letter-spacing:-.01em;
+}
+.q-title small{
+  display:block;
+  font-family:"Newsreader",serif;
+  font-style:italic;
+  font-weight:300;
+  font-size:15px;
+  color:var(--ink-faded);
+  letter-spacing:.01em;
+  margin-top:6px;
+}
+.q-title .ar{
+  display:block;
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  font-weight:400;
+  font-size:18px;
+  color:var(--ink-soft);
+  direction:rtl;
+  margin-top:8px;
+}
+.q-status{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-faded);
+}
+.q-status.done{color:var(--sage)}
+
+.prompt{
+  font-family:"Newsreader",serif;
+  font-size:19px;
+  line-height:1.6;
+  color:var(--ink);
+  padding:20px 24px;
+  border-left:3px solid var(--oxblood);
+  background: linear-gradient(180deg, rgba(166,128,42,.08), rgba(166,128,42,.02));
+  margin:0 0 22px;
+}
+.prompt .lbl{
+  display:inline-block;
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--oxblood); margin-right:8px;
+  vertical-align:1px;
+}
+.prompt p{margin:0 0 10px}
+.prompt p:last-child{margin-bottom:0}
+.prompt .ar-prompt{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  font-size:16.5px;
+  direction:rtl;
+  color:var(--ink-soft);
+  padding-top:10px;
+  margin-top:10px;
+  border-top:1px dashed var(--rule);
+}
+
+/* reveal */
+.reveal-row{
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+  margin:14px 0 0;
+}
+.reveal-btn{
+  font-family:"Fraunces",serif;
+  font-style:italic;
+  font-size:16px;
+  background:var(--ink);
+  color:var(--paper);
+  border:none;
+  padding:11px 22px;
+  border-radius:2px;
+  cursor:pointer;
+  letter-spacing:.01em;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow:var(--shadow);
+}
+.reveal-btn:hover{background:var(--oxblood); transform:translateY(-1px)}
+.reveal-btn .arrow{display:inline-block; transition:transform .25s; margin-left:6px}
+.q.revealed .reveal-btn .arrow{transform:rotate(90deg)}
+.reveal-hint{
+  font-family:"Newsreader",serif;
+  font-style:italic;
+  font-size:14px;
+  color:var(--ink-faded);
+}
+
+.answer{
+  display:grid;
+  grid-template-rows:0fr;
+  transition: grid-template-rows .5s cubic-bezier(.6,.05,.2,1), opacity .35s;
+  opacity:0;
+  margin-top:0;
+}
+.q.revealed .answer{
+  grid-template-rows:1fr;
+  opacity:1;
+  margin-top:26px;
+}
+.answer > .inner{overflow:hidden}
+
+.answer h3{
+  font-family:"Fraunces",serif;
+  font-weight:500;
+  font-variation-settings:"opsz" 36;
+  font-size:22px;
+  margin:36px 0 10px;
+  letter-spacing:-.005em;
+  color:var(--ink);
+}
+.answer h3:first-child{margin-top:0}
+.answer h4{
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  font-size:15px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  margin:24px 0 8px;
+  color:var(--oxblood);
+}
+.answer p{margin:0 0 14px}
+.answer ul, .answer ol{padding-left:22px; margin:0 0 16px}
+.answer li{margin-bottom:6px}
+.answer li::marker{color:var(--oxblood)}
+.answer strong{font-weight:600; color:var(--ink)}
+.answer em{font-style:italic; color:var(--ink-soft)}
+
+/* ============================ ARABIC NOTES ============================ */
+.ar-note{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  direction:rtl;
+  text-align:right;
+  font-size:16px;
+  line-height:1.75;
+  color:var(--ink);
+  background: linear-gradient(180deg, rgba(43,93,109,.07), rgba(43,93,109,.02));
+  border-right:3px solid var(--teal);
+  border-radius:2px;
+  padding:14px 18px 14px 18px;
+  margin:14px 0;
+}
+.ar-note::before{
+  content:"شرح";
+  display:inline-block;
+  font-size:10px;
+  letter-spacing:.18em;
+  font-weight:600;
+  color:var(--teal);
+  background:var(--paper-2);
+  padding:3px 9px;
+  border-radius:2px;
+  margin-bottom:8px;
+}
+.ar-note b{color:var(--ink); font-weight:700}
+.ar-note code{
+  font-family:"JetBrains Mono", monospace;
+  direction:ltr;
+  display:inline-block;
+  font-size:13px;
+  background:var(--paper-2);
+  padding:1px 6px;
+  border:1px solid var(--rule);
+  border-radius:2px;
+}
+.ar-note ul{padding-right:22px; padding-left:0; margin:6px 0 8px}
+.ar-note li::marker{color:var(--teal)}
+
+.ar-inline{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  direction:rtl;
+  display:inline-block;
+  color:var(--teal);
+  font-size:.92em;
+}
+
+/* CSKG cards */
+.cskg-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  gap:14px;
+  margin:18px 0 24px;
+}
+.cskg-card{
+  border:1px solid var(--rule);
+  border-radius:2px;
+  padding:18px 18px 16px;
+  background:rgba(255,250,236,.5);
+  position:relative;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.cskg-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+  border-color:var(--ink-soft);
+}
+.cskg-card .nm{
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  font-size:20px;
+  letter-spacing:-.01em;
+  color:var(--ink);
+  margin:0 0 2px;
+}
+.cskg-card .meta{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:.1em;
+  color:var(--ink-faded);
+  margin-bottom:10px;
+}
+.cskg-card .desc{font-size:15px; line-height:1.55; margin:0 0 8px}
+.cskg-card .ar-mini{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  direction:rtl; text-align:right;
+  font-size:14px;
+  color:var(--teal);
+  margin:6px 0 10px;
+  line-height:1.7;
+}
+.cskg-card .slogan{
+  font-style:italic;
+  font-size:14px;
+  color:var(--oxblood);
+  padding-top:8px;
+  border-top:1px dashed var(--rule);
+}
+.cskg-card .num-bg{
+  position:absolute; top:8px; right:14px;
+  font-family:"Fraunces",serif; font-style:italic;
+  font-size:48px; color:var(--paper-3);
+  line-height:1; pointer-events:none;
+}
+
+/* dimensions table */
+.dim-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0 18px;
+  font-size:14px;
+}
+.dim-table th, .dim-table td{
+  border:1px solid var(--rule);
+  padding:8px 10px;
+  text-align:left;
+}
+.dim-table th{
+  background:var(--paper-2);
+  font-family:"Fraunces", serif;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:11px;
+  color:var(--oxblood);
+}
+.dim-table td:first-child{
+  font-family:"Fraunces", serif;
+  font-weight:600;
+  background:rgba(166,128,42,.06);
+}
+.dim-table .dot{
+  display:inline-block;
+  width:8px; height:8px; border-radius:50%;
+  background:var(--oxblood);
+  margin-right:4px;
+}
+
+/* ============================ CODE ============================ */
+pre{
+  font-family:"JetBrains Mono",monospace;
+  font-size:13.5px;
+  line-height:1.55;
+  background:#1c160f;
+  color:#ede0c4;
+  border-radius:3px;
+  padding:18px 20px;
+  overflow:auto;
+  margin:14px 0 18px;
+  border:1px solid #2c2317;
+  box-shadow:var(--shadow);
+}
+pre.lang-rdf{background:#2a1f15; color:#f4e8cf}
+pre.lang-sparql{background:#1b2a1f; color:#dcebd5}
+pre.lang-xml{background:#2a1f24; color:#f4d5db}
+pre.lang-turtle{background:#2a2417; color:#f0e4c0}
+pre.lang-table{background:#1c2027; color:#dee1e6}
+
+pre .kw{color:#d2b366; font-weight:500}
+pre .var{color:#d29c66}
+pre .str{color:#a3b888; font-style:italic}
+pre .com{color:#7a6a55; font-style:italic}
+pre .uri{color:#a8c8d6; text-decoration:underline; text-underline-offset:2px; text-decoration-color:rgba(168,200,214,.3)}
+pre .pred{color:#e1a6a6}
+pre .lit{color:#d2b366}
+
+code.inline{
+  font-family:"JetBrains Mono",monospace;
+  font-size:.86em;
+  padding:1px 6px;
+  background:var(--paper-3);
+  border:1px solid var(--rule);
+  border-radius:2px;
+  color:var(--ink);
+}
+
+/* ============================ GRAPHS / FIGURES ============================ */
+.graph-fig{
+  margin:20px 0 22px;
+  border:1px solid var(--rule);
+  border-radius:2px;
+  padding:12px 12px 6px;
+  background:rgba(255,250,236,.45);
+}
+.graph-fig figcaption{
+  font-family:"Newsreader",serif; font-style:italic;
+  font-size:14px; color:var(--ink-faded);
+  text-align:center;
+  margin-top:4px;
+  padding:0 12px;
+}
+.graph-fig svg{display:block; width:100%; height:auto}
+
+/* ============================ STEPPER ============================ */
+.steps{
+  counter-reset: step;
+  margin:20px 0;
+}
+.step{
+  display:grid;
+  grid-template-columns:48px 1fr;
+  gap:18px;
+  margin-bottom:28px;
+  position:relative;
+}
+.step::before{
+  counter-increment: step;
+  content:"" counter(step);
+  display:flex; align-items:center; justify-content:center;
+  font-family:"Fraunces",serif;
+  font-style:italic;
+  font-size:22px;
+  font-weight:600;
+  color:var(--paper);
+  background:var(--oxblood);
+  width:42px; height:42px;
+  border-radius:50%;
+  box-shadow:var(--shadow);
+}
+.step-body{
+  padding-top:6px;
+}
+.step h4.step-title{
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  font-size:20px;
+  margin:0 0 8px;
+  color:var(--ink);
+  text-transform:none;
+  letter-spacing:-.005em;
+}
+.step h4.step-title .ar{
+  display:block;
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  font-weight:400;
+  font-size:15px;
+  color:var(--teal);
+  direction:rtl;
+  margin-top:4px;
+}
+
+/* split (table vs graph) */
+.split{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  align-items:start;
+  margin:14px 0 18px;
+}
+@media (max-width:760px){.split{grid-template-columns:1fr}}
+.split > div > h5{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-faded);
+  margin:0 0 6px;
+}
+
+/* mini table */
+.mini-tbl{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+  font-family:"JetBrains Mono",monospace;
+}
+.mini-tbl th, .mini-tbl td{
+  border:1px solid var(--rule);
+  padding:6px 9px;
+  text-align:left;
+  background:var(--paper-2);
+}
+.mini-tbl th{
+  background:var(--ink);
+  color:var(--paper);
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.08em;
+}
+
+/* triple chip */
+.triple{
+  display:inline-flex;
+  align-items:center;
+  font-family:"JetBrains Mono",monospace;
+  font-size:12px;
+  border:1px solid var(--rule);
+  border-radius:2px;
+  background:var(--paper-2);
+  overflow:hidden;
+  margin:2px 4px 2px 0;
+}
+.triple span{padding:4px 9px}
+.triple .s{background:rgba(110,32,48,.08); color:var(--oxblood)}
+.triple .p{background:rgba(166,128,42,.10); color:var(--ink); border-left:1px solid var(--rule); border-right:1px solid var(--rule)}
+.triple .o{background:rgba(43,93,109,.08); color:var(--teal)}
+
+/* verdict callout */
+.verdict{
+  font-family:"Fraunces",serif;
+  font-size:17px;
+  padding:12px 16px;
+  border-radius:2px;
+  margin:10px 0 14px;
+  border-left:3px solid var(--sage);
+  background:rgba(79,100,70,.08);
+  color:var(--ink);
+}
+.verdict.bad{
+  border-left-color:var(--oxblood);
+  background:rgba(110,32,48,.07);
+}
+.verdict b{font-weight:700}
+
+/* sub-question */
+.subq{
+  margin:30px 0;
+  padding:0 0 0 22px;
+  border-left:1px solid var(--rule);
+  position:relative;
+}
+.subq::before{
+  content:"";
+  position:absolute; left:-4px; top:8px;
+  width:7px; height:7px;
+  background:var(--oxblood);
+  transform:rotate(45deg);
+}
+.subq-head{
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  font-size:18px;
+  margin:0 0 8px;
+  letter-spacing:-.005em;
+}
+.subq-head .tag{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  background:var(--ink);
+  color:var(--paper);
+  padding:3px 7px;
+  border-radius:1px;
+  margin-right:8px;
+  vertical-align:3px;
+}
+.subq-head .tag.correct{background:var(--sage)}
+.subq-head .tag.wrong{background:var(--oxblood)}
+
+/* ref table */
+.tbl{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0 18px;
+  font-size:15px;
+}
+.tbl thead th{
+  text-align:left;
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--oxblood);
+  padding:9px 12px;
+  border-bottom:2px solid var(--ink);
+}
+.tbl tbody td{
+  padding:9px 12px;
+  border-bottom:1px solid var(--rule);
+  vertical-align:top;
+}
+.tbl tbody tr:hover td{background:rgba(166,128,42,.06)}
+.tbl tbody td:first-child{
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  color:var(--ink);
+  width:24%;
+}
+.tbl tbody td.ar{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  direction:rtl; text-align:right;
+  color:var(--teal);
+  font-size:14px;
+}
+
+/* mark buttons */
+.mark-row{
+  margin-top:32px;
+  display:flex; gap:10px; flex-wrap:wrap;
+  padding-top:18px;
+  border-top:1px dashed var(--rule);
+}
+.mark-btn{
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  background:transparent;
+  border:1px solid var(--ink-soft);
+  color:var(--ink-soft);
+  padding:8px 14px;
+  border-radius:1px;
+  cursor:pointer;
+  transition: all .18s;
+}
+.mark-btn:hover{background:var(--paper-2); color:var(--ink); border-color:var(--ink)}
+.mark-btn.known{background:var(--sage); color:var(--paper); border-color:var(--sage)}
+.mark-btn.review{background:var(--oxblood); color:var(--paper); border-color:var(--oxblood)}
+
+/* footer */
+footer.foot{
+  margin-top:80px;
+  padding-top:24px;
+  border-top:1px solid var(--rule);
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-faded);
+  flex-wrap:wrap; gap:12px;
+}
+footer.foot .quote{
+  font-family:"Newsreader",serif;
+  font-style:italic;
+  font-size:14px;
+  text-transform:none;
+  letter-spacing:0;
+  color:var(--ink-soft);
+}
+
+::selection{background:var(--gold-soft); color:var(--ink)}
+
+::-webkit-scrollbar{width:10px; height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--rule); border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-faded)}
+
+/* quiz mode */
+body.quiz .answer{
+  display:grid;
+  grid-template-rows:0fr;
+}
+body.quiz .q.revealed .answer{grid-template-rows:1fr}
+
+/* ============================ COVERAGE CALLOUT ============================ */
+.coverage{
+  margin:28px 0 8px;
+  border:1px solid var(--rule);
+  border-left:4px solid var(--gold);
+  border-radius:2px;
+  padding:18px 22px;
+  background: linear-gradient(180deg, rgba(166,128,42,.07), rgba(166,128,42,.02));
+}
+.coverage h3{
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  font-size:20px;
+  margin:0 0 6px;
+  color:var(--ink);
+  letter-spacing:-.005em;
+}
+.coverage h3 .ar{
+  display:block;
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  font-weight:400;
+  font-size:15px;
+  color:var(--teal);
+  direction:rtl;
+  margin-top:2px;
+}
+.coverage p{margin:6px 0; font-size:16px}
+.coverage .grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:14px;
+}
+.coverage .grid h4{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin:0 0 8px;
+}
+.coverage .got h4{color:var(--sage)}
+.coverage .miss h4{color:var(--oxblood)}
+.coverage ul{padding-left:18px; margin:0; font-size:15px}
+.coverage li{margin-bottom:3px}
+
+/* ============================ RESPONSIVE ============================ */
+@media (max-width: 980px){
+  .shell{grid-template-columns:1fr; gap:32px; padding:24px 18px 80px}
+  .toc{position:static !important; max-height:none !important}
+  .ornament{font-size:160px}
+}
+
+@media (max-width: 760px){
+  body{font-size:16px; line-height:1.6}
+  .shell{padding:18px 14px 60px; gap:24px}
+
+  /* masthead */
+  .masthead{padding-bottom:24px; margin-bottom:28px}
+  .ornament{font-size:120px; right:-6px; top:-4px; opacity:.55}
+  .eyebrow{flex-direction:column; gap:8px; align-items:flex-start; font-size:10px; letter-spacing:.18em}
+  .eyebrow .right{gap:12px}
+  h1.title{font-size:42px; line-height:1; letter-spacing:-.015em}
+  .title-ar{font-size:18px; line-height:1.45}
+  .tagline{font-size:16.5px}
+  .deck-row{gap:6px}
+  .deck{font-size:10px; padding:4px 8px}
+
+  /* sections */
+  section.q{margin:48px 0; scroll-margin-top:60px}
+  .q-head{grid-template-columns:1fr; gap:6px; padding-bottom:12px}
+  .q-num{padding-top:0; font-size:12px}
+  .q-status{justify-self:start; margin-top:2px}
+  .q-title{font-size:24px}
+  .q-title small, .q-title .ar{font-size:13.5px}
+
+  /* prompt + reveal */
+  .prompt{padding:16px 18px; font-size:16.5px}
+  .reveal-btn{font-size:14px; padding:10px 18px}
+  .reveal-hint{font-size:13px}
+
+  /* steps */
+  .step{grid-template-columns:36px 1fr; gap:12px; margin-bottom:24px}
+  .step::before{width:32px; height:32px; font-size:15px}
+  .step-body{padding-top:2px}
+  .step h4.step-title{font-size:17px}
+  .step h4.step-title .ar{font-size:13.5px}
+
+  /* CSKG cards */
+  .cskg-grid{grid-template-columns:1fr; gap:10px}
+  .cskg-card{padding:14px 14px 12px}
+  .cskg-card .nm{font-size:18px}
+  .cskg-card .num-bg{font-size:36px; top:6px; right:10px}
+
+  /* code */
+  pre{font-size:11.5px; padding:12px 14px; margin:12px 0 14px}
+  code.inline{font-size:.84em; padding:1px 4px}
+
+  /* answer headings */
+  .answer h3{font-size:19px; margin:28px 0 10px}
+  .answer h3:first-child{margin-top:0}
+  .answer h4{font-size:13px; letter-spacing:.1em; margin:18px 0 8px}
+
+  /* tables */
+  .answer table.tbl,
+  .answer table.dim-table,
+  .answer table.mini-tbl{
+    display:block; overflow-x:auto; -webkit-overflow-scrolling:touch;
+    white-space:nowrap;
+  }
+  .tbl thead th, .tbl tbody td, .dim-table th, .dim-table td{
+    padding:8px 10px; font-size:13.5px;
+  }
+  .tbl tbody td:first-child{width:auto; white-space:normal}
+  .tbl tbody td.ar, .dim-table td:last-child{white-space:normal}
+  .mini-tbl{font-size:11px}
+  .mini-tbl th, .mini-tbl td{padding:5px 7px}
+
+  /* splits stack */
+  .split{grid-template-columns:1fr; gap:18px}
+
+  /* merge stage controls */
+  .merge-controls{flex-wrap:wrap; gap:6px}
+  .merge-btn{font-size:9px; padding:6px 10px; letter-spacing:.12em}
+
+  /* triple chips wrap */
+  .triple{font-size:11px}
+  .triple span{padding:3px 7px}
+
+  /* tb-row stack */
+  .tb-row{grid-template-columns:1fr; gap:4px; padding:10px 0}
+  .tb-row .lbl{padding-top:0; font-size:9px}
+
+  /* sub-question */
+  .subq{padding-left:16px; margin:24px 0}
+  .subq-head{font-size:16px}
+
+  /* TOC */
+  .toc{padding:8px 0 8px 14px}
+  .toc-btn{font-size:12.5px; padding:7px 9px}
+  .toc-btn .kbd{display:none}
+
+  /* arabic notes */
+  .ar-note{font-size:15px; padding:12px 14px; line-height:1.7}
+  .ar-note ul{padding-right:18px}
+
+  /* footer */
+  footer.foot{flex-direction:column; align-items:flex-start; gap:10px; padding-top:18px}
+  footer.foot .quote{font-size:13px; line-height:1.4}
+
+  /* coverage callout */
+  .coverage{padding:14px 16px}
+  .coverage h3{font-size:18px}
+  .coverage .grid{grid-template-columns:1fr; gap:14px}
+
+  /* SVG figures */
+  .graph-fig{padding:8px 8px 4px}
+  .graph-fig figcaption{font-size:13px; padding:0 6px}
+}
+
+@media (max-width: 460px){
+  h1.title{font-size:34px}
+  .title-ar{font-size:16.5px}
+  .q-title{font-size:22px}
+  .reveal-row{gap:8px}
+  .reveal-btn{font-size:13px; padding:9px 16px}
+  .mark-btn{font-size:10px; padding:7px 10px; letter-spacing:.1em}
+  .mark-row{gap:8px}
+  .ornament{display:none}
+  pre{font-size:10.5px; padding:10px 12px}
+  .merge-btn{font-size:8.5px}
+}
+
+/* toast */
+.toast{
+  position:fixed; bottom:24px; left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:var(--paper);
+  padding:10px 18px;
+  border-radius:2px;
+  font-family:"Fraunces",serif;
+  font-style:italic;
+  font-size:14px;
+  opacity:0; pointer-events:none;
+  transition: opacity .25s, transform .25s;
+  z-index:80;
+  box-shadow:var(--shadow);
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+/* merge animator */
+.merge-stage{
+  margin:18px 0 22px;
+  border:1px solid var(--rule);
+  border-radius:2px;
+  padding:14px;
+  background:rgba(255,250,236,.5);
+}
+.merge-controls{
+  display:flex; gap:8px; flex-wrap:wrap;
+  margin-bottom:10px;
+  padding-bottom:10px;
+  border-bottom:1px dashed var(--rule);
+}
+.merge-btn{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  background:transparent;
+  border:1px solid var(--ink-soft);
+  color:var(--ink-soft);
+  padding:7px 11px;
+  border-radius:1px;
+  cursor:pointer;
+  transition: all .18s;
+}
+.merge-btn:hover{background:var(--paper-3); color:var(--ink)}
+.merge-btn.on{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.merge-stage svg .e-glue, .merge-stage svg .e-ext, .merge-stage svg .n-ext,
+.merge-stage svg .e-dbp, .merge-stage svg .n-dbp{
+  opacity:0;
+  transition: opacity .5s;
+}
+.merge-stage.show-glue svg .e-glue, .merge-stage.show-glue svg .n-ext{ opacity:1 }
+.merge-stage.show-dbp svg .e-glue, .merge-stage.show-dbp svg .n-ext,
+.merge-stage.show-dbp svg .e-dbp, .merge-stage.show-dbp svg .n-dbp{ opacity:1 }
+
+/* triple-builder for RDF→XML */
+.tb-row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:12px;
+  font-size:14px;
+  align-items:start;
+  padding:8px 0;
+  border-bottom:1px dashed var(--rule);
+}
+.tb-row:last-child{border-bottom:none}
+.tb-row .lbl{
+  font-family:"JetBrains Mono",monospace;
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--oxblood);
+  padding-top:3px;
+}
+</style>
+</head>
+<body>
+
+<div class="progress-rail"><div class="progress-bar" id="progressBar"></div></div>
+
+<div class="shell">
+
+  <!-- ============== SIDE NAV ============== -->
+  <aside class="toc" aria-label="Table of contents">
+    <div class="toc-title">دليل المذاكرة · Index</div>
+
+    <a href="#q1" data-tocfor="q1">
+      <span class="num">Q1</span>
+      <span class="label">Common-Sense KGs</span>
+      <span class="check">✓</span>
+    </a>
+    <a href="#q2" data-tocfor="q2">
+      <span class="num">Q2</span>
+      <span class="label">Merging two graphs</span>
+      <span class="check">✓</span>
+    </a>
+    <a href="#q3" data-tocfor="q3">
+      <span class="num">Q3</span>
+      <span class="label">RDF ↔ RDF/XML</span>
+      <span class="check">✓</span>
+    </a>
+    <a href="#q4" data-tocfor="q4">
+      <span class="num">Q4</span>
+      <span class="label">RDFs &amp; inference</span>
+      <span class="check">✓</span>
+    </a>
+    <a href="#q5" data-tocfor="q5">
+      <span class="num">Q5</span>
+      <span class="label">SPARQL — read &amp; fix</span>
+      <span class="check">✓</span>
+    </a>
+    <a href="#appx" data-tocfor="appx">
+      <span class="num">§A</span>
+      <span class="label">Appendix — extras</span>
+      <span class="check">✓</span>
+    </a>
+    <a href="#ref" data-tocfor="ref">
+      <span class="num">§R</span>
+      <span class="label">Quick reference</span>
+      <span class="check">✓</span>
+    </a>
+
+    <div class="toc-controls">
+      <button class="toc-btn" id="revealAll">Reveal all <span class="kbd">a</span></button>
+      <button class="toc-btn" id="hideAll">Hide all <span class="kbd">h</span></button>
+      <button class="toc-btn" id="quizMode">Self-quiz mode <span class="kbd">q</span></button>
+      <button class="toc-btn" id="resetAll">Reset progress</button>
+    </div>
+
+    <div class="stats" id="stats">
+      <div>Known    · <b id="kKnown">0</b> / 7</div>
+      <div>Reviewed · <b id="kReview">0</b></div>
+      <div>Saved locally</div>
+    </div>
+  </aside>
+
+  <!-- ============== MAIN ============== -->
+  <main>
+
+    <!-- =================== MASTHEAD =================== -->
+    <header class="masthead">
+      <div class="ornament">§</div>
+      <div class="eyebrow">
+        <span><span class="dot">●</span> &nbsp;KBS · Final-exam study companion · v2</span>
+        <span class="right">
+          <span>Damascus · 2026</span>
+          <span>Asaierafi</span>
+        </span>
+      </div>
+      <h1 class="title">Knowledge-Based<br/>Systems — the <em>complete</em> revision.</h1>
+      <p class="title-ar">دليل مذاكرة شامل لمادة أنظمة المعرفة — كل النقاط من المحاضرات الخمس، مع شرح عربي مفصّل لكل فكرة، وأمثلة محلولة خطوة بخطوة.</p>
+      <p class="tagline">Five lecture decks (104 + 38 + 86 + 75 + 43 slides), four exam questions, one self-paced page. Every key idea has an English explanation and an Arabic note. Click <em>Reveal</em> to flip each card, mark progress, and quiz yourself.</p>
+      <div class="deck-row">
+        <span class="deck">5. Common Sense KB</span>
+        <span class="deck">6. Semantic Web</span>
+        <span class="deck">7. RDF</span>
+        <span class="deck">8. RDFs</span>
+        <span class="deck">9. SPARQL</span>
+      </div>
+    </header>
+
+    <!-- =================== COVERAGE CALLOUT =================== -->
+    <div class="coverage">
+      <h3>Will this page get me a full mark?
+        <span class="ar">هل هذه الصفحة كافية لعلامة كاملة؟</span>
+      </h3>
+      <p><strong>Short answer:</strong> if the exam follows the four-question format above (CSKGs · merge · RDF↔graph · SPARQL fix-or-explain), then yes — every example in this page is taken directly from the lectures. Below is what’s covered vs. what to skim from the decks just in case.</p>
+      <p style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;text-align:right;font-size:15px;color:var(--teal);margin-top:8px">
+        <strong>الجواب المختصر:</strong> إذا كان الامتحان مؤلفاً من الأسئلة الأربعة المذكورة، فهذه الصفحة تغطي كل المطلوب مع نفس الأمثلة من المحاضرات. أضفت قسماً ملحقاً أسفل لتغطية النقاط الإضافية التي قد يسألها الدكتور أحياناً.
+      </p>
+      <div class="grid">
+        <div class="got">
+          <h4>✓ Fully covered here</h4>
+          <ul>
+            <li>The 5 main CSKGs + 3 bonus (WebChild, Wikidata-CS, Visual Genome)</li>
+            <li>The 4 classification dimensions + top-down vs bottom-up</li>
+            <li>Bookstore merge example — every step, including DBpedia extension</li>
+            <li>RDF/XML ↔ graph, both directions, with the Bassel example</li>
+            <li>All three blank-node syntaxes (<code class="inline">urn:uuid</code>, <code class="inline">rdf:nodeID</code>, nested)</li>
+            <li>RDFs inference: subClassOf, subPropertyOf, domain/range</li>
+            <li>MotorVehicle hierarchy + multi-inheritance</li>
+            <li>SPARQL anatomy + all 6 query patterns from the exam markdown</li>
+            <li>GROUP BY, SERVICE, CONSTRUCT, FILTER, OPTIONAL, ASK</li>
+          </ul>
+        </div>
+        <div class="miss">
+          <h4>⚠ Read appendix below, just in case</h4>
+          <ul>
+            <li>RDF Containers — <code class="inline">rdf:Bag</code>, <code class="inline">rdf:Seq</code>, <code class="inline">rdf:Alt</code></li>
+            <li>Reification — statements about statements</li>
+            <li><code class="inline">parseType="Resource"</code> vs <code class="inline">"Literal"</code></li>
+            <li>Dublin Core — the 15 named properties</li>
+            <li>FOAF &amp; vCard vocabularies</li>
+            <li>RDFs MaritalStatus example (range constrained to 4 instances)</li>
+            <li>Non-binary relations workaround</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================ -->
+    <!-- ============== Q1 — COMMON SENSE KGs ======================== -->
+    <!-- ============================================================ -->
+    <section class="q" id="q1">
+      <div class="q-head">
+        <div class="q-num">Q1 · CSKG</div>
+        <h2 class="q-title">The five main Common-Sense Knowledge Graphs — what each one is and how it’s built.
+          <small>Common Sense KB deck · slides 10–104</small>
+          <span class="ar">السؤال الأول: عدّد شبكات المعرفة العامة الخمس واشرح كل وحدة وكيف بُنيت.</span>
+        </h2>
+        <div class="q-status" id="status-q1">unmarked</div>
+      </div>
+
+      <div class="prompt">
+        <p><span class="lbl">Prompt</span>List the 5 main Common-Sense Knowledge Graphs (CSKGs) from the lecture and explain in one short paragraph what each is and how it is built. Also know the 4 dimensions used to classify them.</p>
+        <p class="ar-prompt">عدّد الشبكات الخمس الرئيسية للمعرفة العامة (Common-Sense KGs)، اشرح بإيجاز ما هي كل واحدة وكيف بُنيت، وكن جاهزاً للمقارنة بينها وفق الأبعاد الأربعة في المحاضرة.</p>
+      </div>
+
+      <div class="reveal-row">
+        <button class="reveal-btn" data-reveal="q1">Reveal the answer <span class="arrow">›</span></button>
+        <span class="reveal-hint">— try to list the five yourself first / حاول قبل الإجابة.</span>
+      </div>
+
+      <div class="answer"><div class="inner">
+
+        <h3>First — what does “common sense” even mean?</h3>
+        <p>Common sense is <em>sound practical judgement about everyday matters</em> — the basic background knowledge that nearly all humans share but is hard to put in words. The classic motivating task in the deck is the “<strong>dog &nbsp;|&nbsp; frisbee &nbsp;|&nbsp; catch &nbsp;|&nbsp; throw</strong>” example: given four common concepts, a system should be able to combine them into a meaningful sentence — and that requires knowing things like <em>dogs play with frisbees</em>, <em>throw is the opposite of catch</em>, etc.</p>
+
+        <div class="ar-note">
+          <b>المعرفة العامة (Common Sense):</b> هي المعرفة البدهية المشتركة بين البشر عن الحياة اليومية. مثلاً: الكلب يلعب بالفريسبي، الرمي عكس الإمساك، إلخ. الإنسان يستخدم هذه المعرفة بشكل طبيعي، لكن الحاسوب يحتاج إلى تمثيلها بشكل صريح في شبكة معرفية ليفهم اللغة والسياق.
+          <ul>
+            <li>المثال الافتتاحي بالمحاضرة: تعطي النموذج المفاهيم <code>dog | frisbee | catch | throw</code> فيلزمه ربطها في جملة منطقية.</li>
+            <li>هذا غير ممكن دون <b>شبكة معرفية</b> تخبره أن الكلب يستطيع اللعب، وأن الفريسبي قرص طائر، إلخ.</li>
+          </ul>
+        </div>
+
+        <h3>The 4 dimensions used to classify any CSKG</h3>
+        <table class="dim-table">
+          <thead><tr><th>Dimension</th><th>Possible values</th><th>الشرح بالعربية</th></tr></thead>
+          <tbody>
+            <tr><td>Representation</td><td>symbolic · natural language · neural</td><td class="ar" style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;text-align:right;color:var(--teal);font-size:14px">طريقة التمثيل: رموز / لغة طبيعية / شبكة عصبية</td></tr>
+            <tr><td>Creation method</td><td>expert input · crowdsourcing · extraction &amp; ML</td><td style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;text-align:right;color:var(--teal);font-size:14px">طريقة البناء: خبراء / حشد عام / استخراج آلي</td></tr>
+            <tr><td>Knowledge type</td><td>entities &amp; actions · inferential / rules</td><td style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;text-align:right;color:var(--teal);font-size:14px">نوع المعرفة: كيانات وأفعال / استنتاجية وقواعد</td></tr>
+            <tr><td>Topic</td><td>general · social</td><td style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;text-align:right;color:var(--teal);font-size:14px">الموضوع: عام / اجتماعي</td></tr>
+          </tbody>
+        </table>
+        <p>And one extra cross-cutting distinction: <strong>top-down</strong> (experts encode the rules, e.g. Cyc) vs <strong>bottom-up</strong> (the system learns from text, e.g. NELL).</p>
+
+        <h3>The five main CSKGs</h3>
+
+        <div class="cskg-grid">
+
+          <div class="cskg-card">
+            <div class="num-bg">1</div>
+            <p class="nm">Cyc / OpenCyc</p>
+            <div class="meta">Lenat 1984 · OpenCyc 4.0 (2012)</div>
+            <p class="desc">A huge, hand-curated commonsense KB built by <strong>domain experts</strong> — a top-down approach. Symbolic logical assertions, highly structured ontology. Brittle and expensive: classic “expert-system era”.</p>
+            <div class="ar-mini">قاعدة معرفية ضخمة بُنيت يدوياً من قبل خبراء (طريقة top-down). تمثيل رمزي منطقي. مشكلتها: هشّة، مكلفة، ولا تتوسع بسهولة.</div>
+            <div class="slogan">top-down · expert-built · logical.</div>
+          </div>
+
+          <div class="cskg-card">
+            <div class="num-bg">2</div>
+            <p class="nm">ConceptNet</p>
+            <div class="meta">Liu &amp; Singh 2004 · Speer 5.5 (2017)</div>
+            <p class="desc">A multilingual semantic network of everyday concepts (<code class="inline">dog — CapableOf — bark</code>). Built by <strong>crowdsourcing</strong> (Open Mind Common Sense, games like <em>Verbosity</em>) plus Wiktionary, DBpedia, WordNet, OpenCyc. Available as Linked Open Data (JSON-LD API).</p>
+            <div class="ar-mini">شبكة دلالية متعددة اللغات للمفاهيم اليومية، بُنيت عبر <b>الحشد العام</b> (crowdsourcing) — مساهمات الناس وألعاب مثل Verbosity. متاحة كبيانات مفتوحة مرتبطة (LOD).</div>
+            <div class="slogan">crowdsourced multilingual graph of concepts.</div>
+          </div>
+
+          <div class="cskg-card">
+            <div class="num-bg">3</div>
+            <p class="nm">ATOMIC</p>
+            <div class="meta">Sap et al. 2019</div>
+            <p class="desc">An <em>inferential</em> CSKG of if-then knowledge about everyday events: causes and effects across <strong>9 inference dimensions</strong> (e.g. <em>PersonX wants…, feels…, as a result PersonY…</em>). Nodes are <strong>natural-language</strong> phrases, not symbolic concepts. <strong>~300k</strong> event nodes, <strong>~880k</strong> if-Event-then-* triples.</p>
+            <div class="ar-mini">شبكة معرفة <b>استنتاجية</b> عن الأحداث الاجتماعية والأسباب والنتائج (إن-حدث-إذاً). العقد عبارة عن جمل بلغة طبيعية، وتغطي ٩ أبعاد استدلالية (كنوايا الشخص، ومشاعره، وما يحدث للآخرين بنتيجة فعله).</div>
+            <div class="slogan">if-then events, social/causal, natural language.</div>
+          </div>
+
+          <div class="cskg-card">
+            <div class="num-bg">4</div>
+            <p class="nm">COMET</p>
+            <div class="meta">Bosselut et al. 2019</div>
+            <p class="desc">Not a static graph — a <strong>neural Transformer</strong> fine-tuned on ATOMIC/ConceptNet that <em>generates</em> new commonsense triples on demand. It solves the fact that symbolic CSKGs are always incomplete: input plain language, get back contextualized knowledge.</p>
+            <div class="ar-mini">ليست شبكة جامدة بل <b>نموذج عصبي</b> (Transformer) دُرّب على ATOMIC و ConceptNet ليولّد ثلاثيات معرفة جديدة عند الطلب. يحل مشكلة أن الشبكات الرمزية ناقصة دائماً.</div>
+            <div class="slogan">learned generative CSKG — knowledge on demand.</div>
+          </div>
+
+          <div class="cskg-card">
+            <div class="num-bg">5</div>
+            <p class="nm">NELL</p>
+            <div class="meta">Carlson 2010 · Mitchell 2015</div>
+            <p class="desc">The <em>Never-Ending Language Learner</em> has been <strong>reading the Web continuously since 2010</strong>, extracting facts and refining its own ontology. A <em>bottom-up</em> approach. <strong>~100M</strong> candidate beliefs, <strong>~3M</strong> high-confidence facts, <strong>~3k</strong> predicates.</p>
+            <div class="ar-mini">نظام يقرأ الإنترنت <b>منذ ٢٠١٠ ولا يتوقف</b>، يستخرج الحقائق ويحسّن منهجه ذاتياً. منهج <b>bottom-up</b> (من البيانات إلى المعرفة). ١٠٠ مليون اعتقاد، ٣ مليون حقيقة موثوقة، ٣٠٠٠ علاقة.</div>
+            <div class="slogan">self-learning, web-scale, never stops.</div>
+          </div>
+        </div>
+
+        <h3>Three more you should be able to name (bonus)</h3>
+        <ul>
+          <li><strong>WebChild</strong> — automatically extracted fine-grained relations (<code class="inline">hasTaste</code>, <code class="inline">hasShape</code>, <code class="inline">fasterThan</code>, <code class="inline">smallerThan</code>); ~18M assertions, ~2M concepts.</li>
+          <li><strong>Wikidata / Wikidata-CS</strong> — the commonsense slice of Wikidata, distilled using <em>3 principles</em>: <strong>P1</strong> concepts not entities (<em>“houses have rooms”</em>, not <em>“Versailles has 700 rooms”</em>), <strong>P2</strong> common concepts (high corpus frequency), <strong>P3</strong> general-domain relations. Result: ~71k nodes / ~102k edges (0.01% of full Wikidata).</li>
+          <li><strong>Visual Genome</strong> — scene-graph CSKG from <strong>108,077</strong> images: ~3.8M objects, ~26 attributes/image, ~21 relationships/image, all canonicalized to WordNet senses.</li>
+        </ul>
+
+        <div class="ar-note">
+          <b>الإضافات الثلاث:</b>
+          <ul>
+            <li><b>WebChild</b>: مستخرَجة آلياً، تركّز على علاقات دقيقة (الطعم، الشكل، الأسرع من…).</li>
+            <li><b>Wikidata-CS</b>: استخلاص الجانب «البديهي» من ويكي داتا وفق ثلاثة مبادئ: مفاهيم لا كيانات، مفاهيم شائعة، علاقات عامة.</li>
+            <li><b>Visual Genome</b>: شبكة معرفة بصرية مبنية من ١٠٨ ألف صورة موصوفة بمشاهد كاملة.</li>
+          </ul>
+        </div>
+
+        <h3>One-liners to memorise before the exam</h3>
+        <ul>
+          <li><strong>Cyc</strong> → expert, top-down, logical. <span class="ar-inline">خبراء، رمزي.</span></li>
+          <li><strong>ConceptNet</strong> → crowdsourced concept graph. <span class="ar-inline">حشد، متعدد اللغات.</span></li>
+          <li><strong>ATOMIC</strong> → if-then social events in natural language. <span class="ar-inline">أحداث + استنتاج.</span></li>
+          <li><strong>COMET</strong> → neural generator of CSKG knowledge. <span class="ar-inline">شبكة عصبية تولّد المعرفة.</span></li>
+          <li><strong>NELL</strong> → never-ending web extractor. <span class="ar-inline">متعلم لا يتوقف.</span></li>
+        </ul>
+
+        <div class="mark-row">
+          <button class="mark-btn" data-mark="known" data-q="q1">✓ I know this</button>
+          <button class="mark-btn" data-mark="review" data-q="q1">↻ Review again</button>
+        </div>
+
+      </div></div>
+    </section>
+
+
+    <!-- ============================================================ -->
+    <!-- ============== Q2 — SEMANTIC WEB MERGE ====================== -->
+    <!-- ============================================================ -->
+    <section class="q" id="q2">
+      <div class="q-head">
+        <div class="q-num">Q2 · Semantic Web</div>
+        <h2 class="q-title">Merging two graphs about the same book — step by step.
+          <small>Semantic Web deck · slides 17–34 · the canonical exam exercise</small>
+          <span class="ar">السؤال الثاني: ادمج شبكتين عن نفس الكتاب (مكتبة إنكليزية A ومكتبة فرنسية F) وأظهر استعلاماً يصبح ممكناً بعد الدمج فقط.</span>
+        </h2>
+        <div class="q-status" id="status-q2">unmarked</div>
+      </div>
+
+      <div class="prompt">
+        <p><span class="lbl">Prompt</span>You have two simple bookstore datasets about the same book — English (A) and French (F). Show the full pipeline: from raw tables → RDF graphs → merged graph → adding ontology glue → asking a query that only works after the merge.</p>
+        <p class="ar-prompt">لديك جدولان عن نفس الكتاب: مكتبة إنكليزية (A) ومكتبة فرنسية (F). اشرح كل خطوات الدمج: من الجداول الخام إلى رسم بياني RDF لكل مجموعة، ثم الدمج، ثم إضافة معرفة إضافية (glue)، ثم استعلام يعمل بعد الدمج فقط.</p>
+      </div>
+
+      <div class="reveal-row">
+        <button class="reveal-btn" data-reveal="q2">Walk me through it <span class="arrow">›</span></button>
+        <span class="reveal-hint">— this is the long one; take your time / تأخذ وقتها.</span>
+      </div>
+
+      <div class="answer"><div class="inner">
+
+        <h3>Why this matters</h3>
+        <p>The whole point of the Semantic Web is that two organizations can publish data <em>independently</em>, and a third party can <em>combine</em> them to answer questions neither could answer alone — provided they agree on URIs (universal names) and a tiny bit of shared vocabulary.</p>
+
+        <div class="ar-note">
+          <b>الفكرة المركزية:</b> الويب الدلالي يسمح لمنظمتين أن تنشرا بياناتهما بشكل مستقل، ثم يقوم طرف ثالث بـ<b>دمج</b> الرسمين البيانيين والإجابة عن أسئلة لم يكن أي منهما قادراً على الإجابة عنها بمفرده. الشرط الوحيد:
+          <ul>
+            <li>أن يستخدما <b>عناوين URI</b> عالمية (مثل ISBN) ليتم التعرّف على نفس المورد في الشبكتين.</li>
+            <li>أن نضيف قليلاً من «الصمغ» (glue ontology) عند الدمج لربط المصطلحات المتشابهة.</li>
+          </ul>
+        </div>
+
+        <!-- ============== STEPPER ============== -->
+        <div class="steps">
+
+          <!-- STEP 1 -->
+          <div class="step">
+            <div class="step-body">
+              <h4 class="step-title">Start with two tables — English &amp; French bookstores.
+                <span class="ar">نبدأ من جدولين خامين: مكتبة إنكليزية ومكتبة فرنسية.</span>
+              </h4>
+
+              <div class="split">
+                <div>
+                  <h5>Dataset A — English bookstore</h5>
+                  <table class="mini-tbl">
+                    <tr><th>ID</th><th>Author</th><th>Title</th><th>Pub.</th><th>Year</th></tr>
+                    <tr><td>ISBN 000651409X</td><td>id_xyz</td><td>The Glass Palace</td><td>id_qpr</td><td>2000</td></tr>
+                  </table>
+                  <table class="mini-tbl" style="margin-top:6px">
+                    <tr><th>ID</th><th>Name</th><th>Homepage</th></tr>
+                    <tr><td>id_xyz</td><td>Ghosh, Amitav</td><td>amitavghosh.com</td></tr>
+                  </table>
+                  <table class="mini-tbl" style="margin-top:6px">
+                    <tr><th>ID</th><th>Publisher</th><th>City</th></tr>
+                    <tr><td>id_qpr</td><td>Harper Collins</td><td>London</td></tr>
+                  </table>
+                </div>
+                <div>
+                  <h5>Dataset F — French bookstore</h5>
+                  <table class="mini-tbl">
+                    <tr><th>ID</th><th>Titre</th><th>Traducteur</th><th>Original</th></tr>
+                    <tr><td>ISBN 2020386682</td><td>Le Palais des Miroirs</td><td>$A12$</td><td>ISBN 000651409X</td></tr>
+                  </table>
+                  <table class="mini-tbl" style="margin-top:6px">
+                    <tr><th>ID</th><th>Auteur</th></tr>
+                    <tr><td>ISBN 000651409X</td><td>$A11$</td></tr>
+                  </table>
+                  <table class="mini-tbl" style="margin-top:6px">
+                    <tr><th>ref</th><th>Nom</th></tr>
+                    <tr><td>$A11$</td><td>Ghosh, Amitav</td></tr>
+                    <tr><td>$A12$</td><td>Besse, Christianne</td></tr>
+                  </table>
+                </div>
+              </div>
+
+              <div class="ar-note">
+                لاحظ: الجدول الفرنسي يشير صراحةً إلى الـ<b>ISBN الإنكليزي</b> في حقل <code>Original</code>. وهذه هي الفرصة التي سنستغلها لاحقاً في الدمج.
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="step">
+            <div class="step-body">
+              <h4 class="step-title">Export each table as a labelled directed graph (RDF triples).
+                <span class="ar">حوّل كل جدول إلى رسم بياني موجّه معنون (مثلثات RDF).</span>
+              </h4>
+              <p>Every cell becomes either a node (URI / literal) or a labelled arc. Use the <strong>ISBN as the URI</strong> for the book.</p>
+
+              <h5 style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faded);margin:0 0 6px">Graph A (English)</h5>
+              <figure class="graph-fig">
+                <svg viewBox="0 0 760 270" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <marker id="a-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                      <path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/>
+                    </marker>
+                  </defs>
+                  <ellipse cx="380" cy="135" rx="120" ry="32" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+                  <text x="380" y="139" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">isbn/000651409X</text>
+
+                  <!-- literals top -->
+                  <rect x="40"  y="20" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="125" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"The Glass Palace"</text>
+                  <rect x="245" y="20" width="85"  height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="288" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"2000"</text>
+                  <rect x="365" y="20" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="450" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
+                  <rect x="560" y="20" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="645" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Harper Collins"</text>
+
+                  <!-- bottom literals -->
+                  <rect x="120" y="220" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="205" y="240" text-anchor="middle" font-family="Newsreader" font-size="12">"London"</text>
+                  <rect x="450" y="220" width="200" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="550" y="240" text-anchor="middle" font-family="Newsreader" font-size="12">amitavghosh.com</text>
+
+                  <!-- edges -->
+                  <path d="M300,120 C 230,90 180,70 145,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="200" y="85" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:title</text>
+                  <path d="M340,108 C 320,90 300,70 290,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="295" y="90" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:year</text>
+                  <path d="M420,108 C 435,90 445,70 450,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="430" y="90" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:author</text>
+                  <path d="M460,120 C 540,90 600,70 645,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="570" y="85" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:publisher</text>
+
+                  <path d="M340,160 C 290,180 240,210 215,218" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="240" y="200" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:city</text>
+                  <path d="M460,160 C 510,190 540,210 550,218" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#a-arr)"/>
+                  <text x="490" y="200" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:homepage</text>
+                </svg>
+                <figcaption>Graph A — the English bookstore data as one connected RDF graph rooted at the ISBN URI.</figcaption>
+              </figure>
+
+              <h5 style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faded);margin:18px 0 6px">Graph F (French)</h5>
+              <figure class="graph-fig">
+                <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <marker id="f-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+                      <path d="M0,0 L10,5 L0,10 z" fill="#2b5d6d"/>
+                    </marker>
+                  </defs>
+                  <ellipse cx="380" cy="125" rx="120" ry="30" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+                  <text x="380" y="129" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">isbn/2020386682</text>
+
+                  <rect x="30"  y="20" width="220" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="140" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Le Palais des Miroirs"</text>
+
+                  <rect x="280" y="20" width="200" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="380" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Besse, Christianne"</text>
+
+                  <rect x="510" y="20" width="200" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="610" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
+
+                  <ellipse cx="380" cy="210" rx="120" ry="22" fill="#fdf6e3" stroke="#6e2030" stroke-width="1.8" stroke-dasharray="4,3"/>
+                  <text x="380" y="214" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#6e2030">isbn/000651409X</text>
+                  <text x="380" y="232" text-anchor="middle" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">↑ same URI as in graph A!</text>
+
+                  <path d="M310,115 C 240,80 200,60 165,55" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="200" y="85" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:titre</text>
+                  <path d="M360,100 C 350,80 360,65 380,55" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="334" y="80" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:traducteur</text>
+                  <path d="M450,115 C 520,80 570,65 605,55" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="510" y="85" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:auteur</text>
+                  <path d="M380,155 L 380,188" stroke="#2b5d6d" stroke-width="1.8" fill="none" marker-end="url(#f-arr)"/>
+                  <text x="390" y="175" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:original</text>
+                </svg>
+                <figcaption>Graph F — the French bookstore. The dashed gold node is <strong>the same URI</strong> already used in Graph A.</figcaption>
+              </figure>
+
+              <div class="ar-note">
+                كل خلية من الجدول صارت إما عقدة (URI أو حرفية literal) أو سهماً معنوناً. النقطة الأساسية: العقدة المرسومة بـ<b>الذهبي المنقّط</b> في الرسم الفرنسي هي <b>نفس العقدة</b> الموجودة في الرسم الإنكليزي، لأنها تحمل نفس الـ ISBN. لاحظ أن العلاقات اسمها <code>f:auteur</code> هنا و <code>a:author</code> هناك — هذا فرق سنحلّه لاحقاً.
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="step">
+            <div class="step-body">
+              <h4 class="step-title">Merge: the two graphs touch on the shared URI — automatically.
+                <span class="ar">الدمج: الرسمان يلتقيان عند الـ URI المشترك تلقائياً.</span>
+              </h4>
+              <p>You don’t need to write any merge code. Because URIs are <em>global identifiers</em> on the Web, an RDF store sees <code class="inline">&lt;isbn/000651409X&gt;</code> in both graphs and treats it as <strong>one and the same node</strong>. The arcs from both sides simply attach to it.</p>
+
+              <div class="merge-stage" id="mergeStage">
+                <div class="merge-controls">
+                  <button class="merge-btn on" data-stage="">① Bare merge</button>
+                  <button class="merge-btn" data-stage="show-glue">② + ontology glue</button>
+                  <button class="merge-btn" data-stage="show-dbp">③ + DBpedia extension</button>
+                </div>
+
+                <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <marker id="m-arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker>
+                    <marker id="m-arr-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2b5d6d"/></marker>
+                    <marker id="m-arr-gold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#a6802a"/></marker>
+                  </defs>
+
+                  <!-- shared node centre -->
+                  <ellipse cx="400" cy="230" rx="135" ry="34" fill="#fff3d6" stroke="#6e2030" stroke-width="2.4"/>
+                  <text x="400" y="228" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="600" fill="#6e2030">&lt;isbn/000651409X&gt;</text>
+                  <text x="400" y="244" text-anchor="middle" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">★ shared URI ★</text>
+
+                  <!-- english literals (top) -->
+                  <rect x="40"  y="20" width="160" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="120" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"The Glass Palace"</text>
+                  <rect x="220" y="20" width="80" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="260" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"2000"</text>
+                  <rect x="320" y="20" width="170" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="405" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
+                  <rect x="510" y="20" width="150" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="585" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Harper Collins"</text>
+                  <rect x="680" y="20" width="110" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="735" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"London"</text>
+
+                  <rect x="520" y="100" width="200" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="620" y="120" text-anchor="middle" font-family="Newsreader" font-size="12">amitavghosh.com</text>
+
+                  <!-- english edges -->
+                  <path d="M320,205 C 230,140 180,75 130,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="200" y="125" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:title</text>
+                  <path d="M360,200 C 320,140 290,80 270,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="270" y="125" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:year</text>
+                  <path d="M400,196 C 400,140 405,80 405,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="410" y="125" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:author</text>
+                  <path d="M450,200 C 500,140 540,80 575,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="510" y="120" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:publisher</text>
+                  <path d="M495,210 C 600,140 700,75 735,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="660" y="100" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:city</text>
+
+                  <!-- author->homepage -->
+                  <path d="M485,40 C 540,60 580,90 620,100" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="560" y="68" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:homepage</text>
+
+                  <!-- french book node (bottom) -->
+                  <ellipse cx="400" cy="370" rx="130" ry="30" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+                  <text x="400" y="374" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">&lt;isbn/2020386682&gt;</text>
+
+                  <rect x="40"  y="360" width="200" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="140" y="380" text-anchor="middle" font-family="Newsreader" font-size="12">"Le Palais des Miroirs"</text>
+                  <rect x="560" y="320" width="200" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="660" y="340" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
+                  <rect x="560" y="390" width="220" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="670" y="410" text-anchor="middle" font-family="Newsreader" font-size="12">"Besse, Christianne"</text>
+
+                  <!-- french edges -->
+                  <path d="M275,370 L 240,375" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="245" y="365" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:titre</text>
+                  <path d="M495,360 C 530,345 545,340 560,335" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="510" y="350" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:auteur</text>
+                  <path d="M495,385 C 530,395 545,400 560,405" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="500" y="408" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:traducteur</text>
+
+                  <!-- f:original to shared -->
+                  <path d="M400,340 L 400,267" stroke="#2b5d6d" stroke-width="2.2" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="408" y="305" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:original</text>
+
+                  <!-- ============ GLUE LAYER (stage 2) ============ -->
+                  <g class="e-glue">
+                    <path d="M620,330 C 680,250 700,160 620,110" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="5,4" fill="none"/>
+                    <text x="720" y="220" font-family="JetBrains Mono" font-size="11" font-style="italic" fill="#a6802a">owl:equivalentProperty</text>
+                    <text x="720" y="234" font-family="JetBrains Mono" font-size="11" font-style="italic" fill="#a6802a">a:author ≡ f:auteur</text>
+                  </g>
+                  <g class="n-ext">
+                    <ellipse cx="180" cy="230" rx="70" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="4,3"/>
+                    <text x="180" y="234" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#a6802a">foaf:Person</text>
+                    <path d="M335,30 C 260,120 220,180 215,210" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="5,4" fill="none" marker-end="url(#m-arr-gold)"/>
+                    <text x="248" y="160" font-family="JetBrains Mono" font-size="10" fill="#a6802a">rdf:type</text>
+                    <path d="M660,335 C 350,300 240,260 215,245" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="5,4" fill="none" marker-end="url(#m-arr-gold)"/>
+                    <text x="420" y="290" font-family="JetBrains Mono" font-size="10" fill="#a6802a">rdf:type</text>
+                  </g>
+
+                  <!-- ============ DBpedia LAYER (stage 3) ============ -->
+                  <g class="n-dbp">
+                    <ellipse cx="180" cy="125" rx="92" ry="22" fill="#fff3d6" stroke="#2b5d6d" stroke-width="1.4"/>
+                    <text x="180" y="129" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#2b5d6d">dbpedia:Amitav_Ghosh</text>
+                  </g>
+                  <g class="e-dbp">
+                    <path d="M225,140 C 250,180 200,200 200,210" stroke="#2b5d6d" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#m-arr-teal)"/>
+                    <text x="240" y="180" font-family="JetBrains Mono" font-size="10" fill="#2b5d6d">w:reference</text>
+                    <path d="M180,147 C 100,200 70,260 70,320" stroke="#2b5d6d" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
+                    <text x="20" y="270" font-family="JetBrains Mono" font-size="10" fill="#2b5d6d">w:author_of</text>
+                    <text x="20" y="284" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">→ Hungry Tide,</text>
+                    <text x="20" y="298" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">  Calcutta Chromosome,</text>
+                    <text x="20" y="312" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">  Kolkata (born_in)…</text>
+                  </g>
+
+                </svg>
+              </div>
+
+              <div class="ar-note">
+                اضغط الأزرار أعلى الرسم لترى كيف ينمو الرسم:
+                <ul>
+                  <li><b>(١)</b> الدمج الأساسي — الرسمان يلتقيان عند الـ ISBN المشترك.</li>
+                  <li><b>(٢)</b> إضافة «الصمغ»: نخبر النظام أن <code>a:author</code> و <code>f:auteur</code> متطابقان (<code>owl:equivalentProperty</code>)، وأن المؤلف ومترجم النص كلاهما <code>foaf:Person</code>.</li>
+                  <li><b>(٣)</b> ربط مع DBpedia: تظهر علاقات جديدة (كتب أخرى للمؤلف، مدينة ولادته، إلخ).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4 -->
+          <div class="step">
+            <div class="step-body">
+              <h4 class="step-title">A query that only works <em>after</em> the merge.
+                <span class="ar">استعلام مستحيل قبل الدمج، ممكن بعده.</span>
+              </h4>
+              <p>The user of dataset F asks: <em>« donnes-moi la page d’accueil de l’auteur de l’original »</em> — “give me the home-page of the author of the original of the French book.”</p>
+              <p>F alone doesn’t know the home-page (it’s in A). A alone doesn’t know which French book points to it. Only the <strong>merged</strong> graph + the <strong>glue triple</strong> <code class="inline">a:author owl:equivalentProperty f:auteur</code> can answer it.</p>
+
+<pre class="lang-sparql"><span class="kw">PREFIX</span> a: <span class="uri">&lt;http://example.org/a/&gt;</span>
+<span class="kw">PREFIX</span> f: <span class="uri">&lt;http://example.org/f/&gt;</span>
+<span class="kw">SELECT</span> <span class="var">?homepage</span>
+<span class="kw">WHERE</span> {
+  <span class="var">?frenchBook</span>  f:original   <span class="var">?origBook</span> .   <span class="com"># the French book → English original</span>
+  <span class="var">?origBook</span>    a:author     <span class="var">?author</span> .     <span class="com"># the English book → its author</span>
+  <span class="var">?author</span>      a:homepage   <span class="var">?homepage</span> .   <span class="com"># the author → her/his homepage</span>
+}</pre>
+
+              <p>Returns <code class="inline">http://www.amitavghosh.com</code>.</p>
+
+              <div class="ar-note">
+                <b>المثلثات الثلاث في الاستعلام:</b>
+                <ol>
+                  <li>اذهب من الكتاب الفرنسي إلى الكتاب الأصلي عبر <code>f:original</code>.</li>
+                  <li>من الكتاب الأصلي إلى مؤلفه عبر <code>a:author</code>.</li>
+                  <li>من المؤلف إلى صفحته الشخصية عبر <code>a:homepage</code>.</li>
+                </ol>
+                هذه السلسلة <b>تعبر بين الرسمين</b>، ولم تكن ممكنة قبل الدمج.
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5 -->
+          <div class="step">
+            <div class="step-body">
+              <h4 class="step-title">Why we still needed the glue, and how to extend further with DBpedia.
+                <span class="ar">لماذا نحتاج للصمغ، وكيف نوسّع باستخدام DBpedia.</span>
+              </h4>
+              <p>A bare merge doesn’t know that <code class="inline">a:author</code> and <code class="inline">f:auteur</code> mean the same thing — they’re just labels chosen by different communities. The <em>glue ontology</em> is three small triples:</p>
+<pre class="lang-turtle">a:author         <span class="kw">owl:equivalentProperty</span>  f:auteur .
+<span class="str">"Ghosh, Amitav"</span>  <span class="kw">rdf:type</span>                <span class="pred">foaf:Person</span> .
+&lt;isbn/000651409X&gt; a:author                <span class="var">?p</span> .   <span class="com"># so ?p is also f:auteur</span></pre>
+
+              <p>Once the author node is typed <code class="inline">foaf:Person</code>, you can link it to DBpedia via <code class="inline">owl:sameAs</code> / <code class="inline">w:reference</code> — and now your dataset reaches <em>all of Ghosh’s other books, his birthplace Kolkata, geo-coordinates, etc.</em></p>
+
+              <div class="ar-note">
+                <b>الخلاصة الكبرى:</b> الويب الدلالي = (URIs مشتركة) + (قليل من الـ glue ontology) + (إمكانية الربط مع DBpedia) ⇒ تكامل البيانات على مستوى الويب. هذا تماماً ما يفعله مستخدمو الإنترنت يومياً، لكن بأسلوب يصلح للآلة.
+              </div>
+
+              <h4>The minimal cheat-sheet for the exam answer</h4>
+              <ol>
+                <li>Map each table to a labelled directed graph (RDF triples).</li>
+                <li>Use a global identifier (ISBN URI) as the book’s name.</li>
+                <li>Merge auto-happens on shared URIs.</li>
+                <li>Add a tiny glue ontology (equivalentProperty, rdf:type).</li>
+                <li>Now write SPARQL that crosses both graphs.</li>
+                <li>Extend to DBpedia via owl:sameAs for free knowledge.</li>
+              </ol>
+            </div>
+          </div>
+
+        </div><!-- /steps -->
+
+        <div class="mark-row">
+          <button class="mark-btn" data-mark="known" data-q="q2">✓ I know this</button>
+          <button class="mark-btn" data-mark="review" data-q="q2">↻ Review again</button>
+        </div>
+
+      </div></div>
+    </section>
+
+
+    <!-- ============================================================ -->
+    <!-- ============== Q3 — RDF ↔ RDF/XML =========================== -->
+    <!-- ============================================================ -->
+    <section class="q" id="q3">
+      <div class="q-head">
+        <div class="q-num">Q3 · RDF</div>
+        <h2 class="q-title">RDF/XML ↔ graph — how to convert each into the other.
+          <small>RDF deck · slides 1–86 · the bread-and-butter exercise</small>
+          <span class="ar">السؤال الثالث: التحويل بين رسم RDF و RDF/XML — في الاتجاهين.</span>
+        </h2>
+        <div class="q-status" id="status-q3">unmarked</div>
+      </div>
+
+      <div class="prompt">
+        <p><span class="lbl">Prompt</span>Convert an RDF/XML snippet into a labelled directed graph. Then convert a graph into RDF/XML. Get the blank-node rules right.</p>
+        <p class="ar-prompt">حوّل قطعة RDF/XML إلى رسم بياني موجّه معنون، ثم العكس. وانتبه لقواعد العقد العمياء (blank nodes).</p>
+      </div>
+
+      <div class="reveal-row">
+        <button class="reveal-btn" data-reveal="q3">Reveal the answer <span class="arrow">›</span></button>
+        <span class="reveal-hint">— do part A on paper before peeking.</span>
+      </div>
+
+      <div class="answer"><div class="inner">
+
+        <h3>The three rules you must know cold</h3>
+        <ul>
+          <li>An RDF statement is a <strong>triple</strong>: <code class="inline">&lt;subject&gt; &lt;predicate&gt; &lt;object&gt;</code>. Subject must be a URI or blank node; predicate must be a URI; object can be URI, blank node, or literal.</li>
+          <li>In <strong>RDF/XML</strong>: <code class="inline">rdf:about="…"</code> sets the subject of a <code class="inline">&lt;rdf:Description&gt;</code>; child elements are predicates; their text content is a literal object, while <code class="inline">rdf:resource="…"</code> makes the object a URI.</li>
+          <li><strong>Blank nodes</strong> are resources with no global URI. They’re indicated by <code class="inline">rdf:nodeID="…"</code> (named) or by nesting <code class="inline">&lt;rdf:Description&gt;</code> without an <code class="inline">about</code> (anonymous). The system assigns an internal id (<code class="inline">_:A234</code>) that is not visible outside the file.</li>
+        </ul>
+
+        <div class="ar-note">
+          <b>القواعد الثلاث الأساسية:</b>
+          <ul>
+            <li>كل عبارة RDF هي <b>ثلاثية</b>: <code>(subject, predicate, object)</code>. الفاعل URI أو عقدة عمياء، المسند URI دائماً، والمفعول URI أو عقدة عمياء أو حرفية (literal).</li>
+            <li>في RDF/XML: <code>rdf:about</code> تحدّد الفاعل، والعناصر الفرعية مسندات، ونصها حرفي، وإن استخدمنا <code>rdf:resource</code> فالمفعول URI.</li>
+            <li>العقدة العمياء (<b>blank node</b>) مورد بلا URI عالمي، تكتب بـ <code>rdf:nodeID</code> أو بتركيب <code>&lt;rdf:Description&gt;</code> بدون <code>about</code> — النظام يولّد لها اسماً داخلياً.</li>
+          </ul>
+        </div>
+
+        <!-- =============== PART A =============== -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">part A</span>RDF/XML → graph</p>
+          <p>Convert this snippet into a labelled directed graph:</p>
+
+<pre class="lang-xml">&lt;<span class="kw">rdf:RDF</span> <span class="var">xmlns:rdf</span>=<span class="str">"..."</span> <span class="var">xmlns:f</span>=<span class="str">"http://test/rdf/"</span> <span class="var">xmlns:a</span>=<span class="str">"http://test/rdf/"</span>&gt;
+  &lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://test/isbn/2020386682"</span>&gt;
+     &lt;<span class="pred">f:titre</span> <span class="var">xml:lang</span>=<span class="str">"fr"</span>&gt;<span class="str">Le palais des mirroirs</span>&lt;/<span class="pred">f:titre</span>&gt;
+     &lt;<span class="pred">f:original</span> <span class="var">rdf:resource</span>=<span class="str">"http://test/isbn/000651409X"</span>/&gt;
+  &lt;/<span class="kw">rdf:Description</span>&gt;
+  &lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://test/isbn/000651409X"</span>&gt;
+     &lt;<span class="pred">a:publisher</span> <span class="var">rdf:nodeID</span>=<span class="str">"A234"</span>/&gt;
+  &lt;/<span class="kw">rdf:Description</span>&gt;
+  &lt;<span class="kw">rdf:Description</span> <span class="var">rdf:nodeID</span>=<span class="str">"A234"</span>&gt;
+     &lt;<span class="pred">a:p_name</span>&gt;<span class="str">Harper Collins</span>&lt;/<span class="pred">a:p_name</span>&gt;
+     &lt;<span class="pred">a:city</span>&gt;<span class="str">London</span>&lt;/<span class="pred">a:city</span>&gt;
+  &lt;/<span class="kw">rdf:Description</span>&gt;
+&lt;/<span class="kw">rdf:RDF</span>&gt;</pre>
+
+          <h4>Step 1 — extract the triples</h4>
+          <p>Read each <code class="inline">&lt;rdf:Description&gt;</code> block. The <code class="inline">rdf:about</code> is the subject. Each child element is a predicate.</p>
+
+          <div class="triple"><span class="s">&lt;isbn/2020386682&gt;</span><span class="p">f:titre</span><span class="o">"Le palais des mirroirs"@fr</span></div>
+          <div class="triple"><span class="s">&lt;isbn/2020386682&gt;</span><span class="p">f:original</span><span class="o">&lt;isbn/000651409X&gt;</span></div>
+          <div class="triple"><span class="s">&lt;isbn/000651409X&gt;</span><span class="p">a:publisher</span><span class="o">_:A234</span></div>
+          <div class="triple"><span class="s">_:A234</span><span class="p">a:p_name</span><span class="o">"Harper Collins"</span></div>
+          <div class="triple"><span class="s">_:A234</span><span class="p">a:city</span><span class="o">"London"</span></div>
+
+          <h4>Step 2 — draw it</h4>
+          <figure class="graph-fig">
+            <svg viewBox="0 0 780 280" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="r3a-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker>
+              </defs>
+
+              <ellipse cx="130" cy="80" rx="115" ry="30" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="130" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#1c160f">isbn/2020386682</text>
+
+              <rect x="20" y="200" width="220" height="42" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+              <text x="130" y="220" text-anchor="middle" font-family="Newsreader" font-size="12">"Le palais des mirroirs"</text>
+              <text x="130" y="234" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#a6802a">@fr  language tag</text>
+
+              <ellipse cx="400" cy="80" rx="115" ry="30" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="400" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#1c160f">isbn/000651409X</text>
+
+              <!-- blank node -->
+              <ellipse cx="650" cy="80" rx="80" ry="30" fill="#fff3d6" stroke="#a6802a" stroke-dasharray="4,3" stroke-width="1.6"/>
+              <text x="650" y="78" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#a6802a">_:A234</text>
+              <text x="650" y="93" text-anchor="middle" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">blank node</text>
+
+              <rect x="380" y="200" width="100" height="34" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+              <text x="430" y="222" text-anchor="middle" font-family="Newsreader" font-size="12">"London"</text>
+              <rect x="540" y="200" width="180" height="34" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+              <text x="630" y="222" text-anchor="middle" font-family="Newsreader" font-size="12">"Harper Collins"</text>
+
+              <path d="M130,110 L 130,200" stroke="#6e2030" fill="none" stroke-width="1.4" marker-end="url(#r3a-arr)"/>
+              <text x="138" y="160" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:titre</text>
+
+              <path d="M245,80 L 285,80" stroke="#6e2030" fill="none" stroke-width="1.4" marker-end="url(#r3a-arr)"/>
+              <text x="248" y="72" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:original</text>
+
+              <path d="M515,80 L 570,80" stroke="#6e2030" fill="none" stroke-width="1.4" marker-end="url(#r3a-arr)"/>
+              <text x="518" y="72" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:publisher</text>
+
+              <path d="M620,110 C 530,150 470,180 450,200" stroke="#6e2030" fill="none" stroke-width="1.4" marker-end="url(#r3a-arr)"/>
+              <text x="475" y="160" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:city</text>
+
+              <path d="M680,110 L 640,200" stroke="#6e2030" fill="none" stroke-width="1.4" marker-end="url(#r3a-arr)"/>
+              <text x="690" y="160" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:p_name</text>
+            </svg>
+            <figcaption>Ovals = URI resources, dashed rectangles = literals, gold dashed oval = blank node, arrows = predicates.</figcaption>
+          </figure>
+
+          <h4>What to mention in your written answer</h4>
+          <ul>
+            <li>Two URI nodes (the two ISBNs) — solid ovals.</li>
+            <li>One blank node <code class="inline">_:A234</code> — gold dashed oval, no external URL.</li>
+            <li>Three literals — dashed rectangles. The first carries a language tag <code class="inline">@fr</code>.</li>
+            <li>Five labelled arcs (the five triples).</li>
+          </ul>
+
+          <div class="ar-note">
+            <b>الإجابة المثالية في الورقة:</b>
+            <ul>
+              <li>عقدتان URI (الـ ISBN-ان).</li>
+              <li>عقدة عمياء واحدة <code>_:A234</code> — مرسومة منقّطة لأنها داخلية ولا تظهر خارج الملف.</li>
+              <li>ثلاث حرفيات (literals) — مرسومة مستطيلات. الأولى لها وسم لغة <code>@fr</code>.</li>
+              <li>خمسة أسهم معنونة (المسندات).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- =============== PART B =============== -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">part B</span>Graph → RDF/XML (the “Bassel” example)</p>
+          <p>You’re given this small graph about a person named <em>Bassel</em>:</p>
+
+<pre class="lang-table"><span class="kw">subject</span>                       <span class="kw">predicate</span>     <span class="kw">object</span>
+&lt;http://example.org/Bassel&gt;   rdf:type      foaf:Person
+&lt;http://example.org/Bassel&gt;   foaf:name     <span class="str">"Bassel ALKHATIB"</span>
+&lt;http://example.org/Bassel&gt;   foaf:mbox     &lt;mailto:bassel@svuonline.org&gt;
+&lt;http://example.org/Bassel&gt;   ex:age        <span class="str">"40"</span>^^xsd:integer</pre>
+
+          <h4>Step 1 — pick the namespaces</h4>
+          <p>You see three different prefixes: <code class="inline">rdf:</code>, <code class="inline">foaf:</code>, <code class="inline">ex:</code> (and we need <code class="inline">xsd:</code> for the typed integer). Declare them on the root <code class="inline">&lt;rdf:RDF&gt;</code>.</p>
+
+          <h4>Step 2 — wrap the subject</h4>
+          <p>You have a choice: use <code class="inline">&lt;rdf:Description rdf:about="…"&gt;</code> + an explicit <code class="inline">rdf:type</code>, or use the shortcut <code class="inline">&lt;foaf:Person rdf:about="…"&gt;</code> (the typed element <em>is</em> the rdf:type).</p>
+
+          <h4>Step 3 — add the three other triples as children</h4>
+          <div class="tb-row"><div class="lbl">foaf:name</div><div>literal — put text content inside the element.</div></div>
+          <div class="tb-row"><div class="lbl">foaf:mbox</div><div>URI — use <code class="inline">rdf:resource="…"</code> (empty element).</div></div>
+          <div class="tb-row"><div class="lbl">ex:age</div><div>typed literal — element text + <code class="inline">rdf:datatype="…#integer"</code> attribute.</div></div>
+
+          <h4>Result</h4>
+<pre class="lang-xml">&lt;<span class="kw">rdf:RDF</span>
+   <span class="var">xmlns:rdf</span>=<span class="str">"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</span>
+   <span class="var">xmlns:foaf</span>=<span class="str">"http://xmlns.com/foaf/0.1/"</span>
+   <span class="var">xmlns:ex</span>=<span class="str">"http://example.org/"</span>
+   <span class="var">xmlns:xsd</span>=<span class="str">"http://www.w3.org/2001/XMLSchema#"</span>&gt;
+
+  &lt;<span class="kw">foaf:Person</span> <span class="var">rdf:about</span>=<span class="str">"http://example.org/Bassel"</span>&gt;
+     &lt;<span class="pred">foaf:name</span>&gt;<span class="str">Bassel ALKHATIB</span>&lt;/<span class="pred">foaf:name</span>&gt;
+     &lt;<span class="pred">foaf:mbox</span> <span class="var">rdf:resource</span>=<span class="str">"mailto:bassel@svuonline.org"</span>/&gt;
+     &lt;<span class="pred">ex:age</span> <span class="var">rdf:datatype</span>=<span class="str">"http://www.w3.org/2001/XMLSchema#integer"</span>&gt;<span class="str">40</span>&lt;/<span class="pred">ex:age</span>&gt;
+  &lt;/<span class="kw">foaf:Person</span>&gt;
+
+&lt;/<span class="kw">rdf:RDF</span>&gt;</pre>
+
+          <div class="ar-note">
+            <b>كيف تستنتج كود RDF/XML من الرسم؟</b>
+            <ol>
+              <li>أعلِن المسافات (namespaces) في عنصر <code>&lt;rdf:RDF&gt;</code> العام.</li>
+              <li>افتح <code>&lt;rdf:Description rdf:about="..."&gt;</code> بحيث الـ URI = الفاعل (subject).</li>
+              <li>اختصار: لو كان لديك <code>rdf:type foaf:Person</code> يمكنك كتابة <code>&lt;foaf:Person rdf:about="..."&gt;</code> مباشرة.</li>
+              <li>لكل علاقة:
+                <ul>
+                  <li>المفعول URI ⇒ استخدم <code>rdf:resource="..."</code> (عنصر فارغ).</li>
+                  <li>المفعول حرفي ⇒ ضع النص داخل العنصر.</li>
+                  <li>حرفي مع نوع بيانات ⇒ أضف <code>rdf:datatype="..."</code>.</li>
+                  <li>حرفي مع لغة ⇒ أضف <code>xml:lang="fr"</code>.</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- =============== PART C — blank nodes =============== -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">part C</span>Three ways to write a blank node — know all three</p>
+          <p>Take the “publisher with a name and a city” example. The publisher is a <em>thing</em> with sub-properties — but no global URI. RDF gives you three ways to write it:</p>
+
+          <h4>Option 1 — invent an external URI (urn:uuid)</h4>
+<pre class="lang-xml">&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://…/isbn/000651409X"</span>&gt;
+   &lt;<span class="pred">a:publisher</span> <span class="var">rdf:resource</span>=<span class="str">"urn:uuid:f60ffb40-307d-…"</span>/&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;
+&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"urn:uuid:f60ffb40-307d-…"</span>&gt;
+   &lt;<span class="pred">a:p_name</span>&gt;<span class="str">Harper Collins</span>&lt;/<span class="pred">a:p_name</span>&gt;
+   &lt;<span class="pred">a:city</span>&gt;<span class="str">London</span>&lt;/<span class="pred">a:city</span>&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;</pre>
+
+          <h4>Option 2 — named blank node (<code class="inline">rdf:nodeID</code>)</h4>
+<pre class="lang-xml">&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://…/isbn/000651409X"</span>&gt;
+   &lt;<span class="pred">a:publisher</span> <span class="var">rdf:nodeID</span>=<span class="str">"A234"</span>/&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;
+&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:nodeID</span>=<span class="str">"A234"</span>&gt;
+   &lt;<span class="pred">a:p_name</span>&gt;<span class="str">Harper Collins</span>&lt;/<span class="pred">a:p_name</span>&gt;
+   &lt;<span class="pred">a:city</span>&gt;<span class="str">London</span>&lt;/<span class="pred">a:city</span>&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;</pre>
+
+          <h4>Option 3 — anonymous blank node (nested Description)</h4>
+<pre class="lang-xml">&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://…/isbn/000651409X"</span>&gt;
+   &lt;<span class="pred">a:publisher</span>&gt;
+      &lt;<span class="kw">rdf:Description</span>&gt;
+         &lt;<span class="pred">a:p_name</span>&gt;<span class="str">Harper Collins</span>&lt;/<span class="pred">a:p_name</span>&gt;
+         &lt;<span class="pred">a:city</span>&gt;<span class="str">London</span>&lt;/<span class="pred">a:city</span>&gt;
+      &lt;/<span class="kw">rdf:Description</span>&gt;
+   &lt;/<span class="pred">a:publisher</span>&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;</pre>
+
+          <div class="ar-note">
+            <b>متى تستخدم العقدة العمياء؟</b> عندما لا يكون للمورد URI عالمي ولا أهمية له خارج هذا الملف (مثلاً «الناشر» عبارة عن كائن داخلي بإسم ومدينة، لا تريد أن يصبح مرجعاً عالمياً).
+            <ul>
+              <li><b>الخيار الأول</b> ⟵ إن أردته مرئياً على الويب، أعطه URI من نوع <code>urn:uuid:</code>.</li>
+              <li><b>الخيار الثاني</b> ⟵ إن أردت الإشارة إليه في الملف نفسه عدة مرات، أعطه <code>rdf:nodeID</code>.</li>
+              <li><b>الخيار الثالث</b> ⟵ إن استُخدم مرة واحدة، عشّش <code>rdf:Description</code> فارغ داخل العلاقة.</li>
+            </ul>
+            <b>تحذير عند الدمج:</b> العقد العمياء بنفس الـ nodeID في رسمين مختلفين هي عقد <b>مختلفة</b> — لا تندمج تلقائياً.
+          </div>
+        </div>
+
+        <div class="mark-row">
+          <button class="mark-btn" data-mark="known" data-q="q3">✓ I know this</button>
+          <button class="mark-btn" data-mark="review" data-q="q3">↻ Review again</button>
+        </div>
+
+      </div></div>
+    </section>
+
+
+    <!-- ============================================================ -->
+    <!-- ============== Q4 — RDFs & INFERENCE ======================== -->
+    <!-- ============================================================ -->
+    <section class="q" id="q4">
+      <div class="q-head">
+        <div class="q-num">Q4 · RDFs</div>
+        <h2 class="q-title">RDF schemas — classes, properties, domain/range, and inference.
+          <small>RDFs deck · slides 1–44 · the “extra knowledge” layer</small>
+          <span class="ar">السؤال الرابع: مخططات RDF (RDFs) — الأصناف والخصائص والـ domain/range والاستنتاج التلقائي.</span>
+        </h2>
+        <div class="q-status" id="status-q4">unmarked</div>
+      </div>
+
+      <div class="prompt">
+        <p><span class="lbl">Prompt</span>Given the Bassel example, add an RDFs schema (Person, age, subClassOf Animal) and state what gets <em>inferred</em>. Also explain the MotorVehicle class hierarchy.</p>
+        <p class="ar-prompt">انطلاقاً من مثال Bassel، أضف مخطط RDFs (الصنف Person، الخاصية age، علاقة subClassOf مع Animal) واشرح ما الذي يتم استنتاجه تلقائياً.</p>
+      </div>
+
+      <div class="reveal-row">
+        <button class="reveal-btn" data-reveal="q4">Reveal the answer <span class="arrow">›</span></button>
+        <span class="reveal-hint">— inference is the whole point here.</span>
+      </div>
+
+      <div class="answer"><div class="inner">
+
+        <h3>What is RDFs and why do we need it?</h3>
+        <p>RDF gives you triples; RDFs (officially: <em>RDF Vocabulary Description Language</em>) lets you describe what those triples <em>mean</em>: which resources are <strong>classes</strong>, which are <strong>properties</strong>, which classes are subclasses of others, what kinds of subjects/objects a property accepts. From this an <strong>RDFs reasoner</strong> can derive new triples that were never stated.</p>
+
+        <div class="ar-note">
+          <b>الفرق بين RDF و RDFs:</b>
+          <ul>
+            <li>RDF يعطيك ثلاثيات (subject-predicate-object) — هذه «البيانات».</li>
+            <li>RDFs يضيف طبقة «المعرفة الإضافية» التي تصف معنى البيانات: أصناف (<code>Class</code>)، خصائص (<code>Property</code>)، علاقات تراتبية (<code>subClassOf</code>, <code>subPropertyOf</code>)، ومجال ومدى (<code>domain</code>, <code>range</code>).</li>
+            <li>من هذه الطبقة يستنتج المحرّك (Reasoner) ثلاثيات جديدة لم تكن مذكورة صراحة.</li>
+          </ul>
+        </div>
+
+        <h3>The vocabulary you must know</h3>
+        <table class="dim-table">
+          <thead><tr><th>Term</th><th>What it does</th><th>الشرح</th></tr></thead>
+          <tbody>
+            <tr><td><code class="inline">rdfs:Class</code></td><td>The class of all classes.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">صنف كل الأصناف.</td></tr>
+            <tr><td><code class="inline">rdfs:Resource</code></td><td>The class of all resources (everything in RDF).</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">صنف كل الموارد (كل شيء في RDF).</td></tr>
+            <tr><td><code class="inline">rdfs:Literal</code></td><td>The class of all literal strings.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">صنف كل القيم الحرفية.</td></tr>
+            <tr><td><code class="inline">rdf:Property</code></td><td>The class of all properties.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">صنف كل الخصائص.</td></tr>
+            <tr><td><code class="inline">rdf:type</code></td><td>Says a resource is an instance of a class.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">يربط مورداً بصنفه.</td></tr>
+            <tr><td><code class="inline">rdfs:subClassOf</code></td><td>Class A’s instances are also instances of class B.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">كل أفراد A هم أيضاً أفراد B.</td></tr>
+            <tr><td><code class="inline">rdfs:subPropertyOf</code></td><td>Whenever property P holds, the super-property Q also holds.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">إن تحققت الخاصية P تتحقق Q الأعلى منها.</td></tr>
+            <tr><td><code class="inline">rdfs:domain</code></td><td>The class of valid subjects for a property.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">صنف الفاعل في الخاصية.</td></tr>
+            <tr><td><code class="inline">rdfs:range</code></td><td>The class of valid objects for a property.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">صنف المفعول في الخاصية.</td></tr>
+            <tr><td><code class="inline">rdfs:label</code></td><td>Human-readable name for any resource.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">اسم بشري للمورد.</td></tr>
+            <tr><td><code class="inline">rdfs:comment</code></td><td>Human-readable description.</td><td style="font-family:'IBM Plex Sans Arabic';direction:rtl;text-align:right;font-size:14px;color:var(--teal)">وصف بشري للمورد.</td></tr>
+          </tbody>
+        </table>
+
+        <!-- =============== PART A — Bassel schema =============== -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">part A</span>Add the schema to the Bassel data</p>
+          <p>Schema additions: <em>Person is a subclass of Animal · age has domain Person, range Integer</em>.</p>
+
+<pre class="lang-xml">&lt;<span class="kw">rdfs:Class</span> <span class="var">rdf:about</span>=<span class="str">"http://xmlns.com/foaf/0.1/Person"</span>&gt;
+   &lt;<span class="pred">rdfs:subClassOf</span> <span class="var">rdf:resource</span>=<span class="str">"http://example.org/Animal"</span>/&gt;
+&lt;/<span class="kw">rdfs:Class</span>&gt;
+
+&lt;<span class="kw">rdf:Property</span> <span class="var">rdf:about</span>=<span class="str">"http://example.org/age"</span>&gt;
+   &lt;<span class="pred">rdfs:domain</span> <span class="var">rdf:resource</span>=<span class="str">"http://xmlns.com/foaf/0.1/Person"</span>/&gt;
+   &lt;<span class="pred">rdfs:range</span>  <span class="var">rdf:resource</span>=<span class="str">"http://www.w3.org/2001/XMLSchema#integer"</span>/&gt;
+&lt;/<span class="kw">rdf:Property</span>&gt;</pre>
+
+          <h4>The graph view</h4>
+          <figure class="graph-fig">
+            <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="rdfs-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker></defs>
+
+              <!-- Bassel -->
+              <ellipse cx="120" cy="115" rx="70" ry="26" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="120" y="119" text-anchor="middle" font-family="JetBrains Mono" font-size="11">ex:Bassel</text>
+
+              <!-- Person -->
+              <ellipse cx="380" cy="115" rx="70" ry="26" fill="#fff3d6" stroke="#6e2030" stroke-width="1.8"/>
+              <text x="380" y="119" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#6e2030">foaf:Person</text>
+
+              <!-- Animal -->
+              <ellipse cx="640" cy="115" rx="70" ry="26" fill="#fff3d6" stroke="#a6802a" stroke-width="1.8"/>
+              <text x="640" y="119" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#a6802a">ex:Animal</text>
+
+              <!-- 40 -->
+              <rect x="80" y="190" width="80" height="32" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+              <text x="120" y="210" text-anchor="middle" font-family="Newsreader" font-size="12">"40"^^int</text>
+
+              <!-- edges -->
+              <path d="M190,115 L 310,115" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#rdfs-arr)"/>
+              <text x="225" y="105" font-family="JetBrains Mono" font-size="11" fill="#1c160f">rdf:type</text>
+
+              <path d="M450,115 L 570,115" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#rdfs-arr)"/>
+              <text x="465" y="105" font-family="JetBrains Mono" font-size="11" fill="#1c160f">rdfs:subClassOf</text>
+
+              <path d="M120,141 L 120,188" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#rdfs-arr)"/>
+              <text x="128" y="170" font-family="JetBrains Mono" font-size="11" fill="#1c160f">ex:age</text>
+
+              <!-- inferred edge -->
+              <path d="M120,89 C 250,30 530,40 640,89" stroke="#4f6446" stroke-width="1.6" stroke-dasharray="5,4" fill="none" marker-end="url(#rdfs-arr)"/>
+              <text x="320" y="38" font-family="JetBrains Mono" font-size="11" fill="#4f6446" font-style="italic">rdf:type (inferred!)</text>
+            </svg>
+            <figcaption>The solid arcs are in the file. The green dashed arc <em>“Bassel rdf:type Animal”</em> is <strong>inferred</strong> by the reasoner — it’s not written anywhere.</figcaption>
+          </figure>
+
+          <h4>What gets inferred</h4>
+          <ul>
+            <li><code class="inline">Bassel rdf:type Person</code> &nbsp;+&nbsp; <code class="inline">Person rdfs:subClassOf Animal</code> &nbsp;⇒&nbsp; <strong><code class="inline">Bassel rdf:type Animal</code></strong>.</li>
+            <li><code class="inline">Bassel ex:age "40"</code> &nbsp;+&nbsp; <code class="inline">ex:age rdfs:domain Person</code> &nbsp;⇒&nbsp; <code class="inline">Bassel rdf:type Person</code> (redundant — already known).</li>
+            <li>If anyone had written <code class="inline">x ex:age "30"</code> without typing <code class="inline">x</code>, the <code class="inline">rdfs:domain</code> alone would <em>type</em> <code class="inline">x</code> as a Person. <strong>This is how domain/range inference works.</strong></li>
+          </ul>
+
+          <div class="ar-note">
+            <b>قاعدتا الاستنتاج اللتان لا تنسى:</b>
+            <ol>
+              <li><b>التراتب (subClassOf):</b> إن كان <code>A rdf:type B</code> و <code>B rdfs:subClassOf C</code> ⇒ يستنتج النظام <code>A rdf:type C</code>.</li>
+              <li><b>المجال والمدى (domain/range):</b> إذا قلنا <code>P rdfs:domain D</code>، فأي مورد يظهر فاعلاً في <code>x P y</code> يصبح تلقائياً من النوع <code>D</code>. وبالمثل للمدى مع المفعول.</li>
+            </ol>
+            <b>تنبيه:</b> domain/range في RDFs <b>لا تمنع</b> القيم المخالفة، بل <b>تستنتج</b> أن الفاعل/المفعول من ذلك النوع. هذا فرق جوهري عن SQL.
+          </div>
+        </div>
+
+        <!-- =============== PART B — MotorVehicle =============== -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">part B</span>The MotorVehicle class hierarchy</p>
+          <p>Define <code class="inline">MotorVehicle</code>, then three subclasses (<code class="inline">PassengerVehicle</code>, <code class="inline">Truck</code>, <code class="inline">Van</code>), then <code class="inline">MiniVan</code> which is a subclass of <em>both</em> Van and PassengerVehicle.</p>
+
+          <figure class="graph-fig">
+            <svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="mv-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker></defs>
+
+              <ellipse cx="350" cy="40" rx="90" ry="26" fill="#fff3d6" stroke="#6e2030" stroke-width="2"/>
+              <text x="350" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="11">MotorVehicle</text>
+
+              <ellipse cx="120" cy="140" rx="90" ry="24" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="120" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11">PassengerVehicle</text>
+
+              <ellipse cx="350" cy="140" rx="50" ry="24" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="350" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11">Truck</text>
+
+              <ellipse cx="560" cy="140" rx="50" ry="24" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="560" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11">Van</text>
+
+              <ellipse cx="350" cy="240" rx="60" ry="24" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="350" y="244" text-anchor="middle" font-family="JetBrains Mono" font-size="11">MiniVan</text>
+
+              <path d="M180,127 C 250,90 280,75 290,60" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
+              <path d="M350,116 L 350,66" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
+              <path d="M520,127 C 450,90 420,75 410,60" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
+
+              <path d="M310,222 C 230,200 180,170 165,160" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
+              <path d="M390,222 C 470,200 530,170 545,160" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
+
+              <text x="445" y="100" font-family="JetBrains Mono" font-size="10" fill="#6e2030" font-style="italic">all arcs = rdfs:subClassOf</text>
+            </svg>
+            <figcaption>A class can have multiple superclasses (MiniVan is both Van &amp; PassengerVehicle). The reasoner closes the hierarchy: every MiniVan is a Van, a PassengerVehicle, and a MotorVehicle.</figcaption>
+          </figure>
+
+          <h4>Inference: an instance of MiniVan is automatically…</h4>
+          <p><code class="inline">m rdf:type MiniVan</code> &nbsp;⇒&nbsp; <code class="inline">m rdf:type Van</code>, <code class="inline">m rdf:type PassengerVehicle</code>, <code class="inline">m rdf:type MotorVehicle</code>. (Subclass-of chains close transitively.)</p>
+        </div>
+
+        <!-- =============== PART C — subPropertyOf =============== -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">part C</span><code class="inline">rdfs:subPropertyOf</code> — biologicalFather example</p>
+          <p>Declare <code class="inline">biologicalFather rdfs:subPropertyOf biologicalParent</code>. Then:</p>
+<pre class="lang-turtle">Fred  biologicalFather  John .       <span class="com"># asserted</span>
+<span class="com"># reasoner now infers:</span>
+Fred  biologicalParent  John .</pre>
+
+          <div class="ar-note">
+            <b>subPropertyOf:</b> إن كانت <code>P1 rdfs:subPropertyOf P2</code>، فكل ثلاثية بـ <code>P1</code> تستلزم ثلاثية بـ <code>P2</code>. مثال: «أب بيولوجي» ⇒ «والد بيولوجي».
+          </div>
+        </div>
+
+        <div class="mark-row">
+          <button class="mark-btn" data-mark="known" data-q="q4">✓ I know this</button>
+          <button class="mark-btn" data-mark="review" data-q="q4">↻ Review again</button>
+        </div>
+
+      </div></div>
+    </section>
+
+
+    <!-- ============================================================ -->
+    <!-- ============== Q5 — SPARQL ================================== -->
+    <!-- ============================================================ -->
+    <section class="q" id="q5">
+      <div class="q-head">
+        <div class="q-num">Q5 · SPARQL</div>
+        <h2 class="q-title">SPARQL — fix the broken queries, explain the working ones.
+          <small>SPARQL deck · slides 1–43 · the “is it correct / what does it do” exercise</small>
+          <span class="ar">السؤال الخامس: استعلامات SPARQL — صحّح الخطأ في بعضها واشرح وظيفة بعضها الآخر.</span>
+        </h2>
+        <div class="q-status" id="status-q5">unmarked</div>
+      </div>
+
+      <div class="prompt">
+        <p><span class="lbl">Prompt</span>For each query: either spot the syntax error and fix it, or describe in one sentence what the query does. Know all the shortcuts (<code class="inline">a</code>, <code class="inline">;</code>, <code class="inline">,</code>) and clauses (FILTER, OPTIONAL, ASK, GROUP BY, SERVICE, CONSTRUCT).</p>
+        <p class="ar-prompt">لكل استعلام: إما اكشف الخطأ النحوي وأصلحه، أو اشرح في جملة واحدة وظيفته. واعرف الاختصارات (<code>a</code>, <code>;</code>, <code>,</code>) والكلمات المفتاحية.</p>
+      </div>
+
+      <div class="reveal-row">
+        <button class="reveal-btn" data-reveal="q5">Reveal all six answers <span class="arrow">›</span></button>
+        <span class="reveal-hint">— answer each sub-question first.</span>
+      </div>
+
+      <div class="answer"><div class="inner">
+
+        <h3>The SPARQL anatomy you must know cold</h3>
+<pre class="lang-sparql"><span class="com"># prefix declarations</span>
+<span class="kw">PREFIX</span> foo: <span class="uri">&lt;http://example.com/…&gt;</span>
+
+<span class="com"># dataset definition (optional)</span>
+<span class="kw">FROM</span>  <span class="uri">&lt;…graph-uri…&gt;</span>
+
+<span class="com"># result clause</span>
+<span class="kw">SELECT</span>  | <span class="kw">ASK</span>  | <span class="kw">CONSTRUCT</span>  | <span class="kw">DESCRIBE</span>
+
+<span class="com"># query pattern</span>
+<span class="kw">WHERE</span> { …triple patterns… }
+
+<span class="com"># modifiers</span>
+<span class="kw">ORDER BY</span>  | <span class="kw">LIMIT</span>  | <span class="kw">OFFSET</span>  | <span class="kw">GROUP BY</span>  | <span class="kw">HAVING</span></pre>
+
+        <div class="ar-note">
+          <b>الاختصارات الذهبية في SPARQL:</b>
+          <ul>
+            <li><code>a</code> = <code>rdf:type</code></li>
+            <li><code>;</code> = نفس الفاعل مع مسند جديد</li>
+            <li><code>,</code> = نفس الفاعل والمسند مع مفعول جديد</li>
+            <li><code>?x</code> = متغير (يبدأ بـ <code>?</code> دائماً)</li>
+            <li><code>FILTER</code> = شرط منطقي</li>
+            <li><code>OPTIONAL</code> = طابِق إن أمكن، وإلا اترك القيمة فارغة</li>
+            <li><code>ASK</code> = أعد true/false بدل جدول</li>
+            <li><code>CONSTRUCT</code> = أعد رسم RDF جديد بدل جدول</li>
+            <li><code>SERVICE</code> = نفّذ جزءاً على نقطة نهاية SPARQL بعيدة</li>
+          </ul>
+        </div>
+
+        <!-- Q5-a -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag wrong">5-a</span>Missing separators</p>
+<pre class="lang-sparql"><span class="kw">PREFIX</span> foaf: <span class="uri">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+<span class="kw">SELECT</span> <span class="var">?name</span> <span class="var">?email</span>
+<span class="kw">WHERE</span> {
+   <span class="var">?p</span>  foaf:name   <span class="var">?name</span>
+   <span class="var">?p</span>  foaf:mbox   <span class="var">?email</span>
+}</pre>
+          <div class="verdict bad"><b>Incorrect.</b> Triple patterns inside <code class="inline">WHERE</code> must be separated by <code class="inline">.</code> (period) or <code class="inline">;</code> (semicolon, when the subject is shared). Without them the parser fails.</div>
+
+          <h4>Fix 1 — one triple per line</h4>
+<pre class="lang-sparql"><span class="kw">SELECT</span> <span class="var">?name</span> <span class="var">?email</span>
+<span class="kw">WHERE</span> {
+   <span class="var">?p</span> foaf:name <span class="var">?name</span> .
+   <span class="var">?p</span> foaf:mbox <span class="var">?email</span> .
+}</pre>
+
+          <h4>Fix 2 — shared-subject shortcut</h4>
+<pre class="lang-sparql"><span class="kw">SELECT</span> <span class="var">?name</span> <span class="var">?email</span>
+<span class="kw">WHERE</span> {
+   <span class="var">?p</span> foaf:name <span class="var">?name</span> ;
+      foaf:mbox <span class="var">?email</span> .
+}</pre>
+          <div class="ar-note">المثلثات داخل <code>WHERE</code> يجب الفصل بينها بـ <code>.</code> أو بـ <code>;</code> عند تشارك الفاعل. الكود الأصلي يعطي خطأ نحوي.</div>
+        </div>
+
+        <!-- Q5-b -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag wrong">5-b</span>Variable missing its <code class="inline">?</code></p>
+<pre class="lang-sparql"><span class="kw">PREFIX</span> foaf: <span class="uri">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+<span class="kw">SELECT</span> person <span class="var">?name</span>
+<span class="kw">WHERE</span> {  <span class="var">?person</span> foaf:name <span class="var">?name</span> . }</pre>
+          <div class="verdict bad"><b>Incorrect.</b> Variables in SPARQL always start with <code class="inline">?</code> (or <code class="inline">$</code>). <code class="inline">person</code> in the SELECT clause is missing it.</div>
+
+          <h4>Fix</h4>
+<pre class="lang-sparql"><span class="kw">SELECT</span> <span class="var">?person</span> <span class="var">?name</span>
+<span class="kw">WHERE</span> { <span class="var">?person</span> foaf:name <span class="var">?name</span> . }</pre>
+          <div class="ar-note">المتغير في SPARQL يبدأ بـ <code>?</code> دائماً. <code>person</code> بدون <code>?</code> ليس متغيراً.</div>
+        </div>
+
+        <!-- Q5-c -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag correct">5-c</span>Landlocked countries above 15 M</p>
+<pre class="lang-sparql"><span class="kw">PREFIX</span> rdfs: <span class="uri">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span>
+<span class="kw">PREFIX</span> type: <span class="uri">&lt;http://dbpedia.org/class/yago/&gt;</span>
+<span class="kw">PREFIX</span> prop: <span class="uri">&lt;http://dbpedia.org/property/&gt;</span>
+<span class="kw">SELECT</span> <span class="var">?country_name</span> <span class="var">?population</span>
+<span class="kw">WHERE</span> {
+   <span class="var">?country</span> a type:LandlockedCountries ;
+            rdfs:label <span class="var">?country_name</span> ;
+            prop:populationEstimate <span class="var">?population</span> .
+   <span class="kw">FILTER</span> (<span class="var">?population</span> &gt; 15000000 &amp;&amp;
+           langMatches(lang(<span class="var">?country_name</span>), <span class="str">"EN"</span>)) .
+}
+<span class="kw">ORDER BY</span> DESC(<span class="var">?population</span>)</pre>
+
+          <h4>Line by line</h4>
+          <ul>
+            <li><code class="inline">a</code> is shorthand for <code class="inline">rdf:type</code>.</li>
+            <li><code class="inline">;</code> reuses the subject <code class="inline">?country</code> for label and population.</li>
+            <li><code class="inline">FILTER</code> applies the population threshold <em>and</em> picks only the English label (via <code class="inline">langMatches(lang(...), "EN")</code>) — otherwise translated duplicates would inflate the result.</li>
+            <li><code class="inline">ORDER BY DESC</code> sorts high→low.</li>
+          </ul>
+          <div class="verdict"><b>In one sentence:</b> return every landlocked country whose population exceeds 15 million, with its English name and population, sorted from most populous to least.</div>
+          <div class="ar-note">يعيد كل دولة مغلقة جغرافياً بسكان يتجاوز ١٥ مليون، باسمها الإنكليزي وعدد سكانها، مرتبة تنازلياً بحسب السكان.</div>
+        </div>
+
+        <!-- Q5-d -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag correct">5-d</span>Amazon vs Nile — an ASK query</p>
+<pre class="lang-sparql"><span class="kw">PREFIX</span> prop: <span class="uri">&lt;http://dbpedia.org/property/&gt;</span>
+<span class="kw">ASK</span> {
+   <span class="uri">&lt;http://dbpedia.org/resource/Amazon_River&gt;</span> prop:length <span class="var">?amazon</span> .
+   <span class="uri">&lt;http://dbpedia.org/resource/Nile&gt;</span>         prop:length <span class="var">?nile</span>   .
+   <span class="kw">FILTER</span>(<span class="var">?amazon</span> &gt; <span class="var">?nile</span>) .
+}</pre>
+          <ul>
+            <li><code class="inline">ASK</code> returns <strong>true/false</strong>, not a table.</li>
+            <li>Binds both lengths and filters “Amazon &gt; Nile”.</li>
+            <li>Returns <code class="inline">true</code> iff some binding satisfies the filter.</li>
+          </ul>
+          <div class="verdict"><b>In words:</b> <em>“Is the Amazon longer than the Nile?”</em> Per DBpedia in the slide → <strong>false</strong>.</div>
+          <div class="ar-note">يجيب بـ true أو false. السؤال: هل نهر الأمازون أطول من النيل؟ الجواب وفق DBpedia في الشريحة: <b>false</b>.</div>
+        </div>
+
+        <!-- Q5-e -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag correct">5-e</span>Music artists with OPTIONAL extras</p>
+<pre class="lang-sparql"><span class="kw">PREFIX</span> foaf: <span class="uri">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+<span class="kw">PREFIX</span> mo:   <span class="uri">&lt;http://purl.org/ontology/mo/&gt;</span>
+<span class="kw">SELECT</span> <span class="var">?name</span> <span class="var">?img</span> <span class="var">?hp</span> <span class="var">?loc</span>
+<span class="kw">WHERE</span> {
+   <span class="var">?a</span> a mo:MusicArtist ;
+      foaf:name <span class="var">?name</span> .
+   <span class="kw">OPTIONAL</span> { <span class="var">?a</span> foaf:img       <span class="var">?img</span> }
+   <span class="kw">OPTIONAL</span> { <span class="var">?a</span> foaf:homepage  <span class="var">?hp</span>  }
+   <span class="kw">OPTIONAL</span> { <span class="var">?a</span> foaf:based_near <span class="var">?loc</span> }
+}</pre>
+          <div class="verdict"><b>In words:</b> list every <code class="inline">mo:MusicArtist</code> with their name, plus image / homepage / location <em>if available</em>. Without <code class="inline">OPTIONAL</code>, an artist missing any of those would be dropped entirely.</div>
+          <div class="ar-note">يعيد كل فنان موسيقي مع اسمه، وصورته وصفحته وموقعه الجغرافي <b>إن وُجدت</b>. <code>OPTIONAL</code> تترك العمود فارغاً عند غياب القيمة بدل إسقاط الصف كله.</div>
+        </div>
+
+        <!-- Q5-f -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag correct">5-f</span>Sampling classes with DISTINCT + LIMIT</p>
+<pre class="lang-sparql"><span class="kw">SELECT</span> DISTINCT <span class="var">?concept</span>
+<span class="kw">WHERE</span> { <span class="var">?s</span> a <span class="var">?concept</span> . }
+<span class="kw">LIMIT</span> 50</pre>
+          <div class="verdict"><b>In words:</b> iterate every subject, take its class (<code class="inline">a</code> = <code class="inline">rdf:type</code>), de-duplicate, return 50 — i.e. show 50 example classes that appear in the dataset.</div>
+          <div class="ar-note">يجلب ٥٠ صنفاً موجوداً في القاعدة كعينة استكشاف. <code>DISTINCT</code> يحذف التكرارات.</div>
+        </div>
+
+        <h3>Other patterns you should recognise</h3>
+
+        <h4>Aggregates with GROUP BY (slide 35)</h4>
+<pre class="lang-sparql"><span class="kw">SELECT</span> <span class="var">?cat_name</span> (COUNT(DISTINCT <span class="var">?thing</span>) <span class="kw">AS</span> <span class="var">?roads</span>)
+<span class="kw">WHERE</span> { <span class="var">?thing</span> a roads:Road ;
+              roads:category <span class="var">?cat</span> .
+        <span class="var">?cat</span> skos:prefLabel <span class="var">?cat_name</span> }
+<span class="kw">GROUP BY</span> <span class="var">?cat_name</span></pre>
+        <p>SPARQL 1.1 supports <code class="inline">COUNT, MIN, MAX, SUM, AVG, GROUP_CONCAT, SAMPLE</code> + an optional <code class="inline">HAVING</code> clause.</p>
+
+        <h4>Federated query with SERVICE (slide 37)</h4>
+<pre class="lang-sparql"><span class="kw">SELECT</span> <span class="var">?actor_name</span> <span class="var">?birth_date</span>
+<span class="kw">WHERE</span> {
+   <span class="kw">SERVICE</span> <span class="uri">&lt;http://data.linkedmdb.org/sparql&gt;</span> { … }
+   <span class="kw">SERVICE</span> <span class="uri">&lt;http://dbpedia.org/sparql&gt;</span>      { … }
+}</pre>
+        <p><code class="inline">SERVICE</code> dispatches part of the query to a remote SPARQL endpoint — true federation across the Semantic Web.</p>
+
+        <h4>CONSTRUCT — return RDF, not a table (slide 40)</h4>
+<pre class="lang-sparql"><span class="kw">PREFIX</span> vCard: <span class="uri">&lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</span>
+<span class="kw">PREFIX</span> foaf:  <span class="uri">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+<span class="kw">CONSTRUCT</span> {
+   <span class="var">?X</span> vCard:FN    <span class="var">?name</span>  .
+   <span class="var">?X</span> vCard:URL   <span class="var">?url</span>   .
+   <span class="var">?X</span> vCard:TITLE <span class="var">?title</span> .
+}
+<span class="kw">FROM</span> <span class="uri">&lt;http://www.w3.org/People/Berners-Lee/card&gt;</span>
+<span class="kw">WHERE</span> {
+   <span class="kw">OPTIONAL</span> { <span class="var">?X</span> foaf:name     <span class="var">?name</span>  . <span class="kw">FILTER</span> isLiteral(<span class="var">?name</span>) }
+   <span class="kw">OPTIONAL</span> { <span class="var">?X</span> foaf:homepage <span class="var">?url</span>   . <span class="kw">FILTER</span> isURI(<span class="var">?url</span>) }
+   <span class="kw">OPTIONAL</span> { <span class="var">?X</span> foaf:title    <span class="var">?title</span> . <span class="kw">FILTER</span> isLiteral(<span class="var">?title</span>) }
+}</pre>
+        <p>Translates a FOAF graph into a vCard graph — vocabulary-to-vocabulary conversion.</p>
+
+        <div class="ar-note">
+          <b>CONSTRUCT</b> يستخدم بدلاً من SELECT حين تريد إرجاع <b>رسم RDF جديد</b> بدل جدول. مفيد لتحويل البيانات من ontology إلى أخرى.
+        </div>
+
+        <h3>Built-in FILTER functions worth remembering</h3>
+        <ul>
+          <li><strong>Logical:</strong> <code class="inline">!</code>, <code class="inline">&amp;&amp;</code>, <code class="inline">||</code></li>
+          <li><strong>Comparison:</strong> <code class="inline">=, !=, &gt;, &lt;</code></li>
+          <li><strong>Tests:</strong> <code class="inline">isURI</code>, <code class="inline">isBlank</code>, <code class="inline">isLiteral</code>, <code class="inline">bound</code></li>
+          <li><strong>Accessors:</strong> <code class="inline">str</code>, <code class="inline">lang</code>, <code class="inline">datatype</code></li>
+          <li><strong>Other:</strong> <code class="inline">sameTerm</code>, <code class="inline">langMatches</code>, <code class="inline">regex</code></li>
+        </ul>
+
+        <div class="mark-row">
+          <button class="mark-btn" data-mark="known" data-q="q5">✓ I know this</button>
+          <button class="mark-btn" data-mark="review" data-q="q5">↻ Review again</button>
+        </div>
+
+      </div></div>
+    </section>
+
+
+    <!-- ============================================================ -->
+    <!-- ============== APPENDIX — EXTRAS ============================ -->
+    <!-- ============================================================ -->
+    <section class="q" id="appx">
+      <div class="q-head">
+        <div class="q-num">§ Appendix</div>
+        <h2 class="q-title">Extras that occasionally show up.
+          <small>Containers · reification · parseType · Dublin Core · vCard · MaritalStatus</small>
+          <span class="ar">ملحق: مواضيع إضافية قد ترد بالامتحان أحياناً.</span>
+        </h2>
+        <div class="q-status" id="status-appx">unmarked</div>
+      </div>
+
+      <div class="prompt">
+        <p><span class="lbl">Why this</span>These are in the lecture decks but don’t fit the four standard exam questions. Skim them once so nothing surprises you.</p>
+        <p class="ar-prompt">هذه نقاط موجودة في المحاضرات لكنها لا تندرج تحت الأسئلة الأربعة الأساسية. اقرأها مرة واحدة فقط حتى لا تُفاجَأ.</p>
+      </div>
+
+      <div class="reveal-row">
+        <button class="reveal-btn" data-reveal="appx">Open the appendix <span class="arrow">›</span></button>
+        <span class="reveal-hint">— optional but recommended.</span>
+      </div>
+
+      <div class="answer"><div class="inner">
+
+        <!-- ============ Containers ============ -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">A1</span>RDF Containers — Bag, Seq, Alt</p>
+          <p>RDF defines three container types when a property has <strong>multiple values</strong>:</p>
+          <ul>
+            <li><strong><code class="inline">rdf:Bag</code></strong> — an <em>unordered</em> list (e.g. authors of a book — order doesn’t matter).</li>
+            <li><strong><code class="inline">rdf:Seq</code></strong> — an <em>ordered</em> list (e.g. students alphabetically).</li>
+            <li><strong><code class="inline">rdf:Alt</code></strong> — a list of <em>alternatives</em> (only one is meant — e.g. file formats: html, plain, postscript).</li>
+          </ul>
+          <p>Items inside are listed as <code class="inline">&lt;rdf:li&gt;...&lt;/rdf:li&gt;</code>.</p>
+
+<pre class="lang-xml"><span class="com">&lt;!-- Bag: the authors of the book 0201000237 are Alfred, John and Jeffrey --&gt;</span>
+&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"urn:ISBN:0-201-00023-7"</span>&gt;
+  &lt;<span class="pred">dc:creator</span>&gt;
+    &lt;<span class="kw">rdf:Bag</span>&gt;
+      &lt;<span class="kw">rdf:li</span>&gt;<span class="str">Alfred</span>&lt;/<span class="kw">rdf:li</span>&gt;
+      &lt;<span class="kw">rdf:li</span>&gt;<span class="str">John</span>&lt;/<span class="kw">rdf:li</span>&gt;
+      &lt;<span class="kw">rdf:li</span>&gt;<span class="str">Jeffrey</span>&lt;/<span class="kw">rdf:li</span>&gt;
+    &lt;/<span class="kw">rdf:Bag</span>&gt;
+  &lt;/<span class="pred">dc:creator</span>&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;</pre>
+
+          <div class="ar-note">
+            <b>الحاويات الثلاث:</b>
+            <ul>
+              <li><b>Bag</b>: قائمة غير مرتبة — مثل مؤلفي كتاب.</li>
+              <li><b>Seq</b>: قائمة مرتبة — مثل ترتيب الطلاب أبجدياً.</li>
+              <li><b>Alt</b>: قائمة بدائل (واحد منها فقط مقصود) — مثل صيغ ملف PDF/HTML/TXT.</li>
+            </ul>
+            عناصرها تكتب بـ <code>&lt;rdf:li&gt;</code>. تذكّر: حاوية واحدة فقط من النوع الصحيح بحسب دلالتك.
+          </div>
+
+          <h4>Container vs repeated property</h4>
+          <p>Two different meanings — important difference:</p>
+          <ul>
+            <li><strong>Repeated property:</strong> <em>“Sue has written A, B, and C”</em> — three separate triples, <em>no</em> claim that they relate to each other.</li>
+            <li><strong>Container:</strong> <em>“the committee of Fred, Wilma, Dino approved the resolution”</em> — the group as a whole did it, not each member individually.</li>
+          </ul>
+        </div>
+
+        <!-- ============ parseType ============ -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">A2</span>parseType — when to use <code class="inline">"Resource"</code> vs <code class="inline">"Literal"</code></p>
+
+          <p><strong><code class="inline">rdf:parseType="Resource"</code></strong> — lets you describe a blank node inline by listing its sub-properties as children, without wrapping in an extra <code class="inline">&lt;rdf:Description&gt;</code>. Use it when you need a small structured value (price + currency, address, etc.).</p>
+
+<pre class="lang-xml"><span class="com">&lt;!-- The cost of the book 0201000237 is $45.00 --&gt;</span>
+&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"urn:ISBN:0-201-00023-7"</span>&gt;
+  &lt;<span class="pred">s:price</span> <span class="var">rdf:parseType</span>=<span class="str">"Resource"</span>&gt;
+     &lt;<span class="kw">rdf:value</span>&gt;<span class="str">45.00</span>&lt;/<span class="kw">rdf:value</span>&gt;
+     &lt;<span class="pred">s:units</span> <span class="var">rdf:resource</span>=<span class="str">"http://…/USdollar"</span>/&gt;
+  &lt;/<span class="pred">s:price</span>&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;</pre>
+
+          <p><strong><code class="inline">rdf:parseType="Literal"</code></strong> — tells the RDF parser <em>not</em> to interpret the content as RDF. Use it when the object is embedded XML/MathML that should be kept verbatim.</p>
+
+<pre class="lang-xml">&lt;<span class="pred">dc:title</span> <span class="var">rdf:parseType</span>=<span class="str">"Literal"</span>&gt;
+  Solving &lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/mrow&gt;
+&lt;/<span class="pred">dc:title</span>&gt;</pre>
+
+          <div class="ar-note">
+            <b>parseType:</b>
+            <ul>
+              <li><code>"Resource"</code> ⟵ يخبر المحلّل أن المحتوى الداخلي خصائص <b>مورد</b> (blank node) — مفيد لاختصار وصف قيمة منظّمة كالسعر + العملة.</li>
+              <li><code>"Literal"</code> ⟵ يخبره أن لا يحلّل المحتوى الداخلي كـ RDF — مفيد لتضمين XML خام أو MathML.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ============ Reification ============ -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">A3</span>Reification — statements about statements</p>
+          <p>Sometimes you want to say something <em>about a statement</em>, not about the resource. Example:</p>
+          <ul>
+            <li><em>“Ora Lassila is the creator of …/Home/Lassila”</em> — a plain statement.</li>
+            <li><em>“Ralph Swick <strong>says that</strong> Ora Lassila is the creator of …/Home/Lassila”</em> — a statement about the first statement.</li>
+          </ul>
+          <p>RDF gives four reification properties to model the inner statement as a resource of its own (an instance of <code class="inline">rdf:Statement</code>):</p>
+          <ul>
+            <li><code class="inline">rdf:subject</code> — the original subject</li>
+            <li><code class="inline">rdf:predicate</code> — the original predicate</li>
+            <li><code class="inline">rdf:object</code> — the original object</li>
+            <li><code class="inline">rdf:type</code> = <code class="inline">rdf:Statement</code></li>
+          </ul>
+          <p>Then you can hang attributes on it (like <code class="inline">a:attributedTo "Ralph Swick"</code>).</p>
+
+<pre class="lang-xml">&lt;<span class="kw">rdf:Description</span>&gt;
+  &lt;<span class="kw">rdf:type</span> <span class="var">rdf:resource</span>=<span class="str">"…#Statement"</span>/&gt;
+  &lt;<span class="kw">rdf:subject</span>   <span class="var">rdf:resource</span>=<span class="str">"http://www.w3.org/Home/Lassila"</span>/&gt;
+  &lt;<span class="kw">rdf:predicate</span> <span class="var">rdf:resource</span>=<span class="str">"…#Creator"</span>/&gt;
+  &lt;<span class="kw">rdf:object</span>&gt;<span class="str">Ora Lassila</span>&lt;/<span class="kw">rdf:object</span>&gt;
+  &lt;<span class="pred">a:attributedTo</span>&gt;<span class="str">Ralph Swick</span>&lt;/<span class="pred">a:attributedTo</span>&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;</pre>
+
+          <div class="ar-note">
+            <b>Reification (التصنيم):</b> الطريقة في RDF لقول شيء عن <b>عبارة</b>، لا عن مورد. ننشئ مورداً جديداً من النوع <code>rdf:Statement</code> ونعطيه أربع خصائص: <code>rdf:subject</code>, <code>rdf:predicate</code>, <code>rdf:object</code>, و <code>rdf:type</code>. ثم نلصق به أي معلومات إضافية (مثل من قاله ومتى).
+          </div>
+        </div>
+
+        <!-- ============ MaritalStatus example ============ -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">A4</span>RDFs — using <code class="inline">rdfs:range</code> to constrain to a small set</p>
+          <p>A common RDFs trick: declare a class <code class="inline">MaritalStatus</code> and four named instances (<code class="inline">Single, Married, Divorced, Widowed</code>). Then declare a property <code class="inline">maritalStatus</code> with <code class="inline">rdfs:range MaritalStatus</code>. Now the value can only sensibly be one of the four.</p>
+
+<pre class="lang-xml">&lt;<span class="kw">rdfs:Class</span> <span class="var">rdf:ID</span>=<span class="str">"MaritalStatus"</span>/&gt;
+
+&lt;<span class="kw">rdf:Property</span> <span class="var">rdf:ID</span>=<span class="str">"maritalStatus"</span>&gt;
+  &lt;<span class="pred">rdfs:domain</span> <span class="var">rdf:resource</span>=<span class="str">"#Person"</span>/&gt;
+  &lt;<span class="pred">rdfs:range</span>  <span class="var">rdf:resource</span>=<span class="str">"#MaritalStatus"</span>/&gt;
+&lt;/<span class="kw">rdf:Property</span>&gt;
+
+&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:ID</span>=<span class="str">"Married"</span>&gt;
+  &lt;<span class="kw">rdf:type</span> <span class="var">rdf:resource</span>=<span class="str">"#MaritalStatus"</span>/&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;
+<span class="com">&lt;!-- ...same for Single, Divorced, Widowed --&gt;</span></pre>
+
+          <div class="ar-note">
+            <b>الفكرة:</b> أنشئ صنفاً <code>MaritalStatus</code>، ثم أربعة موارد من هذا الصنف (متزوج، أعزب، مطلّق، أرمل). ثم اضبط <code>rdfs:range</code> للخاصية <code>maritalStatus</code> ليكون هذا الصنف. الآن أي شخص لا يمكن أن تكون حالته الاجتماعية إلا واحدة من الأربعة المُعرَّفة.
+          </div>
+        </div>
+
+        <!-- ============ Non-binary relations ============ -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">A5</span>Non-binary relations — use an intermediate blank node</p>
+          <p>RDF only has <strong>binary</strong> relations (between two things). To express ternary or higher (e.g. <em>“price = 45 in USD”</em>), introduce an intermediate resource:</p>
+
+<pre class="lang-xml">&lt;<span class="pred">s:price</span> <span class="var">rdf:parseType</span>=<span class="str">"Resource"</span>&gt;
+  &lt;<span class="kw">rdf:value</span>&gt;<span class="str">45.00</span>&lt;/<span class="kw">rdf:value</span>&gt;
+  &lt;<span class="pred">s:units</span> <span class="var">rdf:resource</span>=<span class="str">"…/USdollar"</span>/&gt;
+&lt;/<span class="pred">s:price</span>&gt;</pre>
+
+          <p>The blank node <em>is</em> the price, and it has both a numeric value and a currency.</p>
+        </div>
+
+        <!-- ============ Dublin Core ============ -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">A6</span>Dublin Core — 15 standard properties for any web resource</p>
+          <p>An <strong>ISO standard</strong> (15836-2003) vocabulary, namespace <code class="inline">http://purl.org/dc/elements/1.1/</code>. Used to describe published content (documents, datasets).</p>
+          <p>The 15:</p>
+          <ol style="columns:2;column-gap:24px">
+            <li>Title</li><li>Creator</li><li>Subject</li><li>Description</li>
+            <li>Publisher</li><li>Contributor</li><li>Date</li><li>Type</li>
+            <li>Format</li><li>Identifier</li><li>Source</li><li>Language</li>
+            <li>Relation</li><li>Coverage</li><li>Rights</li>
+          </ol>
+
+          <div class="ar-note">
+            <b>Dublin Core:</b> معجم معياري (ISO 15836) بـ ١٥ خاصية لوصف الموارد المنشورة. مفيد لميتاداتا الوثائق والكتب. النطاق هو <code>http://purl.org/dc/elements/1.1/</code>.
+          </div>
+
+          <h4>vCard — for people</h4>
+          <p>What Dublin Core is for documents, <strong>vCard</strong> is for people (IETF standard). Properties: <code class="inline">FN</code> (formatted name), <code class="inline">N</code> (structured name with Given/Family), <code class="inline">EMAIL</code>, <code class="inline">URL</code>, <code class="inline">ORG</code>, <code class="inline">TITLE</code>, etc. Namespace <code class="inline">http://www.w3.org/2001/vcard-rdf/3.0#</code>.</p>
+        </div>
+
+        <!-- ============ The dog/frisbee task ============ -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">A7</span>The motivating task — dog | frisbee | catch | throw</p>
+          <p>Common Sense deck opens with this: given four concepts, an AI must produce a meaningful sentence. To do that it needs all the implicit relations a human knows:</p>
+          <ul>
+            <li><em>dog — capableOf — play game</em></li>
+            <li><em>frisbee — typeOf — flying disk</em></li>
+            <li><em>catch — antonymOf — throw</em></li>
+            <li><em>PersonX throws a frisbee — asA result — others catch frisbee</em> (ATOMIC-style inference)</li>
+            <li><em>fun for dog — has property — play frisbee</em> (ConceptNet-style triple)</li>
+          </ul>
+          <p>This is the canonical example used to motivate <strong>why</strong> CSKGs exist — language models alone can’t reliably make these leaps.</p>
+        </div>
+
+        <div class="mark-row">
+          <button class="mark-btn" data-mark="known" data-q="appx">✓ I know this</button>
+          <button class="mark-btn" data-mark="review" data-q="appx">↻ Review again</button>
+        </div>
+
+      </div></div>
+    </section>
+
+
+    <!-- ============================================================ -->
+    <!-- ============== REFERENCE CARD =============================== -->
+    <!-- ============================================================ -->
+    <section class="q" id="ref">
+      <div class="q-head">
+        <div class="q-num">§ Reference</div>
+        <h2 class="q-title">Quick-reference card.
+          <small>One line each — read column 1, recall column 2, check.</small>
+          <span class="ar">بطاقة المرجع السريع — اقرأ العمود الأول واستذكر الثاني.</span>
+        </h2>
+        <div class="q-status" id="status-ref">unmarked</div>
+      </div>
+
+      <div class="reveal-row">
+        <button class="reveal-btn" data-reveal="ref">Open the card <span class="arrow">›</span></button>
+        <span class="reveal-hint">— self-quiz by hiding column 2 mentally.</span>
+      </div>
+
+      <div class="answer"><div class="inner">
+
+        <table class="tbl">
+          <thead>
+            <tr><th>Concept</th><th>One-line definition</th><th>عربي</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Common Sense KG</td><td>A KG of everyday-life knowledge humans share.</td><td class="ar">شبكة معرفة عن المعرفة العامة اليومية.</td></tr>
+            <tr><td>Cyc</td><td>Hand-built logical CSKG (top-down).</td><td class="ar">شبكة خبراء رمزية تنازلية.</td></tr>
+            <tr><td>ConceptNet</td><td>Crowdsourced multilingual concept graph.</td><td class="ar">شبكة مفاهيم متعددة اللغات من حشد عام.</td></tr>
+            <tr><td>ATOMIC</td><td>If-then events in natural language; 9 dimensions; ~880k triples.</td><td class="ar">أحداث إذا-إذاً بلغة طبيعية، ٩ أبعاد، ~٨٨٠ ألف ثلاثية.</td></tr>
+            <tr><td>COMET</td><td>Neural transformer that generates CSKG knowledge on demand.</td><td class="ar">نموذج عصبي يولّد ثلاثيات معرفية عند الطلب.</td></tr>
+            <tr><td>NELL</td><td>Never-ending web fact extractor; 100M candidates, 3M facts.</td><td class="ar">متعلم لا يتوقف منذ ٢٠١٠، يقرأ الويب آلياً.</td></tr>
+            <tr><td>WebChild</td><td>Auto-extracted fine-grained relations (hasTaste, fasterThan…).</td><td class="ar">علاقات دقيقة مستخرجة آلياً.</td></tr>
+            <tr><td>Wikidata-CS</td><td>Commonsense slice of Wikidata via 3 principles.</td><td class="ar">جزء المعرفة العامة من ويكي داتا (٣ مبادئ).</td></tr>
+            <tr><td>Visual Genome</td><td>108k images annotated as scene-graphs.</td><td class="ar">١٠٨ ألف صورة موصوفة كرسوم بيانية مشهدية.</td></tr>
+            <tr><td>Semantic Web</td><td>Web of <em>linked data</em>, integrated via shared URIs.</td><td class="ar">شبكة من البيانات المرتبطة عبر URIs مشتركة.</td></tr>
+            <tr><td>RDF triple</td><td><code class="inline">&lt;subject&gt; &lt;predicate&gt; &lt;object&gt;</code></td><td class="ar">ثلاثية: فاعل-مسند-مفعول.</td></tr>
+            <tr><td>URI</td><td>Uniform Resource Identifier — global name on the Web.</td><td class="ar">اسم عالمي للمورد على الويب.</td></tr>
+            <tr><td>Literal</td><td>A raw value (string, number, date). Can have <code class="inline">@lang</code> or <code class="inline">^^xsd:</code>.</td><td class="ar">قيمة خام (نص/رقم/تاريخ).</td></tr>
+            <tr><td>Blank node</td><td>Resource with no global URI (<code class="inline">rdf:nodeID</code> / <code class="inline">_:A234</code>).</td><td class="ar">عقدة بلا URI عالمي — داخلية الملف.</td></tr>
+            <tr><td>RDF/XML</td><td>Verbose XML serialization of RDF.</td><td class="ar">تمثيل RDF بصيغة XML.</td></tr>
+            <tr><td>Turtle</td><td>Compact text serialization of RDF (<code class="inline">subject predicate object .</code>).</td><td class="ar">صيغة مختصرة نصية للـ RDF.</td></tr>
+            <tr><td>RDFs</td><td>Vocabulary for RDF: <code class="inline">Class</code>, <code class="inline">Property</code>, <code class="inline">subClassOf</code>, <code class="inline">subPropertyOf</code>, <code class="inline">domain</code>, <code class="inline">range</code>, <code class="inline">type</code>.</td><td class="ar">طبقة معجم تصف معنى الـ RDF.</td></tr>
+            <tr><td>Inference</td><td>New triples implied by RDFs rules (e.g. subclass closure).</td><td class="ar">ثلاثيات جديدة يستنتجها المحرّك آلياً.</td></tr>
+            <tr><td>SPARQL <code class="inline">SELECT</code></td><td>Returns a table of bindings.</td><td class="ar">يعيد جدول قيم.</td></tr>
+            <tr><td>SPARQL <code class="inline">ASK</code></td><td>Returns true / false.</td><td class="ar">يعيد صح أو خطأ.</td></tr>
+            <tr><td>SPARQL <code class="inline">CONSTRUCT</code></td><td>Returns a new RDF graph.</td><td class="ar">يعيد رسم RDF جديد.</td></tr>
+            <tr><td>SPARQL <code class="inline">DESCRIBE</code></td><td>Returns an RDF graph describing a resource.</td><td class="ar">يعيد وصف مورد كرسم RDF.</td></tr>
+            <tr><td><code class="inline">a</code></td><td>Shortcut for <code class="inline">rdf:type</code>.</td><td class="ar">اختصار لـ <code>rdf:type</code>.</td></tr>
+            <tr><td><code class="inline">;</code></td><td>Same subject, next predicate.</td><td class="ar">نفس الفاعل، مسند جديد.</td></tr>
+            <tr><td><code class="inline">,</code></td><td>Same subject + predicate, next object.</td><td class="ar">نفس الفاعل والمسند، مفعول جديد.</td></tr>
+            <tr><td><code class="inline">FILTER</code></td><td>Boolean condition on bindings.</td><td class="ar">شرط منطقي على القيم.</td></tr>
+            <tr><td><code class="inline">OPTIONAL</code></td><td>Match if possible, else leave unbound.</td><td class="ar">طابِق إن أمكن، وإلا اترك فارغاً.</td></tr>
+            <tr><td><code class="inline">SERVICE</code></td><td>Federate query to a remote SPARQL endpoint.</td><td class="ar">نفّذ على نقطة نهاية بعيدة.</td></tr>
+            <tr><td><code class="inline">GROUP BY</code></td><td>Partition results for aggregate functions.</td><td class="ar">تجميع للنتائج لاستخدام دوال إحصائية.</td></tr>
+            <tr><td><code class="inline">ORDER BY</code></td><td>Sort by variable(s); <code class="inline">DESC</code> for descending.</td><td class="ar">ترتيب النتائج.</td></tr>
+            <tr><td><code class="inline">LIMIT</code> / <code class="inline">OFFSET</code></td><td>Take N rows / skip N rows.</td><td class="ar">حدّ النتائج / تخطّي.</td></tr>
+            <tr><td>Dublin Core (15)</td><td>Title, Creator, Subject, Description, Publisher, Contributor, Date, Type, Format, Identifier, Source, Language, Relation, Coverage, Rights.</td><td class="ar">١٥ خاصية لوصف الموارد العامة.</td></tr>
+            <tr><td>FOAF</td><td>Friend Of A Friend — vocab for people &amp; relationships.</td><td class="ar">معجم لوصف الأشخاص والعلاقات.</td></tr>
+            <tr><td>DBpedia</td><td>RDF version of Wikipedia infoboxes &gt;100M triples.</td><td class="ar">ويكيبيديا بصيغة RDF.</td></tr>
+            <tr><td>Linked Open Data</td><td>Open datasets in RDF, interlinked, with SPARQL endpoints.</td><td class="ar">البيانات المفتوحة المرتبطة عبر RDF.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="mark-row">
+          <button class="mark-btn" data-mark="known" data-q="ref">✓ I know this</button>
+          <button class="mark-btn" data-mark="review" data-q="ref">↻ Review again</button>
+        </div>
+
+      </div></div>
+    </section>
+
+
+    <footer class="foot">
+      <span>· Study companion v2 · local progress · 5 decks · 346 slides ·</span>
+      <span class="quote">“Through shared URIs, the graphs merge of their own accord.”</span>
+      <span>Damascus · <span id="todayStr"></span></span>
+    </footer>
+
+  </main>
+</div>
+
+<div class="toast" id="toast">saved</div>
+
+<script>
+(function(){
+  const QS = ['q1','q2','q3','q4','q5','appx','ref'];
+  const KEY = 'semweb-study-state-v2';
+  const state = loadState();
+
+  function loadState(){
+    try{ return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function saveState(){
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  }
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toast._h);
+    toast._h = setTimeout(()=>t.classList.remove('show'), 1300);
+  }
+
+  // reveal buttons
+  document.querySelectorAll('[data-reveal]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.reveal;
+      document.getElementById(id).classList.toggle('revealed');
+    });
+  });
+
+  // mark buttons
+  document.querySelectorAll('[data-mark]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const q = btn.dataset.q;
+      const m = btn.dataset.mark;
+      state[q] = (state[q] === m) ? null : m;
+      saveState();
+      paint();
+      toast(state[q]==='known' ? 'marked as known' :
+            state[q]==='review' ? 'flagged for review' : 'unmarked');
+    });
+  });
+
+  function paint(){
+    let known = 0, review = 0;
+    QS.forEach(q=>{
+      const stat = document.getElementById('status-'+q);
+      const tocLink = document.querySelector('.toc a[data-tocfor="'+q+'"]');
+      const btns = document.querySelectorAll('[data-q="'+q+'"]');
+      btns.forEach(b=>b.classList.remove('known','review'));
+      if(state[q]==='known'){
+        known++;
+        stat.textContent = '✓ known';
+        stat.classList.add('done');
+        tocLink && tocLink.classList.add('done');
+        const b = document.querySelector('[data-q="'+q+'"][data-mark="known"]');
+        b && b.classList.add('known');
+      } else if(state[q]==='review'){
+        review++;
+        stat.textContent = '↻ review';
+        stat.classList.remove('done');
+        tocLink && tocLink.classList.remove('done');
+        const b = document.querySelector('[data-q="'+q+'"][data-mark="review"]');
+        b && b.classList.add('review');
+      } else {
+        stat.textContent = 'unmarked';
+        stat.classList.remove('done');
+        tocLink && tocLink.classList.remove('done');
+      }
+    });
+    document.getElementById('kKnown').textContent = known;
+    document.getElementById('kReview').textContent = review;
+    document.getElementById('progressBar').style.width = (known / QS.length * 100) + '%';
+  }
+  paint();
+
+  // side controls
+  document.getElementById('revealAll').addEventListener('click', ()=>{
+    QS.forEach(q=>document.getElementById(q).classList.add('revealed'));
+  });
+  document.getElementById('hideAll').addEventListener('click', ()=>{
+    QS.forEach(q=>document.getElementById(q).classList.remove('revealed'));
+  });
+  const quizBtn = document.getElementById('quizMode');
+  quizBtn.addEventListener('click', ()=>{
+    document.body.classList.toggle('quiz');
+    quizBtn.classList.toggle('on');
+    if(document.body.classList.contains('quiz')){
+      QS.forEach(q=>document.getElementById(q).classList.remove('revealed'));
+      toast('quiz mode — reveal one at a time');
+    } else {
+      toast('quiz mode off');
+    }
+  });
+  document.getElementById('resetAll').addEventListener('click', ()=>{
+    if(!confirm('Reset all progress?')) return;
+    QS.forEach(q=>state[q]=null);
+    saveState();
+    paint();
+    toast('progress reset');
+  });
+
+  // merge stage controls
+  const mergeStage = document.getElementById('mergeStage');
+  if(mergeStage){
+    mergeStage.querySelectorAll('.merge-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        mergeStage.querySelectorAll('.merge-btn').forEach(b=>b.classList.remove('on'));
+        btn.classList.add('on');
+        mergeStage.classList.remove('show-glue','show-dbp');
+        if(btn.dataset.stage) mergeStage.classList.add(btn.dataset.stage);
+      });
+    });
+  }
+
+  // scroll-spy
+  const tocLinks = document.querySelectorAll('.toc a[data-tocfor]');
+  const targets = QS.map(id=>document.getElementById(id));
+  function spy(){
+    const y = window.scrollY + 120;
+    let activeIdx = 0;
+    for(let i=0;i<targets.length;i++){
+      if(targets[i].offsetTop <= y) activeIdx = i;
+    }
+    tocLinks.forEach((a,i)=>{ a.classList.toggle('active', i===activeIdx); });
+  }
+  window.addEventListener('scroll', spy, {passive:true});
+  spy();
+
+  // keyboard shortcuts
+  document.addEventListener('keydown', e=>{
+    if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if(e.key === 'a') document.getElementById('revealAll').click();
+    else if(e.key === 'h') document.getElementById('hideAll').click();
+    else if(e.key === 'q') document.getElementById('quizMode').click();
+  });
+
+  // today string
+  const d = new Date();
+  const m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('todayStr').textContent =
+    m[d.getMonth()] + ' ' + d.getDate() + ' ' + d.getFullYear();
+
+})();
+</script>
+
+</body>
+</html>

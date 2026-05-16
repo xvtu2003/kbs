@@ -2122,34 +2122,83 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
           <p>Define <code class="inline">MotorVehicle</code>, then three subclasses (<code class="inline">PassengerVehicle</code>, <code class="inline">Truck</code>, <code class="inline">Van</code>), then <code class="inline">MiniVan</code> which is a subclass of <em>both</em> Van and PassengerVehicle.</p>
 
           <figure class="graph-fig">
-            <svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
-              <defs><marker id="mv-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker></defs>
+            <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="mv-arr-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker>
+                <marker id="mv-arr-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7a6a55"/></marker>
+              </defs>
 
-              <ellipse cx="350" cy="40" rx="90" ry="26" fill="#fff3d6" stroke="#6e2030" stroke-width="2"/>
-              <text x="350" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="11">MotorVehicle</text>
+              <!-- legend -->
+              <rect x="14" y="12" width="200" height="44" rx="2" fill="#ebe0c4" stroke="#7a6a55"/>
+              <text x="22" y="28" font-family="JetBrains Mono" font-size="10" fill="#6e2030"><tspan font-weight="600">s</tspan> = rdfs:subClassOf</text>
+              <text x="22" y="44" font-family="JetBrains Mono" font-size="10" fill="#7a6a55"><tspan font-weight="600">t</tspan> = rdf:type</text>
 
-              <ellipse cx="120" cy="140" rx="90" ry="24" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
-              <text x="120" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11">PassengerVehicle</text>
+              <!-- rdfs:Class top-left with self-loop -->
+              <ellipse cx="170" cy="120" rx="62" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.8"/>
+              <text x="170" y="124" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#a6802a">rdfs:Class</text>
+              <!-- self loop -->
+              <path d="M115,115 C 80,90 100,70 130,100" stroke="#7a6a55" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#mv-arr-t)"/>
+              <text x="80" y="80" font-family="JetBrains Mono" font-size="10" fill="#7a6a55">t</text>
 
-              <ellipse cx="350" cy="140" rx="50" ry="24" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
-              <text x="350" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11">Truck</text>
+              <!-- rdfs:Resource top-right -->
+              <ellipse cx="570" cy="60" rx="80" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.8"/>
+              <text x="570" y="64" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#a6802a">rdfs:Resource</text>
 
-              <ellipse cx="560" cy="140" rx="50" ry="24" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
-              <text x="560" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11">Van</text>
+              <!-- MotorVehicle below Resource -->
+              <ellipse cx="500" cy="140" rx="80" ry="22" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="500" y="144" text-anchor="middle" font-family="JetBrains Mono" font-size="11">xyz:MotorVehicle</text>
 
-              <ellipse cx="350" cy="240" rx="60" ry="24" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
-              <text x="350" y="244" text-anchor="middle" font-family="JetBrains Mono" font-size="11">MiniVan</text>
+              <!-- subclass to Resource -->
+              <path d="M518,120 C 530,100 545,85 555,78" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr-s)"/>
+              <text x="544" y="105" font-family="JetBrains Mono" font-size="10" fill="#6e2030" font-weight="600">s</text>
+              <!-- MotorVehicle type Class -->
+              <path d="M422,140 C 320,135 260,130 232,125" stroke="#7a6a55" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#mv-arr-t)"/>
+              <text x="330" y="135" font-family="JetBrains Mono" font-size="10" fill="#7a6a55" font-weight="600">t</text>
 
-              <path d="M180,127 C 250,90 280,75 290,60" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
-              <path d="M350,116 L 350,66" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
-              <path d="M520,127 C 450,90 420,75 410,60" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
+              <!-- 3 subclasses -->
+              <ellipse cx="310" cy="230" rx="80" ry="22" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="310" y="234" text-anchor="middle" font-family="JetBrains Mono" font-size="11">PassengerVehicle</text>
 
-              <path d="M310,222 C 230,200 180,170 165,160" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
-              <path d="M390,222 C 470,200 530,170 545,160" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr)"/>
+              <ellipse cx="500" cy="230" rx="50" ry="22" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="500" y="234" text-anchor="middle" font-family="JetBrains Mono" font-size="11">xyz:Van</text>
 
-              <text x="445" y="100" font-family="JetBrains Mono" font-size="10" fill="#6e2030" font-style="italic">all arcs = rdfs:subClassOf</text>
+              <ellipse cx="650" cy="230" rx="60" ry="22" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="650" y="234" text-anchor="middle" font-family="JetBrains Mono" font-size="11">xyz:Truck</text>
+
+              <!-- subclass arcs up to MotorVehicle -->
+              <path d="M370,213 C 420,190 450,170 460,155" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr-s)"/>
+              <text x="430" y="190" font-family="JetBrains Mono" font-size="10" fill="#6e2030" font-weight="600">s</text>
+
+              <path d="M500,208 L 500,162" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr-s)"/>
+              <text x="506" y="190" font-family="JetBrains Mono" font-size="10" fill="#6e2030" font-weight="600">s</text>
+
+              <path d="M620,213 C 580,190 560,170 540,155" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr-s)"/>
+              <text x="568" y="190" font-family="JetBrains Mono" font-size="10" fill="#6e2030" font-weight="600">s</text>
+
+              <!-- t arcs from each subclass to rdfs:Class -->
+              <path d="M250,225 C 200,200 180,160 175,142" stroke="#7a6a55" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#mv-arr-t)"/>
+              <text x="195" y="190" font-family="JetBrains Mono" font-size="10" fill="#7a6a55" font-weight="600">t</text>
+
+              <path d="M460,222 C 350,180 250,150 215,135" stroke="#7a6a55" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#mv-arr-t)"/>
+
+              <path d="M620,222 C 450,200 300,160 220,138" stroke="#7a6a55" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#mv-arr-t)"/>
+
+              <!-- MiniVan at bottom -->
+              <ellipse cx="420" cy="335" rx="65" ry="22" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="420" y="339" text-anchor="middle" font-family="JetBrains Mono" font-size="11">xyz:MiniVan</text>
+
+              <!-- MiniVan subClassOf Van and PassengerVehicle (double inheritance) -->
+              <path d="M380,317 C 360,290 340,270 320,253" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr-s)"/>
+              <text x="345" y="295" font-family="JetBrains Mono" font-size="10" fill="#6e2030" font-weight="600">s</text>
+
+              <path d="M460,317 C 480,290 490,270 498,253" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#mv-arr-s)"/>
+              <text x="490" y="295" font-family="JetBrains Mono" font-size="10" fill="#6e2030" font-weight="600">s</text>
+
+              <!-- MiniVan type Class -->
+              <path d="M360,328 C 250,320 200,200 180,142" stroke="#7a6a55" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#mv-arr-t)"/>
+              <text x="240" y="270" font-family="JetBrains Mono" font-size="10" fill="#7a6a55" font-weight="600">t</text>
             </svg>
-            <figcaption>A class can have multiple superclasses (MiniVan is both Van &amp; PassengerVehicle). The reasoner closes the hierarchy: every MiniVan is a Van, a PassengerVehicle, and a MotorVehicle.</figcaption>
+            <figcaption>The full lecture diagram (RDFs slide 34). Solid red <strong>s</strong> = <code class="inline">rdfs:subClassOf</code> · dashed gray <strong>t</strong> = <code class="inline">rdf:type</code>. Every class is also <em>typed</em> as <code class="inline">rdfs:Class</code> (the dashed arrows up to the gold node). MiniVan has two solid parents — the multiple-inheritance shape that closes the whole hierarchy.</figcaption>
           </figure>
 
           <h4>Inference: an instance of MiniVan is automatically…</h4>
@@ -2531,6 +2580,99 @@ Fred  biologicalParent  John .</pre>
         <div class="subq">
           <p class="subq-head"><span class="tag">A4</span>RDFs — using <code class="inline">rdfs:range</code> to constrain to a small set</p>
           <p>A common RDFs trick: declare a class <code class="inline">MaritalStatus</code> and four named instances (<code class="inline">Single, Married, Divorced, Widowed</code>). Then declare a property <code class="inline">maritalStatus</code> with <code class="inline">rdfs:range MaritalStatus</code>. Now the value can only sensibly be one of the four.</p>
+
+          <figure class="graph-fig">
+            <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="ms-arr-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker>
+                <marker id="ms-arr-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4f6446"/></marker>
+                <marker id="ms-arr-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#923346"/></marker>
+              </defs>
+
+              <!-- legend -->
+              <rect x="14" y="12" width="180" height="58" rx="2" fill="#ebe0c4" stroke="#7a6a55"/>
+              <text x="22" y="28" font-family="JetBrains Mono" font-size="10" fill="#6e2030"><tspan font-weight="600">s</tspan> = subClassOf</text>
+              <text x="22" y="42" font-family="JetBrains Mono" font-size="10" fill="#4f6446"><tspan font-weight="600">t</tspan> = type</text>
+              <text x="22" y="56" font-family="JetBrains Mono" font-size="10" fill="#923346"><tspan font-weight="600">d/r</tspan> = domain/range</text>
+
+              <!-- top tier: the 4 instances feeding MaritalStatus class -->
+              <rect x="245" y="20" width="80" height="32" rx="5" fill="#dbe8d2" stroke="#4f6446"/>
+              <text x="285" y="40" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">Single</text>
+
+              <rect x="380" y="20" width="90" height="32" rx="5" fill="#dbe8d2" stroke="#4f6446"/>
+              <text x="425" y="40" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">Married</text>
+
+              <rect x="60" y="90" width="90" height="32" rx="5" fill="#dbe8d2" stroke="#4f6446"/>
+              <text x="105" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">Divorced</text>
+
+              <rect x="60" y="140" width="90" height="32" rx="5" fill="#dbe8d2" stroke="#4f6446"/>
+              <text x="105" y="160" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">Widowed</text>
+
+              <!-- MaritalStatus class (top-center) -->
+              <rect x="280" y="100" width="160" height="34" rx="5" fill="#e8c2cd" stroke="#923346" stroke-width="1.4"/>
+              <text x="360" y="121" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#923346">MaritalStatus (Class)</text>
+
+              <!-- type arrows from 4 instances to MaritalStatus -->
+              <path d="M285,52 L 340,100" stroke="#4f6446" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#ms-arr-t)"/>
+              <text x="305" y="75" font-family="JetBrains Mono" font-size="10" fill="#4f6446" font-weight="600">t</text>
+              <path d="M425,52 L 380,100" stroke="#4f6446" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#ms-arr-t)"/>
+              <text x="410" y="75" font-family="JetBrains Mono" font-size="10" fill="#4f6446" font-weight="600">t</text>
+              <path d="M150,108 L 278,114" stroke="#4f6446" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#ms-arr-t)"/>
+              <text x="195" y="105" font-family="JetBrains Mono" font-size="10" fill="#4f6446" font-weight="600">t</text>
+              <path d="M150,148 L 278,128" stroke="#4f6446" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#ms-arr-t)"/>
+
+              <!-- Person class -->
+              <rect x="500" y="200" width="100" height="32" rx="5" fill="#e8c2cd" stroke="#923346" stroke-width="1.4"/>
+              <text x="550" y="221" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#923346">Person</text>
+
+              <!-- Animal class to the right of Person -->
+              <rect x="630" y="200" width="80" height="32" rx="5" fill="#d4d4d4" stroke="#1c160f" stroke-width="1.2"/>
+              <text x="670" y="221" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">Animal</text>
+
+              <path d="M600,216 L 628,216" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#ms-arr-s)"/>
+              <text x="606" y="210" font-family="JetBrains Mono" font-size="10" fill="#6e2030" font-weight="600">s</text>
+
+              <!-- maritalStatus property (rect) -->
+              <rect x="290" y="210" width="140" height="32" rx="5" fill="#e8c2cd" stroke="#923346"/>
+              <text x="360" y="231" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#923346">maritalStatus (P)</text>
+
+              <!-- domain arrow: maritalStatus → Person -->
+              <path d="M430,225 L 498,217" stroke="#923346" stroke-width="1.2" fill="none" marker-end="url(#ms-arr-r)"/>
+              <text x="450" y="218" font-family="JetBrains Mono" font-size="10" fill="#923346" font-weight="600">d</text>
+
+              <!-- range arrow: maritalStatus → MaritalStatus class -->
+              <path d="M360,210 L 360,138" stroke="#923346" stroke-width="1.2" fill="none" marker-end="url(#ms-arr-r)"/>
+              <text x="366" y="175" font-family="JetBrains Mono" font-size="10" fill="#923346" font-weight="600">r</text>
+
+              <!-- ssn and age properties -->
+              <rect x="200" y="280" width="70" height="32" rx="5" fill="#e8c2cd" stroke="#923346"/>
+              <text x="235" y="301" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#923346">ssn</text>
+
+              <rect x="500" y="280" width="70" height="32" rx="5" fill="#e8c2cd" stroke="#923346"/>
+              <text x="535" y="301" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#923346">age</text>
+
+              <rect x="370" y="320" width="90" height="32" rx="5" fill="#d4d4d4" stroke="#1c160f" stroke-width="1.2"/>
+              <text x="415" y="340" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">Integer</text>
+
+              <!-- ssn domain Person -->
+              <path d="M268,290 C 380,265 460,230 500,222" stroke="#923346" stroke-width="1.2" fill="none" marker-end="url(#ms-arr-r)"/>
+              <text x="370" y="262" font-family="JetBrains Mono" font-size="10" fill="#923346" font-weight="600">d</text>
+
+              <!-- ssn range Integer -->
+              <path d="M250,310 C 320,330 360,335 380,335" stroke="#923346" stroke-width="1.2" fill="none" marker-end="url(#ms-arr-r)"/>
+              <text x="280" y="328" font-family="JetBrains Mono" font-size="10" fill="#923346" font-weight="600">r</text>
+
+              <!-- age domain Person -->
+              <path d="M530,278 L 545,232" stroke="#923346" stroke-width="1.2" fill="none" marker-end="url(#ms-arr-r)"/>
+              <text x="538" y="258" font-family="JetBrains Mono" font-size="10" fill="#923346" font-weight="600">d</text>
+
+              <!-- age range Integer -->
+              <path d="M500,310 C 480,328 460,335 458,335" stroke="#923346" stroke-width="1.2" fill="none" marker-end="url(#ms-arr-r)"/>
+              <text x="470" y="328" font-family="JetBrains Mono" font-size="10" fill="#923346" font-weight="600">r</text>
+
+            </svg>
+            <figcaption>Lecture diagram (RDFs slide 41): four <em>instances</em> of class <code class="inline">MaritalStatus</code> (green) constrain the <em>range</em> of the <code class="inline">maritalStatus</code> property (pink). The same Person class also has <code class="inline">ssn</code> and <code class="inline">age</code> properties whose range is Integer. Person is a subclass of Animal.</figcaption>
+          </figure>
 
 <pre class="lang-xml">&lt;<span class="kw">rdfs:Class</span> <span class="var">rdf:ID</span>=<span class="str">"MaritalStatus"</span>/&gt;
 

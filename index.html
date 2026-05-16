@@ -1814,6 +1814,162 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
           <li><strong>Blank nodes</strong> are resources with no global URI. They’re indicated by <code class="inline">rdf:nodeID="…"</code> (named) or by nesting <code class="inline">&lt;rdf:Description&gt;</code> without an <code class="inline">about</code> (anonymous). The system assigns an internal id (<code class="inline">_:A234</code>) that is not visible outside the file.</li>
         </ul>
 
+        <!-- ============ RECIPE CARD ============ -->
+        <div class="coverage" style="border-left-color:var(--teal); margin:18px 0">
+          <h3>Recipe — RDF/XML ↔ Graph in 4 mechanical steps
+            <span class="ar">وصفة آلية للتحويل بين RDF/XML والرسم — أربع خطوات لا تحتاج تفكيراً</span>
+          </h3>
+
+          <p><strong>Don’t try to “understand” it — just follow the recipe.</strong> Every RDF/XML document is built from the same 4 patterns. Recognize them and the graph draws itself.</p>
+
+          <p style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;text-align:right;font-size:15px;color:var(--teal);margin-top:8px">
+            <strong>لا تحاول «فهمها» من المبدأ — تتبع الوصفة فقط.</strong> كل وثيقة RDF/XML مبنية من ٤ أنماط فقط. تعرّف عليها وسيرسم نفسه.
+          </p>
+
+          <h4 style="color:var(--teal); margin-top:18px">Direction 1 → from XML to graph</h4>
+
+          <div class="steps" style="margin:14px 0">
+            <div class="step">
+              <div class="step-body">
+                <h4 class="step-title">Find each <code class="inline">&lt;rdf:Description&gt;</code> block — each one is a NODE.
+                  <span class="ar">كل بلوك <code>&lt;rdf:Description&gt;</code> يصبح <b>عقدة</b>.</span>
+                </h4>
+                <ul>
+                  <li><code class="inline">rdf:about="X"</code> &nbsp;⇒&nbsp; <strong>solid oval</strong>, write <code class="inline">X</code> inside.</li>
+                  <li><code class="inline">rdf:nodeID="X"</code> &nbsp;⇒&nbsp; <strong>dashed oval</strong> (blank node), write <code class="inline">_:X</code> inside.</li>
+                  <li>Shorthand: <code class="inline">&lt;foaf:Person rdf:about="X"&gt;</code> = same as <code class="inline">&lt;rdf:Description rdf:about="X"&gt;</code> + an extra <code class="inline">rdf:type foaf:Person</code> triple.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-body">
+                <h4 class="step-title">Every child element inside that block = one outgoing ARROW.
+                  <span class="ar">كل عنصر ابن داخل البلوك يصبح <b>سهماً</b> خارجاً منه.</span>
+                </h4>
+                <ul>
+                  <li>The arrow LABEL is the element name (e.g. <code class="inline">f:titre</code>, <code class="inline">a:publisher</code>, <code class="inline">foaf:name</code>).</li>
+                  <li>Where the arrow ENDS depends on what's inside:
+                    <ul>
+                      <li>Plain text <code class="inline">&gt;some text&lt;</code> &nbsp;⇒&nbsp; <strong>rectangle</strong> (literal). Put the text in quotes.</li>
+                      <li><code class="inline">rdf:resource="Y"</code> &nbsp;⇒&nbsp; arrow points to oval Y (another URI).</li>
+                      <li><code class="inline">rdf:nodeID="Y"</code> &nbsp;⇒&nbsp; arrow points to the dashed oval <code class="inline">_:Y</code> (the same blank node you’ll draw from its own block).</li>
+                      <li>Nested <code class="inline">&lt;rdf:Description&gt;</code> with no <code class="inline">about</code> &nbsp;⇒&nbsp; arrow points to an anonymous dashed oval; the children of that inner block become arrows out of it.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-body">
+                <h4 class="step-title">Tags &amp; types — small notation on literals.
+                  <span class="ar">وسوم اللغة وأنواع البيانات تُكتب بجانب القيمة.</span>
+                </h4>
+                <ul>
+                  <li><code class="inline">xml:lang="fr"</code> &nbsp;⇒&nbsp; write <code class="inline">@fr</code> next to the literal.</li>
+                  <li><code class="inline">rdf:datatype="…integer"</code> &nbsp;⇒&nbsp; write <code class="inline">^^xsd:integer</code> next to the literal.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-body">
+                <h4 class="step-title">Connect the pieces. Done.
+                  <span class="ar">اربط القطع. خلاص.</span>
+                </h4>
+                <p>Same <code class="inline">rdf:about="X"</code> appearing in two places ⇒ same oval drawn once. Same <code class="inline">rdf:nodeID="X"</code> in two places ⇒ same blank node drawn once. The graph is the union.</p>
+              </div>
+            </div>
+          </div>
+
+          <h4 style="color:var(--teal); margin-top:18px">Direction 2 → from graph to XML (just reverse)</h4>
+          <ol>
+            <li>For each oval on the graph &nbsp;⇒&nbsp; open one <code class="inline">&lt;rdf:Description&gt;</code> block.
+              <ul>
+                <li>URI oval &nbsp;⇒&nbsp; <code class="inline">rdf:about="…"</code></li>
+                <li>Blank-node oval &nbsp;⇒&nbsp; <code class="inline">rdf:nodeID="…"</code> (or no <code class="inline">about</code> at all if anonymous)</li>
+              </ul>
+            </li>
+            <li>For each arrow going OUT of that oval &nbsp;⇒&nbsp; add one child element. The arrow label becomes the element name.
+              <ul>
+                <li>If arrow → rectangle (literal): put the text inside the element.</li>
+                <li>If arrow → another oval: use <code class="inline">rdf:resource="…"</code> (for URI) or <code class="inline">rdf:nodeID="…"</code> (for blank node) as an attribute on a self-closing element.</li>
+              </ul>
+            </li>
+            <li>Close the block. Repeat for every oval.</li>
+          </ol>
+
+          <h4 style="color:var(--teal); margin-top:18px">Worked mini-example</h4>
+          <p>Given this 1-block XML:</p>
+<pre class="lang-xml">&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://ex/book1"</span>&gt;
+  &lt;<span class="pred">a:title</span>&gt;<span class="str">Hello</span>&lt;/<span class="pred">a:title</span>&gt;
+  &lt;<span class="pred">a:author</span> <span class="var">rdf:nodeID</span>=<span class="str">"X1"</span>/&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;
+&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:nodeID</span>=<span class="str">"X1"</span>&gt;
+  &lt;<span class="pred">a:name</span>&gt;<span class="str">Ali</span>&lt;/<span class="pred">a:name</span>&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;</pre>
+
+          <p>Mechanical translation:</p>
+          <ol>
+            <li><strong>First block</strong> → solid oval labelled <code class="inline">http://ex/book1</code>.
+              <ul>
+                <li>Child <code class="inline">a:title</code> with text "Hello" → arrow <code class="inline">a:title</code> to a rectangle <code class="inline">"Hello"</code>.</li>
+                <li>Child <code class="inline">a:author rdf:nodeID="X1"</code> → arrow <code class="inline">a:author</code> to a dashed oval <code class="inline">_:X1</code>.</li>
+              </ul>
+            </li>
+            <li><strong>Second block</strong> → the same dashed oval <code class="inline">_:X1</code> (don't draw a new one — same nodeID).
+              <ul>
+                <li>Child <code class="inline">a:name</code> with text "Ali" → arrow <code class="inline">a:name</code> from <code class="inline">_:X1</code> to a rectangle <code class="inline">"Ali"</code>.</li>
+              </ul>
+            </li>
+          </ol>
+
+          <p>Final graph:</p>
+          <figure class="graph-fig">
+            <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="ex-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker></defs>
+              <!-- book oval -->
+              <ellipse cx="120" cy="100" rx="80" ry="28" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="120" y="104" text-anchor="middle" font-family="JetBrains Mono" font-size="11">ex/book1</text>
+              <!-- title literal -->
+              <rect x="50" y="160" width="90" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+              <text x="95" y="180" text-anchor="middle" font-family="Newsreader" font-size="12">"Hello"</text>
+              <!-- blank node -->
+              <ellipse cx="350" cy="100" rx="30" ry="28" fill="#fff3d6" stroke="#a6802a" stroke-width="1.6" stroke-dasharray="3,3"/>
+              <text x="350" y="104" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#a6802a">_:X1</text>
+              <!-- name literal -->
+              <rect x="510" y="85" width="70" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+              <text x="545" y="105" text-anchor="middle" font-family="Newsreader" font-size="12">"Ali"</text>
+              <!-- arrows -->
+              <path d="M105,128 L 100,158" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#ex-arr)"/>
+              <text x="50" y="148" font-family="JetBrains Mono" font-size="11">a:title</text>
+              <path d="M200,100 L 318,100" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#ex-arr)"/>
+              <text x="225" y="92" font-family="JetBrains Mono" font-size="11">a:author</text>
+              <path d="M380,100 L 508,100" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#ex-arr)"/>
+              <text x="415" y="92" font-family="JetBrains Mono" font-size="11">a:name</text>
+            </svg>
+            <figcaption>Two blocks → 4 nodes (1 URI + 1 blank + 2 literals), 3 arrows. That’s the whole conversion.</figcaption>
+          </figure>
+
+          <div class="ar-note">
+            <b>الخلاصة بالعربية:</b>
+            <ol>
+              <li>كل <code>&lt;rdf:Description&gt;</code> = عقدة. لها URI ⟵ بيضوي صلب. لها <code>nodeID</code> ⟵ بيضوي متقطّع (عقدة عمياء).</li>
+              <li>كل عنصر ابن = سهم خارج من العقدة. اسم العنصر = اسم السهم.</li>
+              <li>نهاية السهم:
+                <ul>
+                  <li>نص داخل العنصر ⟵ مستطيل (حرفي).</li>
+                  <li><code>rdf:resource="…"</code> ⟵ بيضوي آخر (URI).</li>
+                  <li><code>rdf:nodeID="…"</code> ⟵ نفس البيضوي المتقطّع المعرّف في بلوك آخر.</li>
+                </ul>
+              </li>
+              <li>اربط القطع. تكرار <code>about</code> أو <code>nodeID</code> في بلوكين ⟵ نفس العقدة مرسومة مرة واحدة.</li>
+            </ol>
+            <b>للاتجاه المعاكس</b> (من رسم إلى XML): العكس بالضبط — كل بيضوي يصير بلوك <code>&lt;rdf:Description&gt;</code>، كل سهم خارج منه يصير عنصراً ابناً.
+          </div>
+        </div>
+
         <div class="ar-note">
           <b>القواعد الثلاث الأساسية:</b>
           <ul>

@@ -2094,11 +2094,18 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
 
           <p><strong>Don’t try to “understand” it — just follow the recipe.</strong> Every RDF/XML document is built from the same 4 patterns. Recognize them and the graph draws itself.</p>
 
-          <p style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;text-align:right;font-size:15px;color:var(--teal);margin-top:8px">
-            <strong>لا تحاول «فهمها» من المبدأ — تتبع الوصفة فقط.</strong> كل وثيقة RDF/XML مبنية من ٤ أنماط فقط. تعرّف عليها وسيرسم نفسه.
-          </p>
+          <p><strong>The key insight</strong> — an RDF/XML document and an RDF graph are <em>literally the same data</em> in two notations. One uses XML tags, the other uses ovals and arrows. There is no translation, just a re-drawing. Once you know which XML feature maps to which graph shape, you’re done.</p>
 
-          <h4 style="color:var(--teal); margin-top:18px">Direction 1 → from XML to graph</h4>
+          <div class="ar-note">
+            <b>الفكرة الأساسية:</b> ملف <code>RDF/XML</code> ورسم <code>RDF Graph</code> هما <b>نفس البيانات بالضبط</b> بتمثيلين مختلفين فقط. واحد يستخدم وسوم XML والآخر يستخدم البيضويات والأسهم.
+            <ul>
+              <li>لا يوجد «ترجمة» — هو فقط <b>إعادة رسم</b> لنفس المعلومة.</li>
+              <li>تعلّم أي ميزة في XML تقابل أي شكل في الرسم، وسيتم التحويل آلياً.</li>
+              <li>أربعة أنماط فقط، وكل وثيقة RDF/XML مهما كانت معقدة مبنية منها.</li>
+            </ul>
+          </div>
+
+          <h4 style="color:var(--teal); margin-top:22px">Direction 1 → from XML to graph &nbsp;·&nbsp; <span class="ar-inline">من XML إلى رسم</span></h4>
 
           <div class="steps" style="margin:14px 0">
             <div class="step">
@@ -2106,11 +2113,23 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
                 <h4 class="step-title">Find each <code class="inline">&lt;rdf:Description&gt;</code> block — each one is a NODE.
                   <span class="ar">كل بلوك <code>&lt;rdf:Description&gt;</code> يصبح <b>عقدة</b>.</span>
                 </h4>
+
+                <p>Scan the whole file. Every <code class="inline">&lt;rdf:Description&gt;</code> describes <em>one resource</em> — that resource becomes <em>one oval</em> on the graph. The attribute on the opening tag tells you which kind of oval to draw.</p>
+
                 <ul>
-                  <li><code class="inline">rdf:about="X"</code> &nbsp;⇒&nbsp; <strong>solid oval</strong>, write <code class="inline">X</code> inside.</li>
-                  <li><code class="inline">rdf:nodeID="X"</code> &nbsp;⇒&nbsp; <strong>dashed oval</strong> (blank node), write <code class="inline">_:X</code> inside.</li>
-                  <li>Shorthand: <code class="inline">&lt;foaf:Person rdf:about="X"&gt;</code> = same as <code class="inline">&lt;rdf:Description rdf:about="X"&gt;</code> + an extra <code class="inline">rdf:type foaf:Person</code> triple.</li>
+                  <li><code class="inline">rdf:about="X"</code> &nbsp;⇒&nbsp; <strong>solid oval</strong>, write <code class="inline">X</code> (the URI) inside it.</li>
+                  <li><code class="inline">rdf:nodeID="X"</code> &nbsp;⇒&nbsp; <strong>dashed oval</strong> (blank node), write <code class="inline">_:X</code> inside it.</li>
+                  <li><strong>Shorthand:</strong> <code class="inline">&lt;foaf:Person rdf:about="X"&gt;</code> = the same as <code class="inline">&lt;rdf:Description rdf:about="X"&gt;</code>, but you also draw a free <code class="inline">rdf:type</code> arrow to the class <code class="inline">foaf:Person</code>. The lecturer uses this to save typing.</li>
                 </ul>
+
+                <div class="ar-note">
+                  ابحث في كامل الملف عن <code>&lt;rdf:Description&gt;</code>. كل بلوك يصف <b>مورداً واحداً</b> ⟵ يصير <b>بيضوي واحد</b> في الرسم.
+                  <ul>
+                    <li>إذا <code>rdf:about="X"</code> ⟵ <b>بيضوي صلب</b> واكتب <code>X</code> داخله.</li>
+                    <li>إذا <code>rdf:nodeID="X"</code> ⟵ <b>بيضوي منقّط</b> واكتب <code>_:X</code> داخله.</li>
+                    <li>الاختصار: كتابة <code>&lt;foaf:Person rdf:about="X"&gt;</code> = <code>&lt;rdf:Description rdf:about="X"&gt;</code> + سهم <code>rdf:type</code> إضافي نحو الصنف <code>foaf:Person</code>.</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -2119,17 +2138,33 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
                 <h4 class="step-title">Every child element inside that block = one outgoing ARROW.
                   <span class="ar">كل عنصر ابن داخل البلوك يصبح <b>سهماً</b> خارجاً منه.</span>
                 </h4>
+
+                <p>Inside each block, look at the children one by one. Every child becomes one arrow leaving the oval you just drew. The <em>name</em> of the child element becomes the <em>label</em> of the arrow.</p>
+
                 <ul>
-                  <li>The arrow LABEL is the element name (e.g. <code class="inline">f:titre</code>, <code class="inline">a:publisher</code>, <code class="inline">foaf:name</code>).</li>
-                  <li>Where the arrow ENDS depends on what's inside:
-                    <ul>
-                      <li>Plain text <code class="inline">&gt;some text&lt;</code> &nbsp;⇒&nbsp; <strong>rectangle</strong> (literal). Put the text in quotes.</li>
-                      <li><code class="inline">rdf:resource="Y"</code> &nbsp;⇒&nbsp; arrow points to oval Y (another URI).</li>
-                      <li><code class="inline">rdf:nodeID="Y"</code> &nbsp;⇒&nbsp; arrow points to the dashed oval <code class="inline">_:Y</code> (the same blank node you’ll draw from its own block).</li>
-                      <li>Nested <code class="inline">&lt;rdf:Description&gt;</code> with no <code class="inline">about</code> &nbsp;⇒&nbsp; arrow points to an anonymous dashed oval; the children of that inner block become arrows out of it.</li>
-                    </ul>
-                  </li>
+                  <li>The arrow LABEL is the element name (e.g. <code class="inline">f:titre</code>, <code class="inline">a:publisher</code>, <code class="inline">foaf:name</code>, <code class="inline">ex:age</code>).</li>
+                  <li>Where the arrow ENDS depends on what's <em>inside</em> the child element:</li>
                 </ul>
+
+                <p>Four possibilities — recognize each:</p>
+
+                <ul>
+                  <li><strong>Plain text</strong> between the tags &nbsp;<code class="inline">&lt;f:titre&gt;Le Palais&lt;/f:titre&gt;</code>&nbsp; ⇒ rectangle (literal). Put the text in quotes.</li>
+                  <li><strong><code class="inline">rdf:resource="Y"</code></strong> &nbsp;<code class="inline">&lt;a:publisher rdf:resource="…/p1"/&gt;</code>&nbsp; ⇒ arrow points to another oval (URI Y).</li>
+                  <li><strong><code class="inline">rdf:nodeID="Y"</code></strong> &nbsp;<code class="inline">&lt;a:author rdf:nodeID="A234"/&gt;</code>&nbsp; ⇒ arrow points to the dashed oval <code class="inline">_:Y</code> (drawn from its own block).</li>
+                  <li><strong>Nested <code class="inline">&lt;rdf:Description&gt;</code> with no <code class="inline">about</code></strong> &nbsp;⇒ arrow points to an anonymous dashed oval; the children of that nested block become arrows out of it.</li>
+                </ul>
+
+                <div class="ar-note">
+                  داخل كل بلوك، انظر للعناصر الأبناء واحداً واحداً. كل عنصر ابن يصير <b>سهماً</b> يخرج من البيضوي. <b>اسم العنصر</b> = <b>تسمية السهم</b>.
+                  <p style="margin-top:8px"><b>نهاية السهم تعتمد على محتوى الابن — ٤ حالات فقط:</b></p>
+                  <ul>
+                    <li><b>نص عادي</b> بين الوسمين ⟵ مستطيل (حرفي/literal). ضع النص بين علامتي اقتباس.</li>
+                    <li><code>rdf:resource="Y"</code> ⟵ السهم يشير إلى بيضوي آخر (URI اسمه Y).</li>
+                    <li><code>rdf:nodeID="Y"</code> ⟵ السهم يشير إلى بيضوي منقّط <code>_:Y</code> (تجده موصوفاً في بلوك آخر).</li>
+                    <li><code>&lt;rdf:Description&gt;</code> متشعّب بدون <code>about</code> ⟵ السهم يشير إلى بيضوي منقّط بلا اسم، وأبناؤه يصيرون أسهماً خارجة منه.</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -2138,10 +2173,22 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
                 <h4 class="step-title">Tags &amp; types — small notation on literals.
                   <span class="ar">وسوم اللغة وأنواع البيانات تُكتب بجانب القيمة.</span>
                 </h4>
+
+                <p>A literal isn’t always just a string. It can carry extra metadata that tells you what kind of value it is, or what language it’s in. In the graph, you write this metadata as a small annotation next to the literal value.</p>
+
                 <ul>
-                  <li><code class="inline">xml:lang="fr"</code> &nbsp;⇒&nbsp; write <code class="inline">@fr</code> next to the literal.</li>
-                  <li><code class="inline">rdf:datatype="…integer"</code> &nbsp;⇒&nbsp; write <code class="inline">^^xsd:integer</code> next to the literal.</li>
+                  <li><strong><code class="inline">xml:lang="fr"</code></strong> &nbsp;<code class="inline">&lt;f:titre xml:lang="fr"&gt;Le Palais&lt;/f:titre&gt;</code>&nbsp; ⇒ write <code class="inline">"Le Palais"@fr</code> in the rectangle.</li>
+                  <li><strong><code class="inline">rdf:datatype="…XMLSchema#integer"</code></strong> &nbsp;<code class="inline">&lt;ex:age rdf:datatype="…integer"&gt;40&lt;/ex:age&gt;</code>&nbsp; ⇒ write <code class="inline">"40"^^xsd:integer</code> in the rectangle.</li>
                 </ul>
+
+                <div class="ar-note">
+                  <b>القيم الحرفية ليست دائماً مجرد نصوص.</b> قد تحمل بيانات وصفية إضافية:
+                  <ul>
+                    <li><code>xml:lang="fr"</code> ⟵ يخبرك أن النص بلغة محدّدة (فرنسية، إنكليزية، إلخ). اكتب الوسم بجانب القيمة: <code>"Le Palais"@fr</code>.</li>
+                    <li><code>rdf:datatype="...integer"</code> ⟵ يخبرك أن القيمة من نوع معيّن (عدد صحيح، تاريخ، إلخ). اكتب النوع بصيغة: <code>"40"^^xsd:integer</code>.</li>
+                  </ul>
+                  هذه التفاصيل مهمة لأن النظام يستخدمها للفرز والتصفية. <b>لا تنساها</b> في الرسم.
+                </div>
               </div>
             </div>
 
@@ -2150,27 +2197,87 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
                 <h4 class="step-title">Connect the pieces. Done.
                   <span class="ar">اربط القطع. خلاص.</span>
                 </h4>
-                <p>Same <code class="inline">rdf:about="X"</code> appearing in two places ⇒ same oval drawn once. Same <code class="inline">rdf:nodeID="X"</code> in two places ⇒ same blank node drawn once. The graph is the union.</p>
+
+                <p>The graph is the <em>union</em> of all the pieces you drew. If the same identifier appears in two different blocks, you drew the same oval twice — collapse them into one.</p>
+
+                <ul>
+                  <li>Same <code class="inline">rdf:about="X"</code> appearing in two blocks &nbsp;⇒&nbsp; <strong>one oval</strong> with arrows from BOTH blocks coming out of it.</li>
+                  <li>Same <code class="inline">rdf:nodeID="X"</code> in two blocks &nbsp;⇒&nbsp; <strong>one dashed oval</strong> with all those arrows attached.</li>
+                  <li>Different identifiers = different ovals. Same identifier = same oval. <em>It’s that simple.</em></li>
+                </ul>
+
+                <div class="ar-note">
+                  الرسم النهائي هو <b>اتحاد</b> كل القطع التي رسمتها. لو ظهر نفس المعرّف في بلوكين، فأنت رسمت نفس البيضوي مرتين — ادمجهما في واحد.
+                  <ul>
+                    <li>نفس <code>rdf:about="X"</code> في بلوكين ⟵ <b>بيضوي واحد</b> تخرج منه أسهم البلوكين معاً.</li>
+                    <li>نفس <code>rdf:nodeID="X"</code> في بلوكين ⟵ <b>بيضوي منقّط واحد</b> تجتمع عنده الأسهم.</li>
+                    <li>معرّفات مختلفة = بيضويات مختلفة. نفس المعرّف = نفس البيضوي. <b>بهذه البساطة.</b></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
 
-          <h4 style="color:var(--teal); margin-top:18px">Direction 2 → from graph to XML (just reverse)</h4>
-          <ol>
-            <li>For each oval on the graph &nbsp;⇒&nbsp; open one <code class="inline">&lt;rdf:Description&gt;</code> block.
+          <h4 style="color:var(--teal); margin-top:22px">Direction 2 → from graph to XML (just reverse) &nbsp;·&nbsp; <span class="ar-inline">من الرسم إلى XML — العكس</span></h4>
+
+          <p>If you understood Direction 1, Direction 2 is just the same rules <em>backwards</em>. The ovals tell you which blocks to open. The arrows tell you which child elements to write inside.</p>
+
+          <div class="ar-note">
+            إذا فهمت الاتجاه الأول، فالاتجاه الثاني هو نفس القواعد <b>بالعكس</b>. البيضويات تخبرك بأي البلوكات تفتح. الأسهم تخبرك بأي العناصر الأبناء تكتب داخلها.
+          </div>
+
+          <ol style="margin-top:14px">
+            <li><strong>For each oval on the graph &nbsp;⇒&nbsp; open one <code class="inline">&lt;rdf:Description&gt;</code> block.</strong>
               <ul>
-                <li>URI oval &nbsp;⇒&nbsp; <code class="inline">rdf:about="…"</code></li>
-                <li>Blank-node oval &nbsp;⇒&nbsp; <code class="inline">rdf:nodeID="…"</code> (or no <code class="inline">about</code> at all if anonymous)</li>
+                <li>URI oval (solid) &nbsp;⇒&nbsp; <code class="inline">&lt;rdf:Description rdf:about="…URI…"&gt;</code></li>
+                <li>Blank-node oval (dashed) &nbsp;⇒&nbsp; <code class="inline">&lt;rdf:Description rdf:nodeID="…"&gt;</code> &nbsp;(or no <code class="inline">about</code> at all if it should stay anonymous)</li>
               </ul>
+              <p style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;font-size:14px;color:var(--teal);margin-top:6px">
+                لكل بيضوي على الرسم ⟵ افتح بلوك <code style="font-family:JetBrains Mono">&lt;rdf:Description&gt;</code>. بيضوي صلب = <code style="font-family:JetBrains Mono">rdf:about</code>. بيضوي منقّط = <code style="font-family:JetBrains Mono">rdf:nodeID</code>.
+              </p>
             </li>
-            <li>For each arrow going OUT of that oval &nbsp;⇒&nbsp; add one child element. The arrow label becomes the element name.
+
+            <li style="margin-top:10px"><strong>For each arrow going OUT of that oval &nbsp;⇒&nbsp; add one child element.</strong> The arrow label becomes the element name.
               <ul>
-                <li>If arrow → rectangle (literal): put the text inside the element.</li>
-                <li>If arrow → another oval: use <code class="inline">rdf:resource="…"</code> (for URI) or <code class="inline">rdf:nodeID="…"</code> (for blank node) as an attribute on a self-closing element.</li>
+                <li>Arrow → rectangle (literal): put the text <em>inside</em> the element. &nbsp;<code class="inline">&lt;ex:name&gt;Bassel&lt;/ex:name&gt;</code></li>
+                <li>Arrow → URI oval: use <code class="inline">rdf:resource="…"</code> as an attribute on a self-closing element. &nbsp;<code class="inline">&lt;ex:author rdf:resource="…/a1"/&gt;</code></li>
+                <li>Arrow → blank node: use <code class="inline">rdf:nodeID="…"</code> the same way. &nbsp;<code class="inline">&lt;a:publisher rdf:nodeID="A234"/&gt;</code></li>
+                <li>If the literal has <code class="inline">@fr</code> or <code class="inline">^^xsd:integer</code>, add the matching attribute (<code class="inline">xml:lang="fr"</code> / <code class="inline">rdf:datatype="…"</code>).</li>
               </ul>
+              <p style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;font-size:14px;color:var(--teal);margin-top:6px">
+                لكل سهم خارج من البيضوي ⟵ أضف عنصراً ابناً. اسم السهم = اسم العنصر.
+                <br/>سهم نحو مستطيل (حرفي) ⟵ ضع النص داخل العنصر. سهم نحو بيضوي صلب ⟵ <code style="font-family:JetBrains Mono">rdf:resource</code>. سهم نحو بيضوي منقّط ⟵ <code style="font-family:JetBrains Mono">rdf:nodeID</code>.
+              </p>
             </li>
-            <li>Close the block. Repeat for every oval.</li>
+
+            <li style="margin-top:10px"><strong>Close the block. Repeat for every oval.</strong> Don’t forget to declare your namespaces (<code class="inline">xmlns:foaf="…"</code> etc.) at the top of the <code class="inline">&lt;rdf:RDF&gt;</code> root.
+              <p style="font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;font-size:14px;color:var(--teal);margin-top:6px">
+                أغلق البلوك وكرر العملية لكل بيضوي. <b>لا تنسَ</b> الإعلان عن المسافات (<code style="font-family:JetBrains Mono">xmlns:</code>) في عنصر <code style="font-family:JetBrains Mono">&lt;rdf:RDF&gt;</code> الرئيسي.
+              </p>
+            </li>
           </ol>
+
+          <!-- Common mistakes -->
+          <h4 style="color:var(--oxblood); margin-top:22px">Common mistakes to avoid &nbsp;·&nbsp; <span class="ar-inline">أخطاء شائعة</span></h4>
+
+          <ul>
+            <li><strong>Drawing a literal as an oval.</strong> Literals are <em>always</em> rectangles. Ovals are only for URIs and blank nodes.</li>
+            <li><strong>Treating <code class="inline">rdf:resource</code> as text.</strong> If you see <code class="inline">rdf:resource="…"</code>, that’s a URI — draw an oval, not a rectangle.</li>
+            <li><strong>Confusing <code class="inline">rdf:about</code> with <code class="inline">rdf:nodeID</code>.</strong> <code class="inline">about</code> = URI (solid oval). <code class="inline">nodeID</code> = blank node (dashed oval).</li>
+            <li><strong>Two blocks ≠ two nodes.</strong> If both blocks have the same <code class="inline">about</code> (or same <code class="inline">nodeID</code>), they refer to the same node — draw it once.</li>
+            <li><strong>Forgetting <code class="inline">@fr</code> or <code class="inline">^^xsd:integer</code>.</strong> The exam often gives a literal with a language tag or datatype — students drop it. Always check the attributes on the literal’s element.</li>
+          </ul>
+
+          <div class="ar-note">
+            <b>أخطاء يقع فيها الطلاب كثيراً:</b>
+            <ul>
+              <li>رسم القيمة الحرفية كبيضوي ⟵ <b>خطأ</b>. القيم الحرفية دائماً <b>مستطيلات</b>.</li>
+              <li>اعتبار <code>rdf:resource</code> نصاً ⟵ <b>خطأ</b>. هي URI ⟵ ارسم بيضوياً.</li>
+              <li>الخلط بين <code>rdf:about</code> (بيضوي صلب) و <code>rdf:nodeID</code> (بيضوي منقّط).</li>
+              <li>بلوكان لهما نفس <code>about</code> أو نفس <code>nodeID</code> ⟵ <b>نفس العقدة</b>، ترسم مرة واحدة فقط.</li>
+              <li>نسيان وسم اللغة <code>@fr</code> أو وسم النوع <code>^^xsd:integer</code> على الحرفيات ⟵ الدكتور غالباً يضع هذه في الامتحان.</li>
+            </ul>
+          </div>
 
           <h4 style="color:var(--teal); margin-top:18px">Worked mini-example</h4>
           <p>Given this 1-block XML:</p>

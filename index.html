@@ -1060,6 +1060,278 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
 .merge-stage.show-dbp svg .e-glue, .merge-stage.show-dbp svg .n-ext,
 .merge-stage.show-dbp svg .e-dbp, .merge-stage.show-dbp svg .n-dbp{ opacity:1 }
 
+/* =================== WORKED-EXAMPLE PRACTICE CARD =================== */
+.practice{
+  margin:32px 0;
+  padding:0;
+  border:1.5px solid var(--ink);
+  border-radius:4px;
+  background:#fbf7ec;
+  overflow:hidden;
+  box-shadow:var(--shadow-deep);
+}
+.practice-header{
+  background: linear-gradient(90deg, var(--oxblood), var(--gold));
+  color:var(--paper);
+  padding:14px 22px;
+  font-family:"Fraunces",serif;
+  font-weight:500;
+  font-size:18px;
+  letter-spacing:.01em;
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.practice-header .ar{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  font-weight:400;
+  font-size:15px;
+  direction:rtl;
+  opacity:.9;
+}
+.practice-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5px;
+  background:var(--ink);
+}
+@media (max-width:760px){
+  .practice-grid{grid-template-columns:1fr}
+}
+.practice-panel{
+  background:#fbf7ec;
+  padding:16px 18px;
+}
+.practice-panel h4{
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  font-size:14px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  margin:0 0 10px;
+  padding-bottom:8px;
+  border-bottom:1.5px dashed var(--rule);
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.practice-panel h4 .ar{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  font-weight:500;
+  font-size:14px;
+  letter-spacing:0;
+  direction:rtl;
+  text-transform:none;
+  color:var(--teal);
+}
+.practice-panel.question{
+  background: #f0eada;
+}
+.practice-panel.question .qbody{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  font-size:15px;
+  direction:rtl;
+  text-align:right;
+  line-height:1.8;
+  color:var(--ink);
+}
+.practice-panel.question .qbody ol{
+  padding-right:22px;
+  padding-left:0;
+  margin:8px 0;
+}
+.practice-panel.question .qbody ol li{margin-bottom:4px}
+.practice-panel.question .qbody ol li::marker{color:var(--oxblood); font-weight:600}
+.practice-panel.question .qbody code{
+  font-family:"JetBrains Mono",monospace;
+  direction:ltr;
+  display:inline-block;
+  font-size:12px;
+  background:var(--paper-2);
+  padding:1px 5px;
+  border:1px solid var(--rule);
+  border-radius:2px;
+}
+
+.practice-tbl{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+  font-family:"JetBrains Mono",monospace;
+}
+.practice-tbl th{
+  background:#dbe7d4;
+  color:var(--ink);
+  text-align:left;
+  padding:6px 8px;
+  border:1px solid var(--rule);
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.06em;
+}
+.practice-tbl td{
+  padding:5px 8px;
+  border:1px solid var(--rule);
+  background:#fcfaf2;
+  font-size:12px;
+}
+.practice-tbl td:first-child{
+  text-align:center;
+  width:30px;
+  background:#f1eddd;
+  font-weight:600;
+  color:var(--oxblood);
+}
+.practice-tbl td.subj{color:#5a4a8a}
+.practice-tbl td.pred{color:#a14848; font-weight:500}
+.practice-tbl td.obj-lit{color:#3a6b3a; font-style:italic}
+.practice-tbl td.obj-uri{color:#5a4a8a}
+
+.practice-panel.graph svg{display:block; width:100%; height:auto}
+.practice-panel.graph figcaption{
+  font-family:"Newsreader",serif;
+  font-style:italic;
+  font-size:13px;
+  color:var(--ink-faded);
+  text-align:center;
+  margin-top:6px;
+}
+
+.legend{
+  margin-top:10px;
+  padding:10px 12px;
+  border:1.5px dashed var(--rule);
+  border-radius:3px;
+  background:#fcfaf2;
+}
+.legend .lh{
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--oxblood);
+  margin-bottom:6px;
+}
+.legend .li{
+  display:flex; align-items:center; gap:10px;
+  font-family:"Newsreader",serif;
+  font-size:13.5px;
+  color:var(--ink);
+  margin:4px 0;
+}
+.legend .sw{
+  width:28px; height:18px; border-radius:50% 50% 50% 50%/40%;
+  flex-shrink:0;
+}
+.legend .sw.lit{ width:22px; height:14px; border-radius:2px; background:#dbe7d4; border:1.5px solid #4f6446 }
+.legend .sw.res{ background:#dbe5f7; border:1.5px solid #4b6494 }
+.legend .sw.arrow{
+  width:30px; height:14px; background:transparent; position:relative;
+}
+.legend .sw.arrow::before{
+  content:""; position:absolute; top:50%; left:0; right:6px; height:1.6px; background:var(--oxblood);
+}
+.legend .sw.arrow::after{
+  content:""; position:absolute; top:50%; right:0; width:0; height:0;
+  border:5px solid transparent; border-left-color:var(--oxblood);
+  transform:translateY(-50%);
+}
+
+.practice-panel.xml pre{
+  margin:0;
+  font-size:11.5px;
+  line-height:1.5;
+  background:#1b2a1f;
+  color:#dcebd5;
+  border-radius:3px;
+  padding:14px 16px;
+  max-height:560px;
+  overflow:auto;
+}
+
+.practice-answers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  padding:16px 18px;
+  background:#f6efd9;
+  border-top:1.5px solid var(--ink);
+}
+@media (max-width:760px){
+  .practice-answers{grid-template-columns:1fr}
+}
+.answer-card{
+  background:#fff;
+  border:1.5px solid;
+  border-radius:3px;
+  padding:12px 14px;
+}
+.answer-card.orange{border-color:#c47c2e; background:linear-gradient(180deg, #fbe9d2, #fdf6e8)}
+.answer-card.purple{border-color:#7a4a8a; background:linear-gradient(180deg, #ece0f0, #f8f3fa)}
+.answer-card h5{
+  font-family:"Fraunces",serif;
+  font-weight:600;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  margin:0 0 8px;
+}
+.answer-card.orange h5{color:#a85a18}
+.answer-card.purple h5{color:#5a3568}
+.answer-card .ans{
+  font-family:"IBM Plex Sans Arabic", sans-serif;
+  direction:rtl;
+  text-align:right;
+  font-size:14px;
+  color:var(--ink);
+}
+.answer-card .ans b{
+  color:var(--oxblood);
+  font-family:"JetBrains Mono",monospace;
+  font-size:15px;
+}
+
+/* Initially hide answer panels — reveal with button */
+.practice .reveal-only{
+  display:none;
+}
+.practice.show-answers .reveal-only{
+  display:block;
+}
+.practice.show-answers .answer-card{
+  animation:pop .35s ease;
+}
+@keyframes pop{
+  from{opacity:0; transform:translateY(6px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+.practice-toggle{
+  display:flex; justify-content:center;
+  padding:14px;
+  background:#f1eddd;
+  border-top:1.5px solid var(--ink);
+}
+.practice-toggle button{
+  font-family:"Fraunces",serif;
+  font-style:italic;
+  font-size:15px;
+  background:var(--ink);
+  color:var(--paper);
+  border:none;
+  padding:10px 22px;
+  border-radius:2px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  transition: background .2s, transform .15s;
+}
+.practice-toggle button:hover{background:var(--oxblood); transform:translateY(-1px)}
+
 /* triple-builder for RDF→XML */
 .tb-row{
   display:grid;
@@ -1967,6 +2239,185 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
               <li>اربط القطع. تكرار <code>about</code> أو <code>nodeID</code> في بلوكين ⟵ نفس العقدة مرسومة مرة واحدة.</li>
             </ol>
             <b>للاتجاه المعاكس</b> (من رسم إلى XML): العكس بالضبط — كل بيضوي يصير بلوك <code>&lt;rdf:Description&gt;</code>، كل سهم خارج منه يصير عنصراً ابناً.
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- ============== WORKED PRACTICE CARD ======================== -->
+        <!-- ============================================================ -->
+        <div class="practice" id="practiceCard">
+          <div class="practice-header">
+            <span>Practice exercise — convert this graph to RDF</span>
+            <span class="ar">تمرين تطبيقي — حوّل هذا الرسم إلى RDF</span>
+          </div>
+
+          <div class="practice-grid">
+
+            <!-- ====== QUESTION PANEL ====== -->
+            <div class="practice-panel question">
+              <h4>Question<span class="ar">سؤال (تحويل من الرسم إلى RDF)</span></h4>
+              <div class="qbody">
+                لدينا الـ Graph التالي الذي يصف معلومات عن كتاب ومؤلفه وناشره.
+                <br/><br/>
+                <b>المطلوب:</b>
+                <ol>
+                  <li>اكتب جميع الـ <code>RDF Triples</code>.</li>
+                  <li>اكتب كود <code>RDF/XML</code> كامل يمثّل هذا الـ <code>Graph</code>.</li>
+                  <li>كم عدد الـ <code>Triples</code> في هذا الـ <code>Graph</code>؟</li>
+                  <li>إذا كانت العقدة <code>http://ex.org/book/b1</code> موصولة بـ ٤ علاقات مباشرة، كم <code>Triple</code> ينتج من هذه العلاقات؟</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- ====== TRIPLES TABLE PANEL ====== -->
+            <div class="practice-panel reveal-only">
+              <h4>Answer 1 — All RDF triples<span class="ar">جميع الـ RDF Triples</span></h4>
+              <table class="practice-tbl">
+                <thead>
+                  <tr><th>#</th><th>Subject</th><th>Predicate</th><th>Object</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td class="subj">http://ex.org/book/b1</td><td class="pred">ex:title</td><td class="obj-lit">"The Semantic Web"</td></tr>
+                  <tr><td>2</td><td class="subj">http://ex.org/book/b1</td><td class="pred">ex:author</td><td class="obj-uri">http://ex.org/author/a1</td></tr>
+                  <tr><td>3</td><td class="subj">http://ex.org/book/b1</td><td class="pred">ex:publisher</td><td class="obj-uri">http://ex.org/publisher/p1</td></tr>
+                  <tr><td>4</td><td class="subj">http://ex.org/book/b1</td><td class="pred">ex:year</td><td class="obj-lit">"2006"^^xsd:integer</td></tr>
+                  <tr><td>5</td><td class="subj">http://ex.org/author/a1</td><td class="pred">ex:name</td><td class="obj-lit">"Tim Berners-Lee"</td></tr>
+                  <tr><td>6</td><td class="subj">http://ex.org/publisher/p1</td><td class="pred">ex:name</td><td class="obj-lit">"W3C"</td></tr>
+                  <tr><td>7</td><td class="subj">http://ex.org/publisher/p1</td><td class="pred">ex:location</td><td class="obj-lit">"Cambridge, UK"</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- ====== GRAPH PANEL ====== -->
+            <div class="practice-panel graph">
+              <h4>RDF Graph<span class="ar">الرسم البياني</span></h4>
+              <figure style="margin:0">
+                <svg viewBox="0 0 540 500" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <marker id="pe-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#a14848"/></marker>
+                  </defs>
+
+                  <!-- BOOK (top-center) - lavender -->
+                  <ellipse cx="270" cy="50" rx="115" ry="34" fill="#dbe5f7" stroke="#4b6494" stroke-width="1.8"/>
+                  <text x="270" y="46" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#1c160f">http://ex.org/book/b1</text>
+                  <text x="270" y="63" text-anchor="middle" font-family="Newsreader" font-size="11" font-style="italic" fill="#5a4a8a">(Book1)</text>
+
+                  <!-- TITLE literal (left) -->
+                  <rect x="20" y="170" width="120" height="38" rx="3" fill="#dbe7d4" stroke="#4f6446" stroke-width="1.5"/>
+                  <text x="80" y="184" text-anchor="middle" font-family="Newsreader" font-size="11" fill="#1c160f">"The Semantic</text>
+                  <text x="80" y="200" text-anchor="middle" font-family="Newsreader" font-size="11" fill="#1c160f">Web"</text>
+
+                  <!-- YEAR literal (right) -->
+                  <rect x="400" y="170" width="125" height="32" rx="3" fill="#dbe7d4" stroke="#4f6446" stroke-width="1.5"/>
+                  <text x="462" y="190" text-anchor="middle" font-family="Newsreader" font-size="11" fill="#1c160f">"2006"^^xsd:integer</text>
+
+                  <!-- AUTHOR (middle-left) - orange -->
+                  <ellipse cx="170" cy="270" rx="110" ry="32" fill="#fbe9d2" stroke="#c47c2e" stroke-width="1.8"/>
+                  <text x="170" y="266" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#1c160f">http://ex.org/author/a1</text>
+                  <text x="170" y="282" text-anchor="middle" font-family="Newsreader" font-size="11" font-style="italic" fill="#a85a18">(Author1)</text>
+
+                  <!-- PUBLISHER (middle-right) - pink -->
+                  <ellipse cx="380" cy="270" rx="115" ry="32" fill="#f7d4dd" stroke="#a64a64" stroke-width="1.8"/>
+                  <text x="380" y="266" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#1c160f">http://ex.org/publisher/p1</text>
+                  <text x="380" y="282" text-anchor="middle" font-family="Newsreader" font-size="11" font-style="italic" fill="#7a3a50">(Publisher1)</text>
+
+                  <!-- author NAME literal -->
+                  <rect x="55" y="410" width="160" height="32" rx="3" fill="#dbe7d4" stroke="#4f6446" stroke-width="1.5"/>
+                  <text x="135" y="430" text-anchor="middle" font-family="Newsreader" font-size="11" fill="#1c160f">"Tim Berners-Lee"</text>
+
+                  <!-- publisher NAME literal -->
+                  <rect x="265" y="410" width="80" height="32" rx="3" fill="#dbe7d4" stroke="#4f6446" stroke-width="1.5"/>
+                  <text x="305" y="430" text-anchor="middle" font-family="Newsreader" font-size="11" fill="#1c160f">"W3C"</text>
+
+                  <!-- publisher LOCATION literal -->
+                  <rect x="375" y="410" width="150" height="32" rx="3" fill="#dbe7d4" stroke="#4f6446" stroke-width="1.5"/>
+                  <text x="450" y="430" text-anchor="middle" font-family="Newsreader" font-size="11" fill="#1c160f">"Cambridge, UK"</text>
+
+                  <!-- ARROWS from book -->
+                  <path d="M180,75 L 95,168" stroke="#a14848" stroke-width="1.6" fill="none" marker-end="url(#pe-arr)"/>
+                  <text x="115" y="120" font-family="JetBrains Mono" font-size="11" fill="#a14848" font-weight="600">ex:title</text>
+
+                  <path d="M220,82 L 175,236" stroke="#a14848" stroke-width="1.6" fill="none" marker-end="url(#pe-arr)"/>
+                  <text x="190" y="160" font-family="JetBrains Mono" font-size="11" fill="#a14848" font-weight="600">ex:author</text>
+
+                  <path d="M320,82 L 365,236" stroke="#a14848" stroke-width="1.6" fill="none" marker-end="url(#pe-arr)"/>
+                  <text x="320" y="160" font-family="JetBrains Mono" font-size="11" fill="#a14848" font-weight="600">ex:publisher</text>
+
+                  <path d="M365,75 L 450,168" stroke="#a14848" stroke-width="1.6" fill="none" marker-end="url(#pe-arr)"/>
+                  <text x="420" y="120" font-family="JetBrains Mono" font-size="11" fill="#a14848" font-weight="600">ex:year</text>
+
+                  <!-- ARROWS from author -->
+                  <path d="M155,302 L 135,408" stroke="#a14848" stroke-width="1.6" fill="none" marker-end="url(#pe-arr)"/>
+                  <text x="80" y="360" font-family="JetBrains Mono" font-size="11" fill="#a14848" font-weight="600">ex:name</text>
+
+                  <!-- ARROWS from publisher -->
+                  <path d="M355,302 L 320,408" stroke="#a14848" stroke-width="1.6" fill="none" marker-end="url(#pe-arr)"/>
+                  <text x="305" y="360" font-family="JetBrains Mono" font-size="11" fill="#a14848" font-weight="600">ex:name</text>
+
+                  <path d="M410,302 L 445,408" stroke="#a14848" stroke-width="1.6" fill="none" marker-end="url(#pe-arr)"/>
+                  <text x="440" y="360" font-family="JetBrains Mono" font-size="11" fill="#a14848" font-weight="600">ex:location</text>
+                </svg>
+              </figure>
+
+              <div class="legend">
+                <div class="lh">Legend &nbsp;·&nbsp; <span style="font-family:'IBM Plex Sans Arabic';direction:rtl;font-weight:normal;letter-spacing:0;text-transform:none">المفتاح</span></div>
+                <div class="li"><span class="sw res"></span> Resource (Subject/Object) &nbsp;·&nbsp; <span style="font-family:'IBM Plex Sans Arabic';direction:rtl">مورد</span></div>
+                <div class="li"><span class="sw lit"></span> Literal (Value) &nbsp;·&nbsp; <span style="font-family:'IBM Plex Sans Arabic';direction:rtl">قيمة حرفية</span></div>
+                <div class="li"><span class="sw arrow"></span> Predicate (Property) &nbsp;·&nbsp; <span style="font-family:'IBM Plex Sans Arabic';direction:rtl">علاقة</span></div>
+              </div>
+            </div>
+
+            <!-- ====== RDF/XML PANEL ====== -->
+            <div class="practice-panel xml reveal-only">
+              <h4>Answer 2 — Full RDF/XML<span class="ar">كود RDF/XML الكامل</span></h4>
+<pre>&lt;<span class="kw">?xml</span> version=<span class="str">"1.0"</span>?&gt;
+&lt;<span class="kw">rdf:RDF</span>  <span class="var">xmlns:rdf</span>=<span class="str">"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</span>
+          <span class="var">xmlns:ex</span>=<span class="str">"http://ex.org/"</span>
+          <span class="var">xmlns:xsd</span>=<span class="str">"http://www.w3.org/2001/XMLSchema#"</span>&gt;
+
+  &lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://ex.org/book/b1"</span>&gt;
+    &lt;<span class="pred">ex:title</span>&gt;<span class="str">The Semantic Web</span>&lt;/<span class="pred">ex:title</span>&gt;
+    &lt;<span class="pred">ex:author</span>    <span class="var">rdf:resource</span>=<span class="str">"http://ex.org/author/a1"</span>/&gt;
+    &lt;<span class="pred">ex:publisher</span> <span class="var">rdf:resource</span>=<span class="str">"http://ex.org/publisher/p1"</span>/&gt;
+    &lt;<span class="pred">ex:year</span> <span class="var">rdf:datatype</span>=<span class="str">"http://www.w3.org/2001/XMLSchema#integer"</span>&gt;<span class="str">2006</span>&lt;/<span class="pred">ex:year</span>&gt;
+  &lt;/<span class="kw">rdf:Description</span>&gt;
+
+  &lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://ex.org/author/a1"</span>&gt;
+    &lt;<span class="pred">ex:name</span>&gt;<span class="str">Tim Berners-Lee</span>&lt;/<span class="pred">ex:name</span>&gt;
+  &lt;/<span class="kw">rdf:Description</span>&gt;
+
+  &lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://ex.org/publisher/p1"</span>&gt;
+    &lt;<span class="pred">ex:name</span>&gt;<span class="str">W3C</span>&lt;/<span class="pred">ex:name</span>&gt;
+    &lt;<span class="pred">ex:location</span>&gt;<span class="str">Cambridge, UK</span>&lt;/<span class="pred">ex:location</span>&gt;
+  &lt;/<span class="kw">rdf:Description</span>&gt;
+
+&lt;/<span class="kw">rdf:RDF</span>&gt;</pre>
+            </div>
+
+          </div>
+
+          <!-- ====== ANSWER CARDS ====== -->
+          <div class="practice-answers reveal-only">
+            <div class="answer-card orange">
+              <h5>Answer 3 · عدد الـ Triples</h5>
+              <div class="ans">
+                نعدّ الأسهم في الـ Graph &nbsp;⟵&nbsp; كل سهم = ثلاثية.
+                <br/>
+                عدد الـ <code style="font-family:JetBrains Mono">Triples</code> في هذا الـ <code style="font-family:JetBrains Mono">Graph</code> = <b>7</b>
+              </div>
+            </div>
+            <div class="answer-card purple">
+              <h5>Answer 4 · عقدة بـ ٤ علاقات مباشرة</h5>
+              <div class="ans">
+                كل علاقة مباشرة من العقدة = ثلاثية واحدة (نفس الفاعل، مسند مختلف، مفعول مختلف).
+                <br/>
+                عدد الـ <code style="font-family:JetBrains Mono">Triples</code> الناتج = <b>4</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="practice-toggle">
+            <button id="practiceReveal">Reveal all answers ›</button>
           </div>
         </div>
 
@@ -2911,6 +3362,105 @@ Fred  biologicalParent  John .</pre>
           <p>What Dublin Core is for documents, <strong>vCard</strong> is for people (IETF standard). Properties: <code class="inline">FN</code> (formatted name), <code class="inline">N</code> (structured name with Given/Family), <code class="inline">EMAIL</code>, <code class="inline">URL</code>, <code class="inline">ORG</code>, <code class="inline">TITLE</code>, etc. Namespace <code class="inline">http://www.w3.org/2001/vcard-rdf/3.0#</code>.</p>
         </div>
 
+        <!-- ============ Ora Lassila ============ -->
+        <div class="subq">
+          <p class="subq-head"><span class="tag">A8</span>Ora Lassila — property with a <em>structural</em> value (RDF deck, slides 13-17 &amp; 31-34)</p>
+          <p>The classic example used in the lecture to teach the “when the object isn’t just a string” pattern. It builds up in <strong>4 stages</strong>:</p>
+
+          <h4>Stage 1 — Simple literal value (slide 13)</h4>
+          <p>“Ora Lassila is the creator of <code class="inline">…/Home/Lassila</code>.” One triple:</p>
+<pre class="lang-turtle">&lt;http://www.w3.org/Home/Lassila&gt;  s:Creator  <span class="str">"Ora Lassila"</span> .</pre>
+          <p>Subject = the resource. Predicate = <code class="inline">Creator</code>. Object = literal <code class="inline">"Ora Lassila"</code>. Trivial.</p>
+
+          <h4>Stage 2 — But the creator has a <em>name AND an email</em> (slide 14)</h4>
+          <p>“The individual whose name is Ora Lassila, email <code class="inline">lassila@w3.org</code>, is the creator of <code class="inline">…/Home/Lassila</code>.”</p>
+          <p>Now the object can’t be one literal — it needs <em>two</em>. The solution: introduce an <strong>intermediate node</strong> that <em>is</em> the creator. The creator node then has both <code class="inline">Name</code> and <code class="inline">Email</code> properties.</p>
+
+          <figure class="graph-fig">
+            <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+              <defs><marker id="ora-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker></defs>
+              <!-- Lassila page -->
+              <ellipse cx="120" cy="60" rx="100" ry="26" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+              <text x="120" y="64" text-anchor="middle" font-family="JetBrains Mono" font-size="10">…/Home/Lassila</text>
+              <!-- intermediate blank node -->
+              <ellipse cx="380" cy="120" rx="30" ry="28" fill="#fff3d6" stroke="#a6802a" stroke-width="1.6" stroke-dasharray="3,3"/>
+              <text x="380" y="124" text-anchor="middle" font-family="Newsreader" font-size="10" font-style="italic" fill="#a6802a">creator</text>
+              <!-- name literal -->
+              <rect x="300" y="200" width="160" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+              <text x="380" y="220" text-anchor="middle" font-family="Newsreader" font-size="12">"Ora Lassila"</text>
+              <!-- email literal -->
+              <rect x="540" y="100" width="160" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+              <text x="620" y="120" text-anchor="middle" font-family="Newsreader" font-size="12">"lassila@w3.org"</text>
+              <!-- arrows -->
+              <path d="M210,70 L 350,114" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#ora-arr)"/>
+              <text x="225" y="80" font-family="JetBrains Mono" font-size="11">Creator</text>
+              <path d="M380,148 L 380,198" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#ora-arr)"/>
+              <text x="388" y="180" font-family="JetBrains Mono" font-size="11">Name</text>
+              <path d="M410,118 L 540,115" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#ora-arr)"/>
+              <text x="430" y="110" font-family="JetBrains Mono" font-size="11">Email</text>
+            </svg>
+            <figcaption>The intermediate node is a <strong>blank node</strong> (no URI yet). The lecture writes it as “SOMETHING” to underline that we don’t care about its name — only its properties.</figcaption>
+          </figure>
+
+          <p>Written as 3 triples (slide 15 — the “SOMETHING” version):</p>
+<pre class="lang-turtle">&lt;…/Home/Lassila&gt;  s:Creator  _:something .
+_:something       s:Name     <span class="str">"Ora Lassila"</span> .
+_:something       s:Email    <span class="str">"lassila@w3.org"</span> .</pre>
+
+          <h4>Stage 3 — Give the intermediate a <em>known identifier</em> (slide 16)</h4>
+          <p>“The individual referred to by employee id 85740 is named Ora Lassila…” Replace <code class="inline">_:something</code> with the employee id label:</p>
+<pre class="lang-turtle">&lt;…/Home/Lassila&gt;  s:Creator  <span class="str">"85740"</span> .
+<span class="str">"85740"</span>          s:Name     <span class="str">"Ora Lassila"</span> .
+<span class="str">"85740"</span>          s:Email    <span class="str">"lassila@w3.org"</span> .</pre>
+          <p>Better than “SOMETHING,” but still not great — <code class="inline">"85740"</code> is just a string, not a URI, so it can’t be linked from anywhere else on the Web.</p>
+
+          <h4>Stage 4 — Promote the intermediate to a <em>real URI</em> (slide 17)</h4>
+          <p>Give the employee an actual web identifier. Now anyone, anywhere on the Web, can talk about employee 85740 by URI:</p>
+<pre class="lang-turtle">&lt;…/Home/Lassila&gt;            s:Creator  &lt;…/staffid/85740&gt; .
+&lt;…/staffid/85740&gt;           s:Name     <span class="str">"Ora Lassila"</span> .
+&lt;…/staffid/85740&gt;           s:Email    <span class="str">"lassila@w3.org"</span> .</pre>
+
+          <div class="ar-note">
+            <b>التطور في أربع خطوات:</b>
+            <ol>
+              <li><b>المرحلة ١:</b> ثلاثية بسيطة — المنشئ هو نص حرفي.</li>
+              <li><b>المرحلة ٢:</b> المنشئ شخص له اسم وبريد ⟵ نحتاج عقدة وسيطة (blank node).</li>
+              <li><b>المرحلة ٣:</b> نعطي العقدة الوسيطة معرّفاً معروفاً (employee id) — لكنه ما يزال نصاً.</li>
+              <li><b>المرحلة ٤:</b> نرفع العقدة الوسيطة إلى <b>URI كامل</b> — الآن يمكن لأي شخص على الويب الإشارة إليها.</li>
+            </ol>
+            <b>الدرس:</b> كلما أردت قيمة «منظَّمة» (أكثر من حقل واحد)، أنشئ عقدة وسيطة. تبدأ blank node ثم ترتقي إلى URI عند الحاجة.
+          </div>
+
+          <h4>Two ways to write Stage 4 in RDF/XML</h4>
+          <p>Same triples, two different syntaxes. Both are valid — pick whichever you find clearer.</p>
+
+          <p><strong>(a) Serialization syntax (slide 32)</strong> — uses <em>nested</em> <code class="inline">&lt;rdf:Description&gt;</code>:</p>
+<pre class="lang-xml">&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://www.w3.org/Home/Lassila"</span>&gt;
+  &lt;<span class="pred">s:Creator</span>&gt;
+    &lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://www.w3.org/staffId/85740"</span>&gt;
+      &lt;<span class="pred">foaf:Name</span>&gt;<span class="str">Ora Lassila</span>&lt;/<span class="pred">foaf:Name</span>&gt;
+      &lt;<span class="pred">foaf:MBox</span>&gt;<span class="str">lassila@w3.org</span>&lt;/<span class="pred">foaf:MBox</span>&gt;
+    &lt;/<span class="kw">rdf:Description</span>&gt;
+  &lt;/<span class="pred">s:Creator</span>&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;</pre>
+
+          <p><strong>(b) Abbreviated syntax (slide 34)</strong> — flat, using <code class="inline">rdf:resource</code> + attributes:</p>
+<pre class="lang-xml">&lt;<span class="kw">rdf:Description</span> <span class="var">rdf:about</span>=<span class="str">"http://www.w3.org/Home/Lassila"</span>&gt;
+  &lt;<span class="pred">s:Creator</span>  <span class="var">rdf:resource</span>=<span class="str">"http://www.w3.org/staffId/85740"</span>
+              <span class="var">foaf:Name</span>=<span class="str">"Ora Lassila"</span>
+              <span class="var">foaf:MBox</span>=<span class="str">"lassila@w3.org"</span> /&gt;
+&lt;/<span class="kw">rdf:Description</span>&gt;</pre>
+
+          <div class="ar-note">
+            <b>الصيغتان المعتمدتان في RDF/XML:</b>
+            <ul>
+              <li><b>Serialization syntax</b> (التسلسل الكامل): عناصر متشعّبة (nested) — عنصر <code>&lt;rdf:Description&gt;</code> داخل عنصر آخر — أوضح بصرياً.</li>
+              <li><b>Abbreviated syntax</b> (المختصرة): سطح مستوٍ، تستخدم <code>rdf:resource</code> + سمات (attributes) — أقصر لكنها صعبة القراءة أحياناً.</li>
+            </ul>
+            <b>كلتاهما تمثلان نفس الثلاثيات تماماً</b> — اختر الأوضح في ورقتك.
+          </div>
+        </div>
+
         <!-- ============ The dog/frisbee task ============ -->
         <div class="subq">
           <p class="subq-head"><span class="tag">A7</span>The motivating task — dog | frisbee | catch | throw</p>
@@ -3117,6 +3667,17 @@ Fred  biologicalParent  John .</pre>
     paint();
     toast('progress reset');
   });
+
+  // practice card reveal
+  const practiceCard = document.getElementById('practiceCard');
+  const practiceBtn = document.getElementById('practiceReveal');
+  if (practiceCard && practiceBtn){
+    practiceBtn.addEventListener('click', ()=>{
+      practiceCard.classList.toggle('show-answers');
+      practiceBtn.textContent = practiceCard.classList.contains('show-answers')
+        ? 'Hide answers ‹' : 'Reveal all answers ›';
+    });
+  }
 
   // merge stage controls
   const mergeStage = document.getElementById('mergeStage');

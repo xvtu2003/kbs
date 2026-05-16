@@ -1534,111 +1534,146 @@ body.quiz .q.revealed .answer{grid-template-rows:1fr}
                   <button class="merge-btn" data-stage="show-dbp">③ + DBpedia extension</button>
                 </div>
 
-                <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 860 640" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <marker id="m-arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6e2030"/></marker>
                     <marker id="m-arr-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2b5d6d"/></marker>
                     <marker id="m-arr-gold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#a6802a"/></marker>
                   </defs>
 
-                  <!-- shared node centre -->
-                  <ellipse cx="400" cy="230" rx="135" ry="34" fill="#fff3d6" stroke="#6e2030" stroke-width="2.4"/>
-                  <text x="400" y="228" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="600" fill="#6e2030">&lt;isbn/000651409X&gt;</text>
-                  <text x="400" y="244" text-anchor="middle" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">★ shared URI ★</text>
+                  <!-- ================ TOP-CENTER: shared URI ================ -->
+                  <ellipse cx="430" cy="80" rx="140" ry="32" fill="#fff3d6" stroke="#6e2030" stroke-width="2.4"/>
+                  <text x="430" y="78" text-anchor="middle" font-family="JetBrains Mono" font-size="12" font-weight="600" fill="#6e2030">&lt;isbn/000651409X&gt;</text>
+                  <text x="430" y="94" text-anchor="middle" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">★ shared URI ★</text>
 
-                  <!-- english literals (top) -->
-                  <rect x="40"  y="20" width="160" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="120" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"The Glass Palace"</text>
-                  <rect x="220" y="20" width="80" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="260" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"2000"</text>
-                  <rect x="320" y="20" width="170" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="405" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
-                  <rect x="510" y="20" width="150" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="585" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"Harper Collins"</text>
-                  <rect x="680" y="20" width="110" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="735" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"London"</text>
+                  <!-- ================ TOP-LEFT literals: title, year ================ -->
+                  <rect x="30" y="30" width="170" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="115" y="50" text-anchor="middle" font-family="Newsreader" font-size="12">"The Glass Palace"</text>
+                  <rect x="220" y="30" width="80" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="260" y="50" text-anchor="middle" font-family="Newsreader" font-size="12">"2000"</text>
 
-                  <rect x="520" y="100" width="200" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="620" y="120" text-anchor="middle" font-family="Newsreader" font-size="12">amitavghosh.com</text>
+                  <path d="M310,75 L 215,62" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="210" y="82" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:title</text>
+                  <path d="M360,80 L 290,68" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="305" y="92" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:year</text>
 
-                  <!-- english edges -->
-                  <path d="M320,205 C 230,140 180,75 130,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
-                  <text x="200" y="125" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:title</text>
-                  <path d="M360,200 C 320,140 290,80 270,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
-                  <text x="270" y="125" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:year</text>
-                  <path d="M400,196 C 400,140 405,80 405,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
-                  <text x="410" y="125" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:author</text>
-                  <path d="M450,200 C 500,140 540,80 575,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
-                  <text x="510" y="120" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:publisher</text>
-                  <path d="M495,210 C 600,140 700,75 735,55" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
-                  <text x="660" y="100" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:city</text>
+                  <!-- ================ TOP-RIGHT: publisher blank node ================ -->
+                  <ellipse cx="690" cy="80" rx="22" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.6" stroke-dasharray="3,3"/>
+                  <text x="690" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a6802a">_:p</text>
 
-                  <!-- author->homepage -->
-                  <path d="M485,40 C 540,60 580,90 620,100" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
-                  <text x="560" y="68" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:homepage</text>
+                  <path d="M570,80 L 668,80" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="580" y="72" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:publisher</text>
 
-                  <!-- french book node (bottom) -->
-                  <ellipse cx="400" cy="370" rx="130" ry="30" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
-                  <text x="400" y="374" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#1c160f">&lt;isbn/2020386682&gt;</text>
+                  <rect x="780" y="20" width="70" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="815" y="40" text-anchor="middle" font-family="Newsreader" font-size="12">"London"</text>
+                  <rect x="745" y="120" width="115" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="802" y="140" text-anchor="middle" font-family="Newsreader" font-size="12">"Harper Collins"</text>
 
-                  <rect x="40"  y="360" width="200" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="140" y="380" text-anchor="middle" font-family="Newsreader" font-size="12">"Le Palais des Miroirs"</text>
-                  <rect x="560" y="320" width="200" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="660" y="340" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
-                  <rect x="560" y="390" width="220" height="30" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
-                  <text x="670" y="410" text-anchor="middle" font-family="Newsreader" font-size="12">"Besse, Christianne"</text>
+                  <path d="M708,65 L 780,40" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="715" y="48" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:city</text>
+                  <path d="M710,95 L 770,125" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="710" y="120" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:p_name</text>
 
-                  <!-- french edges -->
-                  <path d="M275,370 L 240,375" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
-                  <text x="245" y="365" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:titre</text>
-                  <path d="M495,360 C 530,345 545,340 560,335" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
-                  <text x="510" y="350" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:auteur</text>
-                  <path d="M495,385 C 530,395 545,400 560,405" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
-                  <text x="500" y="408" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:traducteur</text>
+                  <!-- ================ MIDDLE-LEFT: author/auteur MERGED blank node ================ -->
+                  <ellipse cx="370" cy="250" rx="26" ry="26" fill="#fff3d6" stroke="#a6802a" stroke-width="1.6" stroke-dasharray="3,3"/>
+                  <text x="370" y="254" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a6802a">_:auth</text>
 
-                  <!-- f:original to shared -->
-                  <path d="M400,340 L 400,267" stroke="#2b5d6d" stroke-width="2.2" fill="none" marker-end="url(#m-arr-teal)"/>
-                  <text x="408" y="305" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:original</text>
+                  <!-- a:author edge from shared URI to blank-author -->
+                  <path d="M412,110 L 378,224" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="358" y="170" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:author</text>
 
-                  <!-- ============ GLUE LAYER (stage 2) ============ -->
+                  <!-- a:name and a:homepage from blank-author -->
+                  <rect x="120" y="345" width="160" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="200" y="365" text-anchor="middle" font-family="Newsreader" font-size="12">"Ghosh, Amitav"</text>
+
+                  <rect x="320" y="345" width="200" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="420" y="365" text-anchor="middle" font-family="Newsreader" font-size="12">amitavghosh.com</text>
+
+                  <path d="M350,272 L 220,343" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="240" y="305" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:name</text>
+                  <path d="M380,275 L 410,343" stroke="#6e2030" stroke-width="1.4" fill="none" marker-end="url(#m-arr-red)"/>
+                  <text x="390" y="318" font-family="JetBrains Mono" font-size="11" fill="#1c160f">a:homepage</text>
+
+                  <!-- ================ BOTTOM-CENTER: French ISBN ================ -->
+                  <ellipse cx="430" cy="460" rx="135" ry="30" fill="#fdf6e3" stroke="#1c160f" stroke-width="1.4"/>
+                  <text x="430" y="464" text-anchor="middle" font-family="JetBrains Mono" font-size="11">&lt;isbn/2020386682&gt;</text>
+
+                  <!-- f:original goes up to shared URI -->
+                  <path d="M495,442 C 580,330 540,160 540,108" stroke="#2b5d6d" stroke-width="2.2" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="555" y="270" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:original</text>
+
+                  <!-- f:titre to literal -->
+                  <rect x="30" y="445" width="220" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="140" y="465" text-anchor="middle" font-family="Newsreader" font-size="12">"Le Palais des Miroirs"</text>
+                  <path d="M295,460 L 255,461" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="258" y="453" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:titre</text>
+
+                  <!-- f:auteur edge from French ISBN to merged blank-author -->
+                  <path d="M398,438 L 380,278" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="395" y="370" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:auteur</text>
+
+                  <!-- f:nom from blank-author to "Ghosh, Amitav" (same literal as a:name target) -->
+                  <path d="M345,275 L 215,348" stroke="#2b5d6d" stroke-width="1.4" stroke-dasharray="3,3" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="265" y="330" font-family="JetBrains Mono" font-size="11" fill="#2b5d6d">f:nom</text>
+
+                  <!-- f:traducteur blank node + nom -->
+                  <ellipse cx="635" cy="500" rx="22" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.6" stroke-dasharray="3,3"/>
+                  <text x="635" y="504" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#a6802a">_:tr</text>
+
+                  <path d="M540,475 L 614,494" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="540" y="495" font-family="JetBrains Mono" font-size="11" fill="#1c160f">f:traducteur</text>
+
+                  <rect x="700" y="565" width="160" height="32" rx="2" fill="#ebe0c4" stroke="#7a6a55" stroke-dasharray="3,3"/>
+                  <text x="780" y="585" text-anchor="middle" font-family="Newsreader" font-size="12">"Besse, Christianne"</text>
+                  <path d="M650,520 L 740,567" stroke="#2b5d6d" stroke-width="1.4" fill="none" marker-end="url(#m-arr-teal)"/>
+                  <text x="680" y="555" font-family="JetBrains Mono" font-size="11" fill="#2b5d6d">f:nom</text>
+
+                  <!-- ============ GLUE LAYER (stage 2): r:type → foaf:Person ============ -->
                   <g class="e-glue">
-                    <path d="M620,330 C 680,250 700,160 620,110" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="5,4" fill="none"/>
-                    <text x="720" y="220" font-family="JetBrains Mono" font-size="11" font-style="italic" fill="#a6802a">owl:equivalentProperty</text>
-                    <text x="720" y="234" font-family="JetBrains Mono" font-size="11" font-style="italic" fill="#a6802a">a:author ≡ f:auteur</text>
+                    <ellipse cx="690" cy="320" rx="80" ry="22" fill="#dbe8ed" stroke="#2b5d6d" stroke-width="1.6"/>
+                    <text x="690" y="324" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#2b5d6d">foaf:Person</text>
                   </g>
                   <g class="n-ext">
-                    <ellipse cx="180" cy="230" rx="70" ry="22" fill="#fff3d6" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="4,3"/>
-                    <text x="180" y="234" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#a6802a">foaf:Person</text>
-                    <path d="M335,30 C 260,120 220,180 215,210" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="5,4" fill="none" marker-end="url(#m-arr-gold)"/>
-                    <text x="248" y="160" font-family="JetBrains Mono" font-size="10" fill="#a6802a">rdf:type</text>
-                    <path d="M660,335 C 350,300 240,260 215,245" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="5,4" fill="none" marker-end="url(#m-arr-gold)"/>
-                    <text x="420" y="290" font-family="JetBrains Mono" font-size="10" fill="#a6802a">rdf:type</text>
+                    <!-- author → foaf:Person -->
+                    <path d="M395,260 C 500,290 600,310 610,318" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="5,4" fill="none" marker-end="url(#m-arr-gold)"/>
+                    <text x="475" y="280" font-family="JetBrains Mono" font-size="11" fill="#a6802a" font-style="italic">r:type</text>
+                    <!-- translator → foaf:Person -->
+                    <path d="M650,485 C 700,420 700,360 700,343" stroke="#a6802a" stroke-width="1.4" stroke-dasharray="5,4" fill="none" marker-end="url(#m-arr-gold)"/>
+                    <text x="700" y="425" font-family="JetBrains Mono" font-size="11" fill="#a6802a" font-style="italic">r:type</text>
                   </g>
 
                   <!-- ============ DBpedia LAYER (stage 3) ============ -->
                   <g class="n-dbp">
-                    <ellipse cx="180" cy="125" rx="92" ry="22" fill="#fff3d6" stroke="#2b5d6d" stroke-width="1.4"/>
-                    <text x="180" y="129" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#2b5d6d">dbpedia:Amitav_Ghosh</text>
+                    <ellipse cx="160" cy="540" rx="110" ry="24" fill="#e8dbe3" stroke="#923346" stroke-width="1.6"/>
+                    <text x="160" y="544" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#923346">dbpedia:Amitav_Ghosh</text>
                   </g>
                   <g class="e-dbp">
-                    <path d="M225,140 C 250,180 200,200 200,210" stroke="#2b5d6d" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#m-arr-teal)"/>
-                    <text x="240" y="180" font-family="JetBrains Mono" font-size="10" fill="#2b5d6d">w:reference</text>
-                    <path d="M180,147 C 100,200 70,260 70,320" stroke="#2b5d6d" stroke-width="1.2" stroke-dasharray="3,3" fill="none"/>
-                    <text x="20" y="270" font-family="JetBrains Mono" font-size="10" fill="#2b5d6d">w:author_of</text>
-                    <text x="20" y="284" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">→ Hungry Tide,</text>
-                    <text x="20" y="298" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">  Calcutta Chromosome,</text>
-                    <text x="20" y="312" font-family="Newsreader" font-size="10" font-style="italic" fill="#7a6a55">  Kolkata (born_in)…</text>
+                    <!-- dbp → foaf:name → Ghosh literal -->
+                    <path d="M180,520 L 200,378" stroke="#923346" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#m-arr-red)"/>
+                    <text x="80" y="450" font-family="JetBrains Mono" font-size="10" fill="#923346">foaf:name</text>
+                    <!-- dbp → w:reference → amitavghosh.com -->
+                    <path d="M230,525 L 410,378" stroke="#923346" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#m-arr-red)"/>
+                    <text x="280" y="460" font-family="JetBrains Mono" font-size="10" fill="#923346">w:reference</text>
+                    <!-- dbp → r:type → foaf:Person -->
+                    <path d="M265,535 C 480,540 650,360 670,335" stroke="#923346" stroke-width="1.2" stroke-dasharray="3,3" fill="none" marker-end="url(#m-arr-red)"/>
+                    <text x="430" y="555" font-family="JetBrains Mono" font-size="10" fill="#923346">r:type</text>
                   </g>
 
                 </svg>
               </div>
 
               <div class="ar-note">
-                اضغط الأزرار أعلى الرسم لترى كيف ينمو الرسم:
+                اضغط الأزرار أعلى الرسم لترى كيف ينمو الرسم. <b>لاحظ بنية العقد العمياء (blank nodes)</b> كما في المحاضرة:
+                <ul>
+                  <li><b>الناشر</b> <code>_:p</code> عقدة عمياء لها خاصيتان: <code>a:p_name → "Harper Collins"</code> و <code>a:city → "London"</code>.</li>
+                  <li><b>المؤلف/auteur</b> <code>_:auth</code> عقدة عمياء واحدة تستقبل كلا السهمين <code>a:author</code> و <code>f:auteur</code>، ولها <code>a:name</code> و <code>f:nom</code> إلى نفس النص "Ghosh, Amitav"، و <code>a:homepage</code> إلى صفحته.</li>
+                  <li><b>المترجم</b> <code>_:tr</code> عقدة عمياء مستقلة لها <code>f:nom → "Besse, Christianne"</code>.</li>
+                </ul>
+                ثم:
                 <ul>
                   <li><b>(١)</b> الدمج الأساسي — الرسمان يلتقيان عند الـ ISBN المشترك.</li>
-                  <li><b>(٢)</b> إضافة «الصمغ»: نخبر النظام أن <code>a:author</code> و <code>f:auteur</code> متطابقان (<code>owl:equivalentProperty</code>)، وأن المؤلف ومترجم النص كلاهما <code>foaf:Person</code>.</li>
-                  <li><b>(٣)</b> ربط مع DBpedia: تظهر علاقات جديدة (كتب أخرى للمؤلف، مدينة ولادته، إلخ).</li>
+                  <li><b>(٢)</b> إضافة «الصمغ»: المؤلف والمترجم كلاهما من النوع <code>foaf:Person</code> (<code>r:type</code>).</li>
+                  <li><b>(٣)</b> ربط مع DBpedia: العقدة <code>dbpedia:Amitav_Ghosh</code> ترتبط بالاسم وبالصفحة وبـ <code>foaf:Person</code>.</li>
                 </ul>
               </div>
             </div>
